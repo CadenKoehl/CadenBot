@@ -20,7 +20,7 @@ public class Levels extends ListenerAdapter {
             String currentChannelId = event.getChannel().getId();
             File ignoredChannel = new File(CadenBot.dataDirectory + "levels/ignored_channels/" + currentChannelId + ".txt");
             if(!ignoredChannel.exists()) {
-                if(Xp.getXp(event.getMember().getId(), guild.getId()) == 100) {
+                if(Xp.getXp(event.getMember().getId(), guild.getId()) == 300) {
                     Guild guild = event.getGuild();
                     String guildId = guild.getId();
                     Member member = event.getMember();

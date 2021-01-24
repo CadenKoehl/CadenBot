@@ -34,7 +34,7 @@ public class Xp extends ListenerAdapter {
                     if(!file.exists()) {
                         file.createNewFile();
                         write = new FileWriter(file);
-                        write.write("0");
+                        write.write("290");
                         write.close();
                     }
                     if(file.exists()) {
@@ -43,11 +43,11 @@ public class Xp extends ListenerAdapter {
                         int xp = Integer.parseInt(xpRaw);
                         xp++;
                         FileWriter xpWriter = new FileWriter(file);
-                        if(xp == 101) {
+                        if(xp == 301) {
                             xpWriter.write("0");
                             xpWriter.close();
                         }
-                        if(xp != 101) {
+                        if(xp != 301) {
                             xpWriter.write(String.valueOf(xp));
                             xpWriter.close();
                         }
