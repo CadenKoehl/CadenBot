@@ -14,8 +14,6 @@ import java.util.Scanner;
 public class Constants {
 	private static String prefix;
 	public static final long MODMAIL = 781421376086999040L;
-	public static String TOKEN = "Nzc1ODA1MTY4MzE4MTUyNzA0.X6rq3Q.V8gIQZlhHTahou8fbOdDgVc60FA";
-	public static String TEST_TOKEN = "ODAwOTQ5MjgzNTk0ODI5ODQ0.YAZkJg.6uBHaXphpEWaZoBFOGjtHocwRfI";
 	public static JDA jda;
 	public static final String ERROR_MESSAGE = ":x: A fatal error has occurred! If the issue persists, join the support server! (type -help)";
 	public static long CADENBOTSUPPORT = 585338133177171968L;
