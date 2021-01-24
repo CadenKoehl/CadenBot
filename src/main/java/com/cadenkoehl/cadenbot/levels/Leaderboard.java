@@ -25,7 +25,6 @@ public class Leaderboard extends ListenerAdapter {
                         unsortedMap.put(members.get(i).getUser().getName(), lvl);
                     }
                 }
-
                 Map<String, Integer> sortedMap = sortByValue(unsortedMap);
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor(event.getGuild().getName() + "'s Leaderboard!", null, event.getGuild().getIconUrl());
@@ -61,14 +60,8 @@ public class Leaderboard extends ListenerAdapter {
     }
 
     private Map<String, Integer> sortByValue(Map<String, Integer> unsortMap) {
-        // Convert Map to List of Map
         List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
-
-        // Sort list with Collections.sort(), provide a custom Comparator
-        // Try switch the o1 o2 position for a different order
         list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
-
-        // Loop the sorted list and put it into a new insertion order Map LinkedHashMap
         Map<String, Integer> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());

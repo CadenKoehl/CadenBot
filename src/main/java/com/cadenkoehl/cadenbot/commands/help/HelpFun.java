@@ -22,12 +22,18 @@ public class HelpFun extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split(" ");
 		id = event.getGuild().getId();
-		if (args[0].equalsIgnoreCase(getPrefix() + "help-fun")) {
+		if (args[0].equalsIgnoreCase(getPrefix() + "help")) {
+			if(args.length < 2) {
+				return;
+			}
+			if(!args[1].equalsIgnoreCase("fun")) {
+				return;
+			}
 			event.getChannel().sendTyping().delay(500L, TimeUnit.MILLISECONDS).complete();
 			
 			EmbedBuilder help = new EmbedBuilder();
 			help.setTitle("Here's a list of my fun commands!");
-			help.setDescription("__**COMMANDS**__: \n**" + getPrefix() + "YesOrNo:**  Ask me a yes-or-no question!\n**" + getPrefix() + "pp:** Calculate your PP size!\n**" + getPrefix() + "hack:** Hack your friends!\n-----\nMore fun features are coming soon! If you wanna follow my progress, join my support server! (type -help)");
+			help.setDescription("__**COMMANDS**__: \n**" + getPrefix() + "YesOrNo:**  Ask me a yes-or-no question!\n**" + getPrefix() + "pp:** Calculate your PP size!\n**" + getPrefix() + "hack:** Hack your friends!\n**" + getPrefix() + "hangman** Play hangman!\n-----\nMore fun features are coming soon! If you wanna follow my progress, join my support server! (type -help)");
 			help.setColor((int) Math.round(Math.random() * 999999));
 
 			

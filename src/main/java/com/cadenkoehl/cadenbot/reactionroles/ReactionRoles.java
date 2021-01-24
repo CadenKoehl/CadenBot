@@ -103,61 +103,65 @@ public class ReactionRoles extends ListenerAdapter {
         }
     }
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        String messageId = event.getMessageId();
-        Member member = event.getMember();
-        File file = new File(CadenBot.dataDirectory + "reactionroles/" + messageId + ".txt");
-        if(file.exists()) {
-            try {
-                if(event.getReactionEmote().isEmote()) {
-                    Scanner scan = new Scanner(file);
-                    String contents = scan.nextLine();
-                    String[] roleId = contents.split("\\s+");
-                    String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                    if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmote().getId())) {
-                        event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(roleId[0])).queue();
+        if(!event.getMember().getUser().isBot()) {
+            String messageId = event.getMessageId();
+            Member member = event.getMember();
+            File file = new File(CadenBot.dataDirectory + "reactionroles/" + messageId + ".txt");
+            if(file.exists()) {
+                try {
+                    if(event.getReactionEmote().isEmote()) {
+                        Scanner scan = new Scanner(file);
+                        String contents = scan.nextLine();
+                        String[] roleId = contents.split("\\s+");
+                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
+                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmote().getId())) {
+                            event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(roleId[0])).queue();
+                        }
+                    }
+                    if(event.getReactionEmote().isEmoji()) {
+                        Scanner scan = new Scanner(file);
+                        String contents = scan.nextLine();
+                        String[] roleId = contents.split("\\s+");
+                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
+                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmoji())) {
+                            event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(roleId[0])).queue();
+                        }
                     }
                 }
-                if(event.getReactionEmote().isEmoji()) {
-                    Scanner scan = new Scanner(file);
-                    String contents = scan.nextLine();
-                    String[] roleId = contents.split("\\s+");
-                    String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                    if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmoji())) {
-                        event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(roleId[0])).queue();
-                    }
+                catch (FileNotFoundException exception) {
+                    exception.printStackTrace();
                 }
-            }
-            catch (FileNotFoundException exception) {
-                exception.printStackTrace();
             }
         }
     }
     public void onGuildMessageReactionRemove(GuildMessageReactionRemoveEvent event) {
-        String messageId = event.getMessageId();
-        Member member = event.getMember();
-        File file = new File(CadenBot.dataDirectory + "reactionroles/" + messageId + ".txt");
-        if(file.exists()) {
-            try {
-                if(event.getReactionEmote().isEmote()) {
-                    Scanner scan = new Scanner(file);
-                    String contents = scan.nextLine();
-                    String[] roleId = contents.split("\\s+");
-                    String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                    if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmote().getId())) {
-                        event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(roleId[0])).queue();
+        if(!event.getMember().getUser().isBot()) {
+            String messageId = event.getMessageId();
+            Member member = event.getMember();
+            File file = new File(CadenBot.dataDirectory + "reactionroles/" + messageId + ".txt");
+            if(file.exists()) {
+                try {
+                    if(event.getReactionEmote().isEmote()) {
+                        Scanner scan = new Scanner(file);
+                        String contents = scan.nextLine();
+                        String[] roleId = contents.split("\\s+");
+                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
+                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmote().getId())) {
+                            event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(roleId[0])).queue();
+                        }
                     }
-                }
-                if(event.getReactionEmote().isEmoji()) {
-                    Scanner scan = new Scanner(file);
-                    String contents = scan.nextLine();
-                    String[] roleId = contents.split("\\s+");
-                    String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                    if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmoji())) {
-                        event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(roleId[0])).queue();
+                    if(event.getReactionEmote().isEmoji()) {
+                        Scanner scan = new Scanner(file);
+                        String contents = scan.nextLine();
+                        String[] roleId = contents.split("\\s+");
+                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
+                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmoji())) {
+                            event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(roleId[0])).queue();
+                        }
                     }
+                } catch (FileNotFoundException exception) {
+                    exception.printStackTrace();
                 }
-            } catch (FileNotFoundException exception) {
-                exception.printStackTrace();
             }
         }
     }

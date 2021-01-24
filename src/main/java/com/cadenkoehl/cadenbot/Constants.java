@@ -11,30 +11,58 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Constants extends ListenerAdapter {
-	static String prefix;
+public class Constants {
+	private static String prefix;
 	public static final long MODMAIL = 781421376086999040L;
 	public static String TOKEN = "Nzc1ODA1MTY4MzE4MTUyNzA0.X6rq3Q.V8gIQZlhHTahou8fbOdDgVc60FA";
-	public static long THETOWN = 730975912320827452L;
-	public static int SERVERCOUNT;
+	public static String TEST_TOKEN = "ODAwOTQ5MjgzNTk0ODI5ODQ0.YAZkJg.6uBHaXphpEWaZoBFOGjtHocwRfI";
 	public static JDA jda;
-	public static final String ERROR_MESSAGE = "A fatal error has occurred! If the issue persists, join the support server! (type -help)";
+	public static final String ERROR_MESSAGE = ":x: A fatal error has occurred! If the issue persists, join the support server! (type -help)";
 	public static long CADENBOTSUPPORT = 585338133177171968L;
 	public static long CADENBOTBUGSCHANNEL = 787230827498700840L;
 	public static long CadenID = 585334397914316820L;
-	
-	
-	public void onGuildJoin(GuildJoinEvent event) {
-		SERVERCOUNT = event.getJDA().getGuilds().size();
-		event.getJDA().getPresence().setActivity(Activity.watching("for -help in " + SERVERCOUNT + " servers!"));
-		System.out.println("I am now in " + SERVERCOUNT + " servers!");
-	}
-	public void onGuildLeave(GuildLeaveEvent event) {
-		
-		SERVERCOUNT = event.getJDA().getGuilds().size();
-		event.getJDA().getPresence().setActivity(Activity.watching("for -help in " + SERVERCOUNT + " servers!"));
-		System.out.println("I am now in " + SERVERCOUNT + " servers!");
-			
+	public static final String[] HANGMAN = {
+			"https://cdn.discordapp.com/attachments/785347122991595573/802056724261109780/hangman_6.png",
+			"https://cdn.discordapp.com/attachments/785347122991595573/802056659371163658/hangman_5.png",
+			"https://cdn.discordapp.com/attachments/785347122991595573/802056560314155028/hangman_4.png",
+			"https://cdn.discordapp.com/attachments/785347122991595573/802056495192997948/hangman_3.png",
+			"https://cdn.discordapp.com/attachments/785347122991595573/802056293534662676/hangman_2.png",
+			"https://cdn.discordapp.com/attachments/785347122991595573/802056211847053332/hangman_1.png",
+			"https://cdn.discordapp.com/attachments/785347122991595573/802056119748001812/hangman_0.png",
+	};
+
+	public static String[] getHangmanWords(String username) {
+		return new String[]{
+				"information",
+				"rhythm",
+				"material",
+				"confession",
+				"celebration",
+				"reluctance",
+				"demonstration",
+				"commission",
+				"message",
+				"presentation",
+				"parameter",
+				"mechanical",
+				"continuous",
+				"electronics",
+				"technology",
+				"correction",
+				"extract",
+				"motivation",
+				"cadenbot",
+				"airplane",
+				"firetruck",
+				"painting",
+				"easily",
+				"discord",
+				"youtube",
+				"violin",
+				"integer",
+				"argument",
+				"divorce"
+		};
 	}
 	public static String getPrefix(String id) {
 		File file;
@@ -46,11 +74,26 @@ public class Constants extends ListenerAdapter {
 		catch (FileNotFoundException ex) {
 			prefix = "-";
 		}
-		catch (IOException ex) {
-			ex.printStackTrace();
-			CadenBot.jda.getTextChannelById(Constants.CADENBOTBUGSCHANNEL).sendMessage(CadenBot.jda.getUserById(Constants.CadenID).getAsMention() + " help! There is a huge bug in my code!! Someone tried to run a command, and this happened: " +
-					ex).queue();
-		}
 		return prefix;
+	}
+	public static String getToken() {
+		File file = new File(CadenBot.dataDirectory + "token.txt");
+		Scanner scan = null;
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return scan.nextLine();
+	}
+	public static String getTestToken() {
+		File file = new File(CadenBot.dataDirectory + "testbot_token.txt");
+		Scanner scan = null;
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return scan.nextLine();
 	}
 }

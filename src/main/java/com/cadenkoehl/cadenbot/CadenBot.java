@@ -2,20 +2,19 @@ package com.cadenkoehl.cadenbot;
 
 import javax.security.auth.login.LoginException;
 
-import com.cadenkoehl.cadenbot.automod.commands.*;
-import com.cadenkoehl.cadenbot.automod.logging.*;
+import com.cadenkoehl.cadenbot.joinleave.config.JoinChannel;
+import com.cadenkoehl.cadenbot.staff.commands.*;
+import com.cadenkoehl.cadenbot.staff.logging.*;
 import com.cadenkoehl.cadenbot.commands.*;
 import com.cadenkoehl.cadenbot.commands.help.*;
-import com.cadenkoehl.cadenbot.commands.vc.JoinVC;
-import com.cadenkoehl.cadenbot.commands.vc.LeaveVC;
 
 import com.cadenkoehl.cadenbot.fun.Hack;
+import com.cadenkoehl.cadenbot.fun.hangman.Guess;
+import com.cadenkoehl.cadenbot.fun.hangman.Hangman;
 import com.cadenkoehl.cadenbot.fun.PpSizeMachine;
-import com.cadenkoehl.cadenbot.joinleave.JoinMsgs;
-import com.cadenkoehl.cadenbot.joinleave.JoinServer;
-import com.cadenkoehl.cadenbot.joinleave.LeaveMsgs;
+import com.cadenkoehl.cadenbot.joinleave.*;
 import com.cadenkoehl.cadenbot.levels.*;
-import com.cadenkoehl.cadenbot.automod.logging.VcChat;
+import com.cadenkoehl.cadenbot.music.*;
 import com.cadenkoehl.cadenbot.reactionroles.ReactionRoles;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -24,9 +23,10 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 /*
- * The Main Class of CadenBot.
+ * The Main Class of CadenBot
  */
 public class CadenBot {
 
@@ -36,12 +36,6 @@ public class CadenBot {
 	public static String dataDirectory = "";
 
   public static void main(String[] args) throws LoginException {
-     JDABuilder jda = JDABuilder.createDefault(Constants.TOKEN);
-     
-     //status
-    jda.setStatus(OnlineStatus.ONLINE);
-    jda.setActivity(Activity.watching("for -help"));
-
 
     if (isTest) {
       dataDirectory = "/users/cadenkoehl/CadenBot/data/";
@@ -49,6 +43,20 @@ public class CadenBot {
     if(!isTest) {
       dataDirectory = "/root/CadenBot/data/";
     }
+
+    String token = "";
+    if(isTest) {
+      token = Constants.getTestToken();
+    }
+    if(!isTest) {
+      token = Constants.getToken();
+    }
+    JDABuilder jda = JDABuilder.createDefault(token);
+     
+     //status
+    jda.setStatus(OnlineStatus.ONLINE);
+    jda.setActivity(Activity.watching("for -help"));
+
     //listeners
 
     jda.addEventListeners(new Help());
@@ -60,24 +68,19 @@ public class CadenBot {
     jda.addEventListeners(new JoinServer());
     jda.addEventListeners(new YesOrNo());
     jda.addEventListeners(new HelpCommands());
-    jda.addEventListeners(new HelpSrc());
     jda.addEventListeners(new HelpFun());
-    jda.addEventListeners(new HelpModeration());
+    jda.addEventListeners(new HelpStaff());
     jda.addEventListeners(new Ban());
     jda.addEventListeners(new Kick());
     jda.addEventListeners(new Mute());
     jda.addEventListeners(new Test());
-    jda.addEventListeners(new JoinVC());
-    jda.addEventListeners(new LeaveVC());
-    jda.addEventListeners(new Constants());
     jda.addEventListeners(new ChannelUpdateLog());
     jda.addEventListeners(new RoleLog());
     jda.addEventListeners(new KickAndBanLog());
     jda.addEventListeners(new OtherLogs());
-    jda.addEventListeners(new VcChat());
     jda.addEventListeners(new MuteCmd());
     jda.addEventListeners(new Suggest());
-    jda.addEventListeners(new Embed());
+    jda.addEventListeners(new EmbedCmd());
     jda.addEventListeners(new HelpEmbeds());
     jda.addEventListeners(new FakeUser());
     //jda.addEventListeners(new TempMuteCmd());
@@ -97,7 +100,23 @@ public class CadenBot {
     jda.addEventListeners(new HelpReactionRoles());
     jda.addEventListeners(new Hack());
     jda.addEventListeners(new Leaderboard());
+    jda.addEventListeners(new Xp());
+    jda.addEventListeners(new Join());
+    jda.addEventListeners(new Leave());
+    jda.addEventListeners(new Play());
+    jda.addEventListeners(new Stop());
+    jda.addEventListeners(new Skip());
+    jda.addEventListeners(new CurrentSong());
+    jda.addEventListeners(new Queue());
+    jda.addEventListeners(new TimeOut());
+    jda.addEventListeners(new HelpMusic());
+    jda.addEventListeners(new Hangman());
+    jda.addEventListeners(new Guess());
+    jda.addEventListeners(new LogChannel());
+    jda.addEventListeners(new HelpWelcomeMsgs());
+    jda.addEventListeners(new JoinChannel());
     jda.enableIntents(GatewayIntent.GUILD_MEMBERS);
+    jda.enableCache(CacheFlag.VOICE_STATE);
     jda.setChunkingFilter(ChunkingFilter.ALL);
     jda.setMemberCachePolicy(MemberCachePolicy.ALL);
     jda.build();

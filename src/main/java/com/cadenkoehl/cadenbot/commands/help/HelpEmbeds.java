@@ -17,7 +17,13 @@ public class HelpEmbeds extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         id = event.getGuild().getId();
-        if(args[0].equalsIgnoreCase(getPrefix() + "help-embeds")) {
+        if(args[0].equalsIgnoreCase(getPrefix() + "help")) {
+            if(args.length < 2) {
+                return;
+            }
+            if(!args[1].equalsIgnoreCase("embeds")) {
+                return;
+            }
             event.getChannel().sendMessage("Here's how you can easily create awesome embeds on your server!\n**----------**\n" +
                     "First, make sure that instead of spaces, you use \"-\". Don't worry, they won't show up in the final product. " +
                     "Only use spaces when specifying a new field, or element to the embed. \n**Usage:**:\n`" + getPrefix() + "embed` `embed-title-here` `embed-description-here` `embed-field-one` `embed-field-two`\n**----------**\n" +
@@ -33,11 +39,6 @@ public class HelpEmbeds extends ListenerAdapter {
         }
         catch (FileNotFoundException ex) {
             prefix = "-";
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-            CadenBot.jda.getTextChannelById(Constants.CADENBOTBUGSCHANNEL).sendMessage(CadenBot.jda.getUserById(Constants.CadenID).getAsMention() + " help! There is a huge bug in my code!! Someone tried to run a command, and this happened: " +
-                    ex).queue();
         }
         return prefix;
     }

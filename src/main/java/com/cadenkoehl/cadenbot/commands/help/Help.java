@@ -23,16 +23,24 @@ public class Help extends ListenerAdapter {
 		String[] args = event.getMessage().getContentRaw().split(" ");
 		id = event.getGuild().getId();
 		if (args[0].equalsIgnoreCase(getPrefix() + "help")) {
+			if(args.length != 1) {
+				return;
+			}
 			event.getChannel().sendTyping().delay(500L, TimeUnit.MILLISECONDS).complete();
-			
 			EmbedBuilder help = new EmbedBuilder();
 			help.setTitle("What do you need help with?");
-			help.setDescription("**Note:** If you have not granted me administrator, most of my features and commands won't work!\n-------\n**" + getPrefix() + "help-commands**:  Gives you a list of commands! \n**" + getPrefix() + "help-reactionroles**:  Easily create customizable reaction roles! \n**" + getPrefix() + "help-levels**: Check out the leveling system!\n**" + getPrefix() + "help-fun**:  See my fun commands, features & easter eggs! \n**" + getPrefix() + "help-staff:**  List of features that help with moderation!\n**" + getPrefix() + "help-embeds**: Create awesome embeds on your server! \n If you have anymore questions, visit my help server! \n https://discord.gg/7gnu5nVMA8");
+			help.setDescription("**Note:** If you have not granted me administrator, most of my features and commands won't work!\n-------\n**"
+					+ getPrefix() + "help commands**:  Gives you a list of commands! \n**"
+					+ getPrefix() + "help music**:   Jam out to some music!\n**"
+					+ getPrefix() + "help welcomemsgs**:  Custom msg when someone joins or leaves the server!\n**"
+					+ getPrefix() + "help reactionroles**:  Easily create customizable reaction roles! \n**"
+					+ getPrefix() + "help levels**: Check out the leveling system!\n**"
+					+ getPrefix() + "help fun**:  See my fun commands, features & easter eggs! \n**"
+					+ getPrefix() + "help staff:**  List of features that help with moderation!\n**"
+					+ getPrefix() + "help embeds**: Create awesome embeds on your server! \n If you have anymore questions, visit my help server! " +
+					"\n https://discord.gg/7gnu5nVMA8");
 			help.setColor((int) Math.round(Math.random() * 999999));
-
 			event.getChannel().sendMessage(help.build()).queue();
-			
-			System.out.println((String.format("==========\n[COMMAND] %s ran command \"%s\", on server \"%s\"", event.getAuthor().getAsTag(), event.getMessage().getContentDisplay(), event.getGuild().getName())));
 		}
 	}
 	public void onPrivateMessageReceived(PrivateMessageReceivedEvent event) {

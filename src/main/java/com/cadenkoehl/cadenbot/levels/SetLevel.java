@@ -50,7 +50,7 @@ public class SetLevel extends ListenerAdapter {
                         event.getChannel().sendMessage("A fatal error has occurred! If this issue persists, please join the support server! (type " + getPrefix() + "help").queue();
                     }
                     catch (NumberFormatException ex) {
-                        event.getChannel().sendMessage("Level must be a number!").queue();
+                        event.getChannel().sendMessage("Invalid Level!").queue();
                     }
                 }
 

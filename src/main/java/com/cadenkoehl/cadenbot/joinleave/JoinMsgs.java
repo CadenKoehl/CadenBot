@@ -17,14 +17,15 @@ public class JoinMsgs extends ListenerAdapter{
 			TextChannel channel = event.getGuild().getSystemChannel();
 			Member member = event.getMember();
 			String tag = member.getUser().getAsTag();
-			Guild guild = event.getGuild();
+			String guildName = event.getGuild().getName();
 
 			String[] headings = {
 					tag + " joined the server!",
 					tag + " just showed up!",
 					tag + " slid into the server!",
 					tag + " hopped onto the server!",
-					"A wild " + tag + " appeared!"
+					"A wild " + tag + " appeared!",
+					"A wild " + tag + " has stumbled upon the land of " + guildName
 			};
 
 			String[] messages = {
@@ -34,7 +35,7 @@ public class JoinMsgs extends ListenerAdapter{
 					"We hope you brought pizza! 🍕",
 					"Glad you're here 😊",
 					"Nice to meet you!!! 😅",
-					"Don't be shy, say hi! 😅"};
+					"Ayyoo hold my beer!! 🍺 😅"};
 			Random random = new Random();
 			int heading = random.nextInt(headings.length);
 			int message = random.nextInt(messages.length);

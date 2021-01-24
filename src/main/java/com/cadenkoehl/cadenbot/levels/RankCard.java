@@ -24,6 +24,58 @@ public class RankCard extends ListenerAdapter {
                 try {
                     Member member = event.getMessage().getMentionedMembers().get(0);
                     if(!member.getUser().isBot()) {
+                        if(Levels.getLevel(member.getId(), id) != 0) {
+                            Map<String, Integer> unsortedMap = new HashMap<>();
+                            List<Member> members = event.getGuild().getMembers();
+
+                            for (int i = 0; i < members.size(); i++) {
+                                int lvl = Levels.getLevel(members.get(i).getUser().getId(), event.getGuild().getId());
+                                if(!members.get(i).getUser().isBot()) {
+                                    unsortedMap.put(members.get(i).getUser().getName(), lvl);
+                                }
+                            }
+
+                            Map<String, Integer> sortedMap = sortByValue(unsortedMap);
+                            int finish = start + users;
+
+                            if (start != 0) {
+                                finish++;
+                            }
+                            if (start != 0) {
+                                start++;
+                            }
+
+                            String authorName = member.getUser().getName();
+
+                            int counter = 0;
+                            int rank = sortedMap.size();
+
+                            for (Map.Entry<String,Integer> entry : sortedMap.entrySet()) {
+                                counter++;
+                                if (entry.getKey() == authorName) { rank = counter; }
+                            }
+
+
+                            int level = Levels.getLevel(member.getId(), id);
+                            double xp = Xp.getXp(member.getId(), event.getGuild().getId()) * 2.5;
+                            EmbedBuilder embed = new EmbedBuilder();
+                            embed.setAuthor(member.getUser().getName() + "'s RankCard!", null, member.getUser().getEffectiveAvatarUrl());
+                            embed.setTitle("**Level:** *" + level + "*\n**Rank:** *" + rank + "*\n**XP:** *" + xp + "*\n--------");
+                            embed.setColor((int) Math.round(Math.random() * 999999));
+                            embed.setFooter(event.getGuild().getName(), event.getGuild().getIconUrl());
+                            event.getChannel().sendMessage(embed.build()).queue();
+                        }
+                        if(Levels.getLevel(member.getId(), id) == 0) {
+                            event.getChannel().sendMessage(":x: User is not ranked yet!").queue();
+                        }
+                    }
+                    if(member.getUser().isBot()) {
+                        event.getChannel().sendMessage("Sorry, **" + member.getUser().getName() + "** is a bot, and isn't invited to the super cool rank party").queue();
+                    }
+                }
+                catch (IndexOutOfBoundsException ex) {
+                    Member member = event.getMember();
+                    if(Levels.getLevel(member.getId(), id) != 0) {
                         Map<String, Integer> unsortedMap = new HashMap<>();
                         List<Member> members = event.getGuild().getMembers();
 
@@ -44,7 +96,7 @@ public class RankCard extends ListenerAdapter {
                             start++;
                         }
 
-                        String authorName = member.getUser().getName();
+                        String authorName = event.getAuthor().getName();
 
                         int counter = 0;
                         int rank = sortedMap.size();
@@ -54,59 +106,18 @@ public class RankCard extends ListenerAdapter {
                             if (entry.getKey() == authorName) { rank = counter; }
                         }
 
-
                         int level = Levels.getLevel(member.getId(), id);
+                        double xp = Xp.getXp(member.getId(), event.getGuild().getId()) * 2.5;
                         EmbedBuilder embed = new EmbedBuilder();
-                        embed.setAuthor(member.getUser().getName() + "'s RankCard!", null, member.getUser().getEffectiveAvatarUrl());
-                        embed.setTitle("**Level:** *" + level + "*\n**Rank:** *" + rank + "*\n--------");
                         embed.setColor((int) Math.round(Math.random() * 999999));
+                        embed.setAuthor(member.getUser().getName() + "'s RankCard!", null, member.getUser().getEffectiveAvatarUrl());
                         embed.setFooter(event.getGuild().getName(), event.getGuild().getIconUrl());
+                        embed.setTitle("**Level:** *" + level + "*\n**Rank:** *" + rank + "*\n**XP:** *" + xp + "*\n--------");
                         event.getChannel().sendMessage(embed.build()).queue();
                     }
-                    if(member.getUser().isBot()) {
-                        event.getChannel().sendMessage("Sorry, **" + member.getUser().getName() + "** is a bot, and isn't invited to the super cool rank party").queue();
+                    if(Levels.getLevel(member.getId(), id) == 0) {
+                        event.getChannel().sendMessage(":x: You are not ranked yet!").queue();
                     }
-                }
-                catch (IndexOutOfBoundsException ex) {
-                    Member member = event.getMember();
-                    Map<String, Integer> unsortedMap = new HashMap<>();
-                    List<Member> members = event.getGuild().getMembers();
-
-                    for (int i = 0; i < members.size(); i++) {
-                        int lvl = Levels.getLevel(members.get(i).getUser().getId(), event.getGuild().getId());
-                        if(!members.get(i).getUser().isBot()) {
-                            unsortedMap.put(members.get(i).getUser().getName(), lvl);
-                        }
-                    }
-
-                    Map<String, Integer> sortedMap = sortByValue(unsortedMap);
-                    int finish = start + users;
-
-                    if (start != 0) {
-                        finish++;
-                    }
-                    if (start != 0) {
-                        start++;
-                    }
-
-                    String authorName = event.getAuthor().getName();
-
-                    int counter = 0;
-                    int rank = sortedMap.size();
-
-                    for (Map.Entry<String,Integer> entry : sortedMap.entrySet()) {
-                        counter++;
-                        if (entry.getKey() == authorName) { rank = counter; }
-                    }
-
-                    int level = Levels.getLevel(member.getId(), id);
-                    double xp = level * 10.5;
-                    EmbedBuilder embed = new EmbedBuilder();
-                    embed.setColor((int) Math.round(Math.random() * 999999));
-                    embed.setAuthor(member.getUser().getName() + "'s RankCard!", null, member.getUser().getEffectiveAvatarUrl());
-                    embed.setFooter(event.getGuild().getName(), event.getGuild().getIconUrl());
-                    embed.setTitle("**Level:** *" + level + "*\n**Rank:** *" + rank + "*\n--------");
-                    event.getChannel().sendMessage(embed.build()).queue();
                 }
             }
         }

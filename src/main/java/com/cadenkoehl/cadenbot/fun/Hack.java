@@ -26,12 +26,17 @@ public class Hack extends ListenerAdapter {
             try {
                 Member member = event.getMessage().getMentionedMembers().get(0);
                 String name = member.getUser().getName();
-                String[] emails = {"playzmc@yahoo.com", "playzfortnite@gmail.com", "yt@gmail.com", "playzmc@pornhub.com"};
+                String tag = member.getUser().getDiscriminator();
+                String[] emails = {"playzmc@yahoo.com", "playzfortnite@gmail.com", "yt@gmail.com", "playzmc@pornhub.com", "playzmc" + tag + "@yahoo.com"};
                 String[] phrases = {"I hate my life", "My new wife already took the kids again", "I'm just built different", "Why do I exist", "Can I have your number?", "WHY DID SHE LEAVE ME", "Sweet Home Alabama"};
                 String[] states = {"China", "North Korea", "the United States", "a colony on mars", "Sweet Home Alabama"};
                 String[] addresses = {"42069 drive", "Sesame Street", "69th Street", "420 Maple Road", "420, Wife Took the Kids Street", "69, I Hate My Life Road", "666, I Want To Die Drive"};
+                String[] hackMessages = {"Found all passwords, medical records and credit card numbers on one of " + name + "'s google docs lmao", "Found " + name + "'s google doc titled \"Reasons to Live\"... It's completely empty"};
+
+
 
                 Random random = new Random();
+                int hackMessage = random.nextInt(hackMessages.length);
                 int email = random.nextInt(emails.length);
                 int phrase = random.nextInt(phrases.length);
                 int state = random.nextInt(states.length);
@@ -47,9 +52,9 @@ public class Hack extends ListenerAdapter {
                         message.editMessage("Searching for most common phrase...").queueAfter(10, TimeUnit.SECONDS);
                         message.editMessage("Most common phrase: \"" + phrases[phrase] + "\"").queueAfter(12, TimeUnit.SECONDS);
                         message.editMessage("Finding password...").queueAfter(14, TimeUnit.SECONDS);
-                        message.editMessage("Password found: " + phrases[phrase].toLowerCase().replace(" ", "") + member.getUser().getDiscriminator()).queueAfter(16, TimeUnit.SECONDS);
+                        message.editMessage("Password found: " + phrases[phrase].toLowerCase().replace(" ", "") + tag).queueAfter(16, TimeUnit.SECONDS);
                         message.editMessage("Finished hacking email address...").queueAfter(18, TimeUnit.SECONDS);
-                        message.editMessage("Found all passwords, medical records and credit card numbers on one of " + name + "'s google docs lmao").queueAfter(20, TimeUnit.SECONDS);
+                        message.editMessage(hackMessages[hackMessage]).queueAfter(20, TimeUnit.SECONDS);
                         message.editMessage("Hacking Steam account...").queueAfter(24, TimeUnit.SECONDS);
                         message.editMessage("Finished hacking steam account...").queueAfter(26, TimeUnit.SECONDS);
                         message.editMessage("Doxing " + name + "...").queueAfter(28, TimeUnit.SECONDS);
@@ -70,6 +75,11 @@ public class Hack extends ListenerAdapter {
             }
             catch (IndexOutOfBoundsException ex) {
                 event.getChannel().sendMessage("Hold on, who are we hacking?").queue();
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+                event.getChannel().sendMessage(Constants.ERROR_MESSAGE + "\n`" + ex.toString() + "`").queue();
+
             }
         }
     }

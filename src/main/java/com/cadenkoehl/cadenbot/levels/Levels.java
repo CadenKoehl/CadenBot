@@ -1,8 +1,11 @@
 package com.cadenkoehl.cadenbot.levels;
 
 import com.cadenkoehl.cadenbot.CadenBot;
+import com.cadenkoehl.cadenbot.Constants;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -10,16 +13,14 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Levels extends ListenerAdapter {
-    static Guild guild;
+    Guild guild;
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         guild = event.getGuild();
         if(!event.getMember().getUser().isBot()) {
             String currentChannelId = event.getChannel().getId();
-            int rng = (int) Math.round(Math.random() * 500);
-            System.out.println("Level-up RNG: " + rng);
             File ignoredChannel = new File(CadenBot.dataDirectory + "levels/ignored_channels/" + currentChannelId + ".txt");
             if(!ignoredChannel.exists()) {
-                if(rng < 6) {
+                if(Xp.getXp(event.getMember().getId(), guild.getId()) == 100) {
                     Guild guild = event.getGuild();
                     String guildId = guild.getId();
                     Member member = event.getMember();
@@ -39,10 +40,8 @@ public class Levels extends ListenerAdapter {
                         if(file.exists()) {
                             scan = new Scanner(file);
                             lvlRaw = scan.nextLine();
-                            //System.out.println(lvlRaw);
                             int lvl = Integer.parseInt(lvlRaw);
                             lvl++;
-                            //System.out.println(lvl);
                             FileWriter lvlWriter = new FileWriter(file);
                             lvlWriter.write(String.valueOf(lvl));
                             lvlWriter.close();
@@ -50,7 +49,7 @@ public class Levels extends ListenerAdapter {
                             if(customChannel.exists()) {
                                 Scanner channelScanner = new Scanner(customChannel);
                                 String channelId = channelScanner.nextLine();
-                                event.getGuild().getTextChannelById(channelId).sendMessage("Heyo! " + member.getAsMention() + " just reached **level " + lvl + "**! So yeah **gg**! okay bye now!").queue();
+                                event.getGuild().getTextChannelById(channelId).sendMessage("Heyo! " + member.getAsMention() + " just reached **level " + lvl + "**! So yeah **GG**! okay bye now!").queue();
                             }
                             if(!customChannel.exists()) {
                                 event.getChannel().sendMessage("Heyo! " + member.getAsMention() + " just reached **level " + lvl + "**! So yeah **gg**! okay bye now!").queue();

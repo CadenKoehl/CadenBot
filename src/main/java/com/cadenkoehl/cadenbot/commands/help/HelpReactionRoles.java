@@ -10,11 +10,17 @@ public class HelpReactionRoles extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         String guildId = event.getGuild().getId();
         String prefix = Constants.getPrefix(guildId);
-        if(args[0].equalsIgnoreCase(prefix + "help-reactionroles")) {
+        if(args[0].equalsIgnoreCase(prefix + "help")) {
+            if(args.length < 2) {
+                return;
+            }
+            if(!args[1].equalsIgnoreCase("reactionroles")) {
+                return;
+            }
             if(!event.getAuthor().isBot()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setTitle("Reaction Roles!");
-                embed.setDescription("Here's how you can easily create customizable reaction roles!\n**Usage:** `" + prefix + "reactionrole` `<#channel>` `<@role>` `<emote>` `[message-content]`\n*You must chose a custom emote from your server!*");
+                embed.setDescription("Here's how you can easily create unlimited customizable reaction roles!\n**Usage:** `" + prefix + "reactionrole` `<#channel>` `<@role>` `<emote>` `[message-content]`");
                 embed.setColor((int) Math.round(Math.random() * 999999));
                 event.getChannel().sendMessage(embed.build()).queue();
             }

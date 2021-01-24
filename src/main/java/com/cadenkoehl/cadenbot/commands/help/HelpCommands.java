@@ -21,7 +21,13 @@ public class HelpCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split(" ");
 		id = event.getGuild().getId();
-		if (args[0].equalsIgnoreCase(getPrefix() + "help-commands")) {
+		if (args[0].equalsIgnoreCase(getPrefix() + "help")) {
+			if(args.length < 2) {
+				return;
+			}
+			if(!args[1].equalsIgnoreCase("commands")) {
+				return;
+			}
 			event.getChannel().sendTyping().delay(500L, TimeUnit.MILLISECONDS).complete();
 			
 			EmbedBuilder help = new EmbedBuilder();
