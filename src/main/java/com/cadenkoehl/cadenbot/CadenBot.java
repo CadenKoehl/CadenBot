@@ -18,7 +18,7 @@ public class CadenBot {
 
 	public static JDA jda;
 	public static String prefix = "-";
-	private static boolean isTest = true;
+	private static boolean isTest = false;
 	public static String dataDirectory = "";
 
   public static void main(String[] args) throws LoginException {

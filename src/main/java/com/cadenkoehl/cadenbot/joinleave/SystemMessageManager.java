@@ -52,7 +52,6 @@ public class SystemMessageManager {
         }
         catch (FileNotFoundException e) {
             msg = null;
-            e.printStackTrace();
         }
         return msg;
     }

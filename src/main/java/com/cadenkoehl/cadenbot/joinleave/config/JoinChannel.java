@@ -42,10 +42,10 @@ public class JoinChannel extends ListenerAdapter {
                 if(!file.exists()) {
                     TextChannel systemChannel = event.getGuild().getSystemChannel();
                     if(systemChannel == null) {
-                        event.getChannel().sendMessage(":x: You currently have no channel set for goodbye messages!\nTo set one, type `-joinchannel` `<#channel>").queue();
+                        event.getChannel().sendMessage(":x: You currently have no channel set for welcome messages!\nTo set one, type `-joinchannel` `<#channel>").queue();
                         return;
                     }
-                    event.getChannel().sendMessage(systemChannel.getAsMention() + " is your current channel for goodbye messages!\nTo change it, type `-joinchannel` `<#channel>").queue();
+                    event.getChannel().sendMessage(systemChannel.getAsMention() + " is your current channel for welcome messages!\nTo change it, type `-joinchannel` `<#channel>").queue();
                     return;
                 }
                 try {
