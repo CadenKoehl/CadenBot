@@ -20,6 +20,9 @@ public class JoinMsgs extends ListenerAdapter{
 		if(channelId != null) {
 			channel = event.getGuild().getTextChannelById(channelId);
 		}
+		if(channel == null) {
+			return;
+		}
 		Member member = event.getMember();
 		String tag = member.getUser().getAsTag();
 		String guildName = event.getGuild().getName();
@@ -49,6 +52,13 @@ public class JoinMsgs extends ListenerAdapter{
 		embed.setAuthor(headings[heading], null, member.getUser().getEffectiveAvatarUrl());
 		embed.setDescription(messages[message]);
 		embed.setColor((int) Math.round(Math.random() * 999999));
-		channel.sendMessage(embed.build()).queue();
+
+		String customMessage = SystemMessageManager.getWelcomeMessage(guild);
+		if(customMessage == null) {
+			channel.sendMessage(embed.build()).queue();
+		}
+		if (customMessage != null) {
+			channel.sendMessage(customMessage.replace("{user}", tag)).queue();
+		}
 	}
 }

@@ -31,13 +31,12 @@ public class HelpWelcomeMsgs extends ListenerAdapter {
                         + "---------------\n`"
                         + prefix + "joinmsg` - Set a custom join msg! Example: `" + prefix + "joinmsg` `{user} hopped on the server!` (**{user}** will be replaced with the user who joined)\n"
                         + "---------------\n`"
-                        + prefix + "leavemsg` - Set a custom leave msg! Example: `" + prefix + "joinmsg` `{user} left the server :(` (**{user}** will be replaced with the user who left)\n"
+                        + prefix + "leavemsg` - Set a custom leave msg! Example: `" + prefix + "leavemsg` `{user} left the server :(` (**{user}** will be replaced with the user who left)\n"
                         + "---------------\n`"
-                        + prefix + "joinleave random` - Send a random message when someone joins and leaves!\n`"
+                        + prefix + "joinleave random` - Send a fun, randomized message when someone joins and leaves!\n`"
                         + prefix + "joinleave` `off` - Turn the messages off\n`"
                         + prefix + "joinleave` `on` - Turn the messages back on!"
                 );
-
                 event.getChannel().sendMessage(embed.build()).queue();
             }
         }

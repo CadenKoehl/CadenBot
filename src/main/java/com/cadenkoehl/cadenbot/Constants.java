@@ -59,7 +59,8 @@ public class Constants {
 				"violin",
 				"integer",
 				"argument",
-				"divorce"
+				"divorce",
+				"document"
 		};
 	}
 	public static String getPrefix(String id) {

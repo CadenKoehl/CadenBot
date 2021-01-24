@@ -11,9 +11,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 public class JoinChannel extends ListenerAdapter {
     @Override
@@ -36,7 +38,29 @@ public class JoinChannel extends ListenerAdapter {
             }
             List<TextChannel> channels = event.getMessage().getMentionedChannels();
             if(channels.size() == 0) {
-                event.getChannel().sendMessage(":x: Please specify a channel!").queue();
+                File file = new File(CadenBot.dataDirectory + "joinleave/joinchannel/" + guildId + ".txt");
+                if(!file.exists()) {
+                    TextChannel systemChannel = event.getGuild().getSystemChannel();
+                    if(systemChannel == null) {
+                        event.getChannel().sendMessage(":x: You currently have no channel set for goodbye messages!\nTo set one, type `-joinchannel` `<#channel>").queue();
+                        return;
+                    }
+                    event.getChannel().sendMessage(systemChannel.getAsMention() + " is your current channel for goodbye messages!\nTo change it, type `-joinchannel` `<#channel>").queue();
+                    return;
+                }
+                try {
+                    Scanner scan = new Scanner(file);
+                    String channelId = scan.nextLine();
+                    TextChannel channel = event.getGuild().getTextChannelById(channelId);
+                    if (channel == null) {
+                        event.getChannel().sendMessage(":x: You currently have no channel set for welcome messages!\nTo set one, type `" + prefix +  "joinchannel` `<#channel>`").queue();
+                        return;
+                    }
+                    event.getChannel().sendMessage(channel.getAsMention() + " is your current channel for welcome messages!\nTo change it, type `" + prefix +  "joinchannel` `<#channel>`").queue();
+                    return;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
             TextChannel channel = channels.get(0);
             String channelId = channel.getId();
