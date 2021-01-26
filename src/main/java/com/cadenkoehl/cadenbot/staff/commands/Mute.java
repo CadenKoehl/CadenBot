@@ -16,7 +16,7 @@ public class Mute extends ListenerAdapter {
         Guild guild = event.getGuild();
         List<Role> mutedRoles = guild.getRolesByName("Muted", true);
         if (mutedRoles.size() == 0) {
-            guild.createRole().setName("Muted").setColor(Color.DARK_GRAY).queue();
+            guild.createRole().setName("Muted").setColor(Color.DARK_GRAY).complete();
             createPermissionOverrides(guild);
         }
         if(mutedRoles.size() > 1) {

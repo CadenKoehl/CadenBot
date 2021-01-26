@@ -14,7 +14,9 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Info.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/CadenBot.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/EmbedColor.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/LeaveChannel.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/Constants.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/RandomMsgs.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/ServerInfo.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/Mute.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Leave.java
@@ -22,6 +24,8 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/help/HelpMusic.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/levels/Leaderboard.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/FakeUser.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/JoinMsg.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/Registry.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/lavaplayer/TrackScheduler.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Invite.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/help/HelpEmbeds.java
@@ -55,6 +59,7 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/logging/RoleLog.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/logging/KickAndBanLog.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/LogChannel.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/SystemMessageManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/CurrentSong.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Play.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/JoinChannel.java
@@ -62,3 +67,4 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/lavaplayer/MusicManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Webhooks.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Queue.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/LeaveMsg.java

@@ -29,33 +29,25 @@ public class EmbedCmd extends ListenerAdapter {
                 if(args[0].equalsIgnoreCase(getPrefix() + "embed") || args[0].equalsIgnoreCase(CadenBot.prefix + "eb")) {
                     if(event.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
                         try {
-                            //Sets up all embed variables:
-                            String titleRaw = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
-                            String descRaw = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
-                            String field1Raw = Arrays.stream(args).skip(3).collect(Collectors.joining(" "));
-                            String field2Raw = Arrays.stream(args).skip(4).collect(Collectors.joining(" "));
-
-                            String[] title = titleRaw.split(" ");
-                            String[] desc = descRaw.split(" ");
-                            String[] field1 = field1Raw.split(" ");
-                            String[] field2 = field2Raw.split(" ");
-
-                            //Creates the EmbedCmd
+                            String[] embedElement = Arrays.stream(args).skip(1).collect(Collectors.joining(" ")).split("\\|");
                             EmbedBuilder embed = new EmbedBuilder();
+                            if(!embedElement[0].isEmpty()) {
+                                embed.setTitle(embedElement[0]);
+                            }
 
-                            if(title[0] != "") {
-                                embed.setTitle(title[0].replace("-", " "));
+                            if(!embedElement[1].isEmpty()) {
+                                embed.setDescription(embedElement[1]);
                             }
-                            if(desc[0] != "") {
-                                embed.setDescription(desc[0].replace("-", " "));
+
+                            if(!embedElement[2].isEmpty()) {
+                                embed.addField(embedElement[2], "", false);
                             }
-                            if(field1[0] != "") {
-                                embed.addField("----------\n" + field1[0].replace("-", " "), "", false);
+
+                            if(!embedElement[3].isEmpty()) {
+                                embed.addField(embedElement[3], "", false);
                             }
-                            if(field2[0] != "") {
-                                embed.addField(field2[0].replace("-", " "), "", false);
-                            }
-                            embed.setColor(EmbedColor.DARK_BLUE);
+
+                            embed.setColor((int) Math.round(Math.random() * 999999));
                             event.getChannel().sendMessage(embed.build()).queue();
                             event.getMessage().delete().queueAfter(5, TimeUnit.SECONDS);
                         } catch(Exception ex) {
