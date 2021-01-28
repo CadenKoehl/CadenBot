@@ -1,11 +1,9 @@
 package com.cadenkoehl.cadenbot.levels;
 
 import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.Constants;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -20,7 +18,7 @@ public class Levels extends ListenerAdapter {
             String currentChannelId = event.getChannel().getId();
             File ignoredChannel = new File(CadenBot.dataDirectory + "levels/ignored_channels/" + currentChannelId + ".txt");
             if(!ignoredChannel.exists()) {
-                if(Xp.getXp(event.getMember().getId(), guild.getId()) == 300) {
+                if(Xp.getXp(event.getMember().getId(), guild.getId()) == 10) {
                     Guild guild = event.getGuild();
                     String guildId = guild.getId();
                     Member member = event.getMember();
@@ -45,22 +43,31 @@ public class Levels extends ListenerAdapter {
                             FileWriter lvlWriter = new FileWriter(file);
                             lvlWriter.write(String.valueOf(lvl));
                             lvlWriter.close();
+                            String message = LevelMessage.getMsg(guild);
+                            if(message != null) {
+                                message = message.replace("{user}", member.getAsMention()).replace("{lvl}", String.valueOf(lvl));
+                                System.out.println("test");
+                            }
+                            if(message == null) {
+                                message = member.getAsMention() + " just leveled up to **level " + lvl + "**! **GG**!";
+                            }
                             File customChannel = new File(CadenBot.dataDirectory + "levels/channel/" + guildId + ".txt");
                             if(customChannel.exists()) {
                                 Scanner channelScanner = new Scanner(customChannel);
                                 String channelId = channelScanner.nextLine();
-                                event.getGuild().getTextChannelById(channelId).sendMessage("Heyo! " + member.getAsMention() + " just reached **level " + lvl + "**! So yeah **GG**! okay bye now!").queue();
+                                TextChannel channel = event.getGuild().getTextChannelById(channelId);
+                                if (channel == null) {
+                                    event.getChannel().sendMessage(message).queue();
+                                    return;
+                                }
+                                channel.sendMessage(message).queue();
                             }
                             if(!customChannel.exists()) {
-                                event.getChannel().sendMessage("Heyo! " + member.getAsMention() + " just reached **level " + lvl + "**! So yeah **gg**! okay bye now!").queue();
+                                event.getChannel().sendMessage(message).queue();
                             }
                         }
-                    }
-                    catch (FileNotFoundException ex) {
+                    } catch (IOException ex) {
                         ex.printStackTrace();
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
                     }
                 }
             }

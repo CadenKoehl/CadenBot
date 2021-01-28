@@ -1,7 +1,7 @@
 package com.cadenkoehl.cadenbot.staff.commands;
 
-import com.cadenkoehl.cadenbot.Constants;
-import com.cadenkoehl.cadenbot.EmbedColor;
+import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.util.EmbedColor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;

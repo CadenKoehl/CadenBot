@@ -1,6 +1,6 @@
 package com.cadenkoehl.cadenbot.music;
 
-import com.cadenkoehl.cadenbot.Constants;
+import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;

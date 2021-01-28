@@ -2,13 +2,11 @@ package com.cadenkoehl.cadenbot.commands.help;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import com.cadenkoehl.cadenbot.CadenBot;
 
-import com.cadenkoehl.cadenbot.Constants;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;

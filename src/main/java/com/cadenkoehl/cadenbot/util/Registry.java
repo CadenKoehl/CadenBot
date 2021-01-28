@@ -1,4 +1,4 @@
-package com.cadenkoehl.cadenbot;
+package com.cadenkoehl.cadenbot.util;
 
 import com.cadenkoehl.cadenbot.commands.*;
 import com.cadenkoehl.cadenbot.commands.help.*;
@@ -17,7 +17,6 @@ import com.cadenkoehl.cadenbot.staff.commands.*;
 import com.cadenkoehl.cadenbot.staff.logging.*;
 import net.dv8tion.jda.api.JDABuilder;
 
-import java.util.Random;
 
 public class Registry {
     public static void registerListeners(JDABuilder jda) {
@@ -80,6 +79,7 @@ public class Registry {
         register(new JoinMsg(), jda);
         register(new LeaveMsg(), jda);
         register(new RandomMsgs(), jda);
+        register(new LevelMessage(), jda);
     }
     private static void register(Object listener, JDABuilder jda) {
         jda.addEventListeners(listener);

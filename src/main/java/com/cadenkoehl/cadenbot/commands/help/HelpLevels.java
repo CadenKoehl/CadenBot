@@ -1,7 +1,6 @@
 package com.cadenkoehl.cadenbot.commands.help;
 
-import com.cadenkoehl.cadenbot.Constants;
-import com.cadenkoehl.cadenbot.EmbedColor;
+import com.cadenkoehl.cadenbot.util.Constants;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -18,8 +17,18 @@ public class HelpLevels extends ListenerAdapter {
                 return;
             }
             EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("**Commands:**\n");
-            embed.setDescription("`" + prefix + "rank` - View your RankCard!\n`" + prefix + "setlevel` - Allows staff to set a user's level\n`" + prefix + "levelchannel` `<#channel>` - Set a custom channel for leveling msgs!\n`" + prefix + "levelchannel` `default` - Resets the leveling channel to the default channel\n`" + prefix + "ignorechannel` `<#channel>` - Make users be unable to gain levels in a channel!\n`" + prefix + "unignorechannel` `<#channel>` - Unignore an ignored channel\n`" + prefix + "ignoredchannels` - See a list of ignored channels!");
+            embed.setTitle("⬆ **Levels!** ⬆ \n");
+            embed.setDescription("`" +
+                    prefix + "rank` - View your RankCard!\n`" +
+                    prefix + "setlevel` - Allows staff to set a user's level\n`" +
+                    prefix + "levelchannel` `<#channel>` - Set a custom channel for leveling msgs!\n`" +
+                    prefix + "levelchannel` `default` - Resets the leveling channel to the default channel\n" +
+                    "-------------\n`" +
+                    prefix + "levelmsg` `[message]` - Set a custom message when someone levels up!\nExample: `" + prefix + "levelmsg` `Hello, {user} just leveled up to level {lvl}` \n{user} and {level} will be replaced with the user and their level)\n" +
+                    "-------------\n`" +
+                    prefix + "ignorechannel` `<#channel>` - Make users be unable to gain levels in a channel!\n`" +
+                    prefix + "unignorechannel` `<#channel>` - Unignore an ignored channel\n`" +
+                    prefix + "ignoredchannels` - See a list of ignored channels!");
             embed.setColor((int) Math.round(Math.random() * 999999));
             event.getChannel().sendMessage(embed.build()).queue();
         }

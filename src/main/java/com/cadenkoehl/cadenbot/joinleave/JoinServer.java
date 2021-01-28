@@ -1,11 +1,7 @@
 package com.cadenkoehl.cadenbot.joinleave;
 
-import com.cadenkoehl.cadenbot.CadenBot;
-import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
-import java.io.File;
 
 public class JoinServer extends ListenerAdapter {
 	

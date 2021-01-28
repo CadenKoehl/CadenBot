@@ -1,7 +1,7 @@
 package com.cadenkoehl.cadenbot.joinleave.config;
 
 import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.Constants;
+import com.cadenkoehl.cadenbot.util.Constants;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
@@ -46,7 +46,7 @@ public class RandomMsgs extends ListenerAdapter {
             if(leaveFile.exists()) {
                 leaveFile.delete();
             }
-            event.getChannel().sendMessage(":white_check_mark: **Success**! I will now send my default, randomized welcome messages when someone joins the server!").queue();
+            event.getChannel().sendMessage(":white_check_mark: **Success**! I will now send my default, randomized messages when someone joins the server!").queue();
         }
     }
 }

@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,11 +42,11 @@ public class Xp extends ListenerAdapter {
                         int xp = Integer.parseInt(xpRaw);
                         xp++;
                         FileWriter xpWriter = new FileWriter(file);
-                        if(xp == 301) {
+                        if(xp == 11) {
                             xpWriter.write("0");
                             xpWriter.close();
                         }
-                        if(xp != 301) {
+                        if(xp != 11) {
                             xpWriter.write(String.valueOf(xp));
                             xpWriter.close();
                         }

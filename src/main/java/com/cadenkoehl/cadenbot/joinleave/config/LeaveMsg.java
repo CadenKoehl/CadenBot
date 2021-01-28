@@ -1,7 +1,7 @@
 package com.cadenkoehl.cadenbot.joinleave.config;
 
 import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.Constants;
+import com.cadenkoehl.cadenbot.util.Constants;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
@@ -38,6 +38,10 @@ public class LeaveMsg extends ListenerAdapter {
                 return;
             }
             String message = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
+            if(!message.contains("{user}")) {
+                event.getChannel().sendMessage("Please put {user} in your message! (It must be lower case!) It will be replaced by the name of the user who joined!").queue();
+                return;
+            }
             try {
                 File file = new File(CadenBot.dataDirectory + "joinleave/leavemessage/" + guildId + ".txt");
                 FileWriter write = new FileWriter(file);

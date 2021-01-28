@@ -1,7 +1,7 @@
 package com.cadenkoehl.cadenbot.commands;
 
 import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.Constants;
+import com.cadenkoehl.cadenbot.util.Constants;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;

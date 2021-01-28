@@ -1,7 +1,7 @@
 package com.cadenkoehl.cadenbot.staff.logging;
 
 import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.EmbedColor;
+import com.cadenkoehl.cadenbot.util.EmbedColor;
 
 import com.cadenkoehl.cadenbot.staff.commands.LogChannel;
 import net.dv8tion.jda.api.EmbedBuilder;

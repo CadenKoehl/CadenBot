@@ -1,6 +1,6 @@
 package com.cadenkoehl.cadenbot.music;
 
-import com.cadenkoehl.cadenbot.Constants;
+import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

@@ -1,14 +1,10 @@
-package com.cadenkoehl.cadenbot;
+package com.cadenkoehl.cadenbot.util;
 
+import com.cadenkoehl.cadenbot.CadenBot;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Constants {

@@ -2,6 +2,8 @@ package com.cadenkoehl.cadenbot;
 
 import javax.security.auth.login.LoginException;
 
+import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.util.Registry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -16,10 +18,10 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
  */
 public class CadenBot {
 
-	public static JDA jda;
-	public static String prefix = "-";
-	private static boolean isTest = true;
-	public static String dataDirectory = "";
+  public static JDA jda;
+  public static String prefix = "-";
+  private static boolean isTest = true;
+  public static String dataDirectory = "";
 
   public static void main(String[] args) throws LoginException {
 

@@ -1,6 +1,6 @@
 package com.cadenkoehl.cadenbot.music;
 
-import com.cadenkoehl.cadenbot.Constants;
+import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;

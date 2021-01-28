@@ -1,4 +1,4 @@
-package com.cadenkoehl.cadenbot;
+package com.cadenkoehl.cadenbot.util;
 
 public enum EmbedColor {;
 	

@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.cadenkoehl.cadenbot.CadenBot;
 
-import com.cadenkoehl.cadenbot.Constants;
+import com.cadenkoehl.cadenbot.util.Constants;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
