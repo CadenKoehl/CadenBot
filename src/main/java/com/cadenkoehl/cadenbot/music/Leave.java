@@ -26,6 +26,7 @@ public class Leave extends ListenerAdapter {
                     if(botChannel == memberChannel) {
                         MusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
                         if(musicManager.scheduler.player.getPlayingTrack() != null) {
+                            musicManager.scheduler.repeating = false;
                             musicManager.scheduler.player.stopTrack();
                             musicManager.scheduler.queue.clear();
                         }

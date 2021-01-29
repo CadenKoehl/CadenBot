@@ -80,6 +80,7 @@ public class Registry {
         register(new LeaveMsg(), jda);
         register(new RandomMsgs(), jda);
         register(new LevelMessage(), jda);
+        register(new Loop(), jda);
     }
     private static void register(Object listener, JDABuilder jda) {
         jda.addEventListeners(listener);

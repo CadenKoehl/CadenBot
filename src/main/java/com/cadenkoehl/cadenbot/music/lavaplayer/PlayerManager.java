@@ -69,6 +69,7 @@ public class PlayerManager {
             @Override
             public void loadFailed(FriendlyException exception) {
                 channel.sendMessage(":x: Something went wrong! Please try again! If this issue persists, please join the support server! (type -help)").queue();
+                exception.printStackTrace();
             }
         });
     }
@@ -77,8 +78,6 @@ public class PlayerManager {
         if (INSTANCE == null) {
             INSTANCE = new PlayerManager();
         }
-
         return INSTANCE;
     }
-
 }

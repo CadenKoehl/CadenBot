@@ -1,5 +1,6 @@
 package com.cadenkoehl.cadenbot.music;
 
+import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -23,8 +24,10 @@ public class TimeOut extends ListenerAdapter {
             return;
         }
         if(selfVoiceState.getChannel().equals(channelLeft)) {
-            PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.player.stopTrack();
-            PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.queue.clear();
+            MusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+            musicManager.scheduler.player.stopTrack();
+            musicManager.scheduler.repeating = false;
+            musicManager.scheduler.queue.clear();
             AudioManager audioManager = event.getGuild().getAudioManager();
             audioManager.closeAudioConnection();
         }

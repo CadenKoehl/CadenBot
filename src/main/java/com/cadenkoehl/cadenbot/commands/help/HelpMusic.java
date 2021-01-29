@@ -28,6 +28,7 @@ public class HelpMusic extends ListenerAdapter {
                         "\n`" + prefix + "stop` - Stops the current song!" +
                         "\n`" + prefix + "skip` - Skips the current song!" +
                         "\n`" + prefix + "queue` - View all the upcoming songs!" +
+                        "\n`" + prefix + "repeat` - Turn repeating on and off!" +
                         "\n`" + prefix + "np` - Details of the current song!");
                 event.getChannel().sendMessage(embed.build()).queue();
             }
