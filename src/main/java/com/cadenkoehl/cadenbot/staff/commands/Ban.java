@@ -60,5 +60,22 @@ public class Ban extends ListenerAdapter {
                 event.getChannel().sendMessage(":x: I cannot perform this action due to lack of permission! Please give me the `ban_members` permission!").queue();
             }
         }
+	    if(args[0].equalsIgnoreCase(prefix + "unban")) {
+            if(event.isWebhookMessage()) {
+                return;
+            }
+            Member mod = event.getMember();
+            if(mod == null) {
+                event.getChannel().sendMessage(Constants.ERROR_MESSAGE).queue();
+            }
+            if(mod.getUser().isBot()) {
+                return;
+            }
+            if(!mod.hasPermission(Permission.BAN_MEMBERS)) {
+                event.getChannel().sendMessage(":x: You can't use that!").queue();
+                return;
+            }
+            event.getChannel().sendMessage(":x: Since you cannot @ someone who is not in the server, it's a pain to unban someone with a command, so just go to Server Settings -> Bans, and unban the user!").queue();
+        }
     }
 }

@@ -14,11 +14,14 @@ public class Levels extends ListenerAdapter {
     Guild guild;
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         guild = event.getGuild();
+        if(event.isWebhookMessage()) {
+            return;
+        }
         if(!event.getMember().getUser().isBot()) {
             String currentChannelId = event.getChannel().getId();
             File ignoredChannel = new File(CadenBot.dataDirectory + "levels/ignored_channels/" + currentChannelId + ".txt");
             if(!ignoredChannel.exists()) {
-                if(Xp.getXp(event.getMember().getId(), guild.getId()) == 10) {
+                if(Xp.getXp(event.getMember().getId(), guild.getId()) == 300) {
                     Guild guild = event.getGuild();
                     String guildId = guild.getId();
                     Member member = event.getMember();

@@ -20,7 +20,7 @@ public class CadenBot {
 
   public static JDA jda;
   public static String prefix = "-";
-  private static boolean isTest = true;
+  private static boolean isTest = false;
   public static String dataDirectory = "";
 
   public static void main(String[] args) throws LoginException {
@@ -40,14 +40,14 @@ public class CadenBot {
       token = Constants.getToken();
     }
 
-    JDABuilder jda = JDABuilder.createDefault(token);
-    jda.setStatus(OnlineStatus.ONLINE);
-    jda.setActivity(Activity.watching("for -help"));
-    jda.enableIntents(GatewayIntent.GUILD_MEMBERS);
-    jda.enableCache(CacheFlag.VOICE_STATE);
-    jda.setChunkingFilter(ChunkingFilter.ALL);
-    jda.setMemberCachePolicy(MemberCachePolicy.ALL);
-    Registry.registerListeners(jda);
-    jda.build();
+    JDABuilder builder = JDABuilder.createDefault(token);
+    builder.setStatus(OnlineStatus.ONLINE);
+    builder.setActivity(Activity.watching("for -help"));
+    builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
+    builder.enableCache(CacheFlag.VOICE_STATE);
+    builder.setChunkingFilter(ChunkingFilter.ALL);
+    builder.setMemberCachePolicy(MemberCachePolicy.ALL);
+    Registry.registerListeners(builder);
+    CadenBot.jda = builder.build();
   }
 }

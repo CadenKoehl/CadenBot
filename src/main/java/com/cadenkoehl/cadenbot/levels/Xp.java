@@ -16,6 +16,9 @@ public class Xp extends ListenerAdapter {
     Guild guild;
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         guild = event.getGuild();
+        if(event.isWebhookMessage()) {
+            return;
+        }
         if(!event.getMember().getUser().isBot()) {
             String currentChannelId = event.getChannel().getId();
             File ignoredChannel = new File(CadenBot.dataDirectory + "levels/ignored_channels/" + currentChannelId + ".txt");
@@ -42,11 +45,11 @@ public class Xp extends ListenerAdapter {
                         int xp = Integer.parseInt(xpRaw);
                         xp++;
                         FileWriter xpWriter = new FileWriter(file);
-                        if(xp == 11) {
+                        if(xp == 301) {
                             xpWriter.write("0");
                             xpWriter.close();
                         }
-                        if(xp != 11) {
+                        if(xp != 301) {
                             xpWriter.write(String.valueOf(xp));
                             xpWriter.close();
                         }
