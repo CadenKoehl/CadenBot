@@ -1,9 +1,11 @@
 package com.cadenkoehl.cadenbot.util;
 
 import com.cadenkoehl.cadenbot.commands.*;
+import com.cadenkoehl.cadenbot.dms.DmReactions;
+import com.cadenkoehl.cadenbot.fun.ImageGenTest;
+import com.cadenkoehl.cadenbot.fun.YesOrNo;
 import com.cadenkoehl.cadenbot.help.*;
 import com.cadenkoehl.cadenbot.fun.Hack;
-import com.cadenkoehl.cadenbot.fun.ImageGenTest;
 import com.cadenkoehl.cadenbot.fun.PpSizeMachine;
 import com.cadenkoehl.cadenbot.fun.hangman.Guess;
 import com.cadenkoehl.cadenbot.fun.hangman.Hangman;
@@ -42,18 +44,12 @@ public class Registry {
             register(new Kick(), jda);
             register(new MuteManager(), jda);
             register(new Test(), jda);
-            register(new ChannelUpdateLog(), jda);
-            register(new RoleLog(), jda);
-            register(new KickAndBanLog(), jda);
-            register(new OtherLogs(), jda);
             register(new MuteCmd(), jda);
             register(new EmbedCmd(), jda);
             register(new HelpEmbeds(), jda);
             register(new FakeUser(), jda);
-            register(new JoinLeaveLog(), jda);
             register(new UserInfo(), jda);
             register(new ServerInfo(), jda);
-            register(new CategoryLog(), jda);
             register(new PpSizeMachine(), jda);
             register(new Prefix(), jda);
             register(new Levels(), jda);
@@ -96,6 +92,14 @@ public class Registry {
             register(new SuggestDeny(), jda);
             register(new SuggestConsider(), jda);
             register(new SuggestChannel(), jda);
+            register(new GuildUpdates(), jda);
+            register(new MemberUpdates(), jda);
+            register(new RoleUpdates(), jda);
+            register(new TextChannelUpdates(), jda);
+            register(new VoiceChannelUpdates(), jda);
+            register(new CategoryUpdates(), jda);
+            register(new DmReactions(), jda);
+            register(new Ready(), jda);
     }
     private static void register(ListenerAdapter listener, JDABuilder jda) {
         jda.addEventListeners(listener);

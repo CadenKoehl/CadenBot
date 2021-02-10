@@ -1,5 +1,6 @@
 package com.cadenkoehl.cadenbot.staff.commands.mute;
 
+import com.cadenkoehl.cadenbot.staff.logging.Logger;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -67,6 +68,7 @@ public class MuteManager extends ListenerAdapter {
 
             embed.setColor(EmbedColor.RED);
             channel.sendMessage(embed.build()).queue();
+            Logger.log(embed.build(), channel.getGuild());
         }
         catch (InsufficientPermissionException ex) {
             channel.sendMessage(":x: You have not granted me the `manage_roles` permission so I am unable to perform this action.").queue();

@@ -1,5 +1,6 @@
 package com.cadenkoehl.cadenbot.staff.commands;
 
+import com.cadenkoehl.cadenbot.staff.logging.Logger;
 import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -50,8 +51,9 @@ public class Ban extends ListenerAdapter {
             embed.setAuthor(userTag + " was banned!", null, member.getUser().getEffectiveAvatarUrl());
             embed.setColor(EmbedColor.RED);
             try {
-                member.ban(0, reason).queue();
                 event.getChannel().sendMessage(embed.build()).queue();
+                Logger.log(embed.build(), event.getGuild());
+                member.ban(0, reason).queue();
             }
             catch (HierarchyException ex) {
                 event.getChannel().sendMessage(":x: You can't ban a moderator!").queue();

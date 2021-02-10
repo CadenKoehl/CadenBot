@@ -57,7 +57,7 @@ public class SuggestDeny extends ListenerAdapter {
             String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
             EmbedBuilder embed = new EmbedBuilder();
 
-            embed.setAuthor(sug.getMember().getEffectiveName() + "'s Suggestion was Denied!", null, sug.getMember().getUser().getEffectiveAvatarUrl());
+            embed.setAuthor(sug.getMember().getEffectiveName() + "'s suggestion was denied!", null, sug.getMember().getUser().getEffectiveAvatarUrl());
             embed.setTitle("Suggestion #" + sug.getNumber());
             embed.addField("", "[Jump to Suggestion](" + sug.getMessageURL() + ")", false);
             if(reason.isEmpty()) {

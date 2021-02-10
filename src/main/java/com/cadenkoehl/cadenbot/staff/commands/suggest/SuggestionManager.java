@@ -12,7 +12,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.*;
+import java.util.List;
 
 public class SuggestionManager {
 
@@ -28,7 +29,7 @@ public class SuggestionManager {
         String content = null;
         String memberId = null;
         String messageURL = null;
-        File file = new File(dir, number + ".txt");
+        File file = new File(dir, String.valueOf(number));
         try {
             Scanner scan = new Scanner(file);
             if(scan.hasNextLine()) {
@@ -84,23 +85,30 @@ public class SuggestionManager {
             return;
         }
         String guildId = guild.getId();
-        File dir = new File(CadenBot.dataDirectory + "suggestions/" + guildId);
+        File dir = new File(CadenBot.dataDirectory + "suggestions/" + guildId + "/");
         if(dir.mkdirs()) {
             System.out.println(dir.getPath() + " was created");
         }
-        String[] paths = dir.list();
+        List<String> files = Arrays.asList(dir.list());
+        List<Integer> numbers = new ArrayList<>();
+        for(String file : files) {
+            numbers.add(Integer.parseInt(file));
+        }
+
+        Collections.sort(numbers);
+        Collections.reverse(numbers);
+
         int number;
-        if(paths.length == 0) {
+        if(files.size() == 0) {
             number = 0;
         }
         else {
-            String path = paths[0].replace(".txt", "");
-            number = Integer.parseInt(path);
+            number = numbers.get(0);
         }
         number++;
-        File file = new File(dir, number + ".txt");
+        File file = new File(dir, String.valueOf(number));
         EmbedBuilder embed = new EmbedBuilder();
-        embed.setColor(EmbedColor.DARK_BLUE);
+        embed.setColor(EmbedColor.BLUE);
         embed.setAuthor(member.getEffectiveName() + " made a suggestion!", null, member.getUser().getEffectiveAvatarUrl());
         embed.setTitle("Suggestion #" + number);
         embed.setDescription(content);

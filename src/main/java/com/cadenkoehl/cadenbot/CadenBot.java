@@ -24,7 +24,7 @@ public class CadenBot {
   public static String dataDirectory = "";
 
   public static void main(String[] args) throws LoginException {
-
+    
     if (isTest) {
       dataDirectory = "/users/cadenkoehl/CadenBot/data/";
     }
@@ -43,11 +43,13 @@ public class CadenBot {
     JDABuilder builder = JDABuilder.createDefault(token);
     builder.setStatus(OnlineStatus.ONLINE);
     builder.setActivity(Activity.watching("for -help"));
+    Registry.registerListeners(builder);
+
     builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
     builder.enableCache(CacheFlag.VOICE_STATE);
     builder.setChunkingFilter(ChunkingFilter.ALL);
     builder.setMemberCachePolicy(MemberCachePolicy.ALL);
-    Registry.registerListeners(builder);
+
     CadenBot.jda = builder.build();
   }
 }

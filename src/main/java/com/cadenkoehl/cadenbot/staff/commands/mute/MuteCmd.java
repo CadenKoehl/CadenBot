@@ -1,6 +1,7 @@
 package com.cadenkoehl.cadenbot.staff.commands.mute;
 
 import com.cadenkoehl.cadenbot.staff.commands.mute.MuteManager;
+import com.cadenkoehl.cadenbot.staff.logging.Logger;
 import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -8,6 +9,8 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.HierarchyException;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
@@ -67,12 +70,21 @@ public class MuteCmd extends ListenerAdapter {
                 event.getChannel().sendMessage(":x: Member is not muted!").queue();
                 return;
             }
-            event.getGuild().removeRoleFromMember(member, muted).queue();
-            String name = member.getUser().getAsTag();
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setColor(EmbedColor.GREEN);
-            embed.setAuthor(name + " was unmuted!", null, member.getUser().getEffectiveAvatarUrl());
-            event.getChannel().sendMessage(embed.build()).queue();
+            try {
+                event.getGuild().removeRoleFromMember(member, muted).queue();
+                String name = member.getUser().getAsTag();
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setColor(EmbedColor.GREEN);
+                embed.setAuthor(name + " was unmuted!", null, member.getUser().getEffectiveAvatarUrl());
+                event.getChannel().sendMessage(embed.build()).queue();
+                Logger.log(embed.build(), event.getGuild());
+            }
+            catch (InsufficientPermissionException ex) {
+                event.getChannel().sendMessage(":x: You have not granted me the `manage_roles` permission, so I am unable to perform this action!").queue();
+            }
+            catch (HierarchyException ex) {
+                event.getChannel().sendMessage(":x: You can't mute a moderator!").queue();
+            }
         }
     }
 }

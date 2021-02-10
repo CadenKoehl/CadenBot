@@ -29,7 +29,7 @@ public class Hangman extends ListenerAdapter {
             if(user.isBot()) {
                 return;
             }
-            String[] words = Constants.getHangmanWords(member.getEffectiveName());
+            String[] words = Constants.getHangmanWords();
 
             Random random = new Random();
             int word = random.nextInt(words.length);

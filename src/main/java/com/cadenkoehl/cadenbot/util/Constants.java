@@ -25,7 +25,7 @@ public class Constants {
 			"https://cdn.discordapp.com/attachments/785347122991595573/802056119748001812/hangman_0.png",
 	};
 
-	public static String[] getHangmanWords(String username) {
+	public static String[] getHangmanWords() {
 		return new String[]{
 				"information",
 				"rhythm",

@@ -57,7 +57,7 @@ public class SuggestApprove extends ListenerAdapter {
             String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
             EmbedBuilder embed = new EmbedBuilder();
 
-            embed.setAuthor(sug.getMember().getEffectiveName() + "'s Suggestion was Approved!", null, sug.getMember().getUser().getEffectiveAvatarUrl());
+            embed.setAuthor(sug.getMember().getEffectiveName() + "'s suggestion was approved!", null, sug.getMember().getUser().getEffectiveAvatarUrl());
             embed.setTitle("Suggestion #" + sug.getNumber());
             embed.addField("", "[Jump to Suggestion](" + sug.getMessageURL() + ")", false);
             if(reason.isEmpty()) {
