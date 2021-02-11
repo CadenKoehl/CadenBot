@@ -24,16 +24,5 @@ public class JoinServer extends ListenerAdapter {
 				event.getGuild().getSystemChannel().sendMessage(":x: **Error**! Since you have not granted me the `administrator` permission, most of my features and commands won't work!").queue();
 			}
 		}
-		event.getGuild().getDefaultChannel().createInvite().setMaxAge(0).queue(invite -> {
-			String url = invite.getUrl();
-			event.getJDA().getUserById(Constants.CadenID).openPrivateChannel().queue(channel -> channel.sendMessage("I just joined **" + event.getGuild().getName() +  "**!\n" + url).queue());
-		});
-	}
-
-	public void onGuildLeave(GuildLeaveEvent event) {
-		event.getGuild().getDefaultChannel().createInvite().setMaxAge(0).queue(invite -> {
-			String url = invite.getUrl();
-			event.getJDA().getUserById(Constants.CadenID).openPrivateChannel().queue(channel -> channel.sendMessage("I was kicked from **" + event.getGuild().getName() +  "** :cry: \n" + url).queue());
-		});
 	}
 }
