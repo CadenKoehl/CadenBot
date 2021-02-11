@@ -43,7 +43,6 @@ public class Registry {
             register(new Ban(), jda);
             register(new Kick(), jda);
             register(new MuteManager(), jda);
-            register(new Test(), jda);
             register(new MuteCmd(), jda);
             register(new EmbedCmd(), jda);
             register(new HelpEmbeds(), jda);
@@ -100,6 +99,7 @@ public class Registry {
             register(new CategoryUpdates(), jda);
             register(new DmReactions(), jda);
             register(new Ready(), jda);
+            register(new Commands(), jda);
     }
     private static void register(ListenerAdapter listener, JDABuilder jda) {
         jda.addEventListeners(listener);
