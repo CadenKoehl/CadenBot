@@ -29,7 +29,12 @@ public class HelpMusic extends ListenerAdapter {
                         "\n`" + prefix + "skip` - Skips the current song!" +
                         "\n`" + prefix + "queue` - View all the upcoming songs!" +
                         "\n`" + prefix + "repeat` - Turn repeating on and off!" +
-                        "\n`" + prefix + "np` - Details of the current song!");
+                        "\n`" + prefix + "np` - Details of the current song!" +
+                        "\n`" + prefix + "favorite` `add` `[YouTube Link]` - Favorite a song!" +
+                        "\n`" + prefix + "favorite` `remove` `[YouTube Link]` - Unfavorite a song!" +
+                        "\n`" + prefix + "favorites` `play` - Play all your favorite songs in a random order!" +
+                        "\n`" + prefix + "favorites` `list` - List all your favorite songs!!"
+                );
                 event.getChannel().sendMessage(embed.build()).queue();
             }
         }

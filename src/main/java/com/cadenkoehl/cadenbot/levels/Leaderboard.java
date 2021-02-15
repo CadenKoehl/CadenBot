@@ -22,7 +22,7 @@ public class Leaderboard extends ListenerAdapter {
                 for (int i = 0; i < members.size(); i++) {
                     int lvl = Levels.getLevel(members.get(i).getUser().getId(), event.getGuild().getId());
                     if(!members.get(i).getUser().isBot()) {
-                        unsortedMap.put(members.get(i).getUser().getName(), lvl);
+                        unsortedMap.put(members.get(i).getAsMention(), lvl);
                     }
                 }
                 Map<String, Integer> sortedMap = sortByValue(unsortedMap);

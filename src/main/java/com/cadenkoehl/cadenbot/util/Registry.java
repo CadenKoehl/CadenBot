@@ -1,6 +1,7 @@
 package com.cadenkoehl.cadenbot.util;
 
 import com.cadenkoehl.cadenbot.commands.*;
+import com.cadenkoehl.cadenbot.commands.util.Commands;
 import com.cadenkoehl.cadenbot.dms.DmReactions;
 import com.cadenkoehl.cadenbot.fun.ImageGenTest;
 import com.cadenkoehl.cadenbot.fun.YesOrNo;
@@ -100,6 +101,7 @@ public class Registry {
             register(new DmReactions(), jda);
             register(new Ready(), jda);
             register(new Commands(), jda);
+            register(new Favorite(), jda);
     }
     private static void register(ListenerAdapter listener, JDABuilder jda) {
         jda.addEventListeners(listener);

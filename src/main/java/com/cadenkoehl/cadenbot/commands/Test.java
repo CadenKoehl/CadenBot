@@ -1,29 +1,22 @@
 package com.cadenkoehl.cadenbot.commands;
 
-import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.util.Command;
+import com.cadenkoehl.cadenbot.commands.util.IncorrectUsageException;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class Test extends Command {
-
+	GuildMessageReceivedEvent event;
 	@Override
-	public void execute(GuildMessageReceivedEvent event) {
+	public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+		this.event = event;
+		if(args.length != 1) {
+			throw new IncorrectUsageException(prefix + "test");
+		}
 		event.getChannel().sendMessage("test").queue();
 	}
 
 	@Override
 	public String[] getNames() {
 		return new String[]{"test", "testing", "testCommand"};
-	}
-
-	@Override
-	public String getDescription() {
-		return "A test command!";
 	}
 }

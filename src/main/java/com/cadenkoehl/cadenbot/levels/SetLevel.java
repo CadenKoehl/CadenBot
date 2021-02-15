@@ -23,7 +23,7 @@ public class SetLevel extends ListenerAdapter {
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         if(args[0].equalsIgnoreCase(getPrefix() + "setlevel")) {
             if(!event.getMember().getUser().isBot()) {
-                if(event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+                if(event.getMember().isOwner()) {
                     try {
                         Member member = event.getMessage().getMentionedMembers().get(0);
                         if(!member.getUser().isBot()) {
@@ -54,8 +54,8 @@ public class SetLevel extends ListenerAdapter {
                     }
                 }
 
-                if(!event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
-                    event.getChannel().sendMessage("You must have the `administrator` permission to use that command!").queue();
+                if(!event.getMember().isOwner()) {
+                    event.getChannel().sendMessage("You must be the server owner to use this command!").queue();
                 }
             }
         }

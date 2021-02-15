@@ -20,6 +20,7 @@ public class HelpLevels extends ListenerAdapter {
             embed.setTitle("⬆ **Levels!** ⬆ \n");
             embed.setDescription("`" +
                     prefix + "rank` - View your RankCard!\n`" +
+                    prefix + "leaderboard` - View the server's leaderboard!\n`" +
                     prefix + "setlevel` - Allows staff to set a user's level\n`" +
                     prefix + "levelchannel` `<#channel>` - Set a custom channel for leveling msgs!\n`" +
                     prefix + "levelchannel` `default` - Resets the leveling channel to the default channel\n" +

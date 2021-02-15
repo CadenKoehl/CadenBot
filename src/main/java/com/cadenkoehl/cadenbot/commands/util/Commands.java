@@ -1,7 +1,7 @@
-package com.cadenkoehl.cadenbot.commands;
+package com.cadenkoehl.cadenbot.commands.util;
 
+import com.cadenkoehl.cadenbot.commands.Test;
 import com.cadenkoehl.cadenbot.util.Constants;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -12,11 +12,14 @@ public class Commands extends ListenerAdapter {
     String[] args;
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
+        Command.prefix = Constants.getPrefix(event.getGuild().getId());
+        Command.args = event.getMessage().getContentRaw().split("\\s+");
         args = event.getMessage().getContentRaw().split("\\s+");
         if(event.isWebhookMessage()) return;
         if(event.getAuthor().isBot()) return;
-        Guild guild = event.getGuild();
-        executeCommands(event, new Test());
+        executeCommands(event,
+                new Test()
+        );
 
     }
     private void executeCommands(GuildMessageReceivedEvent event, Command... commands) {
@@ -27,7 +30,13 @@ public class Commands extends ListenerAdapter {
                 name = prefix + name;
                 if(!name.equalsIgnoreCase(args[0])) continue;
                 event.getChannel().sendTyping().delay(300, TimeUnit.MILLISECONDS).complete();
-                cmd.execute(event);
+                try {
+                    cmd.execute(event);
+                }
+                catch (IncorrectUsageException ex) {
+                    String message = ex.getMessage();
+                    event.getChannel().sendMessage(":x: **Incomplete Command!**\nCorrect Usage:" + message).queue();
+                }
             }
         }
     }
