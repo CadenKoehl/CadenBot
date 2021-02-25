@@ -1,8 +1,11 @@
 package com.cadenkoehl.cadenbot.staff.commands;
 
+import com.cadenkoehl.cadenbot.commands.command_handler.Command;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
 import com.cadenkoehl.cadenbot.staff.automod.logging.AuditLogger;
 import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
+import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
@@ -15,69 +18,66 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Ban extends ListenerAdapter {
-	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        String id = event.getGuild().getId();
-        String prefix = Constants.getPrefix(id);
-	    String[] args = event.getMessage().getContentRaw().split("\\s+");
-	    if(args[0].equalsIgnoreCase(prefix + "ban")) {
-	        if(event.isWebhookMessage()) {
-	            return;
-            }
-            Member mod = event.getMember();
-	        if(mod == null) {
-	            event.getChannel().sendMessage(Constants.ERROR_MESSAGE).queue();
-            }
-	        if(mod.getUser().isBot()) {
-	            return;
-            }
-            if(!mod.hasPermission(Permission.BAN_MEMBERS)) {
-                event.getChannel().sendMessage(":x: You can't use that!").queue();
-                return;
-            }
-            List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
-            if(mentionedMembers.size() == 0) {
-                event.getChannel().sendMessage(":x: Please specify a member to ban!\n**Usage:** `" + prefix + "ban` `<@user>` `[reason]`").queue();
-                return;
-            }
-            String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
-            Member member = mentionedMembers.get(0);
-            String userTag = member.getUser().getAsTag();
-            EmbedBuilder embed = new EmbedBuilder();
-            if(reason.isEmpty()) {
-                reason = "Unspecified";
-            }
-            embed.setDescription("Reason: " + reason);
-            embed.setAuthor(userTag + " was banned!", null, member.getUser().getEffectiveAvatarUrl());
-            embed.setColor(EmbedColor.RED);
-            try {
-                event.getChannel().sendMessage(embed.build()).queue();
-                AuditLogger.log(embed.build(), event.getGuild());
-                member.ban(0, reason).queue();
-            }
-            catch (HierarchyException ex) {
-                event.getChannel().sendMessage(":x: You can't ban a moderator!").queue();
-            }
-            catch (InsufficientPermissionException ex) {
-                event.getChannel().sendMessage(":x: I cannot perform this action due to lack of permission! Please give me the `ban_members` permission!").queue();
-            }
+public class Ban extends Command {
+    @Override
+    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+        String prefix = this.getPrefix(event);
+        String[] args = this.getArgs(event);
+        List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
+        if(mentionedMembers.size() == 0) {
+            event.getChannel().sendMessage(":x: Please specify a member to ban!\n**Usage:** `" + prefix + "ban` `<@user>` `[reason]`").queue();
+            return;
         }
-	    if(args[0].equalsIgnoreCase(prefix + "unban")) {
-            if(event.isWebhookMessage()) {
-                return;
-            }
-            Member mod = event.getMember();
-            if(mod == null) {
-                event.getChannel().sendMessage(Constants.ERROR_MESSAGE).queue();
-            }
-            if(mod.getUser().isBot()) {
-                return;
-            }
-            if(!mod.hasPermission(Permission.BAN_MEMBERS)) {
-                event.getChannel().sendMessage(":x: You can't use that!").queue();
-                return;
-            }
-            event.getChannel().sendMessage(":x: Since you cannot @ someone who is not in the server, it's a pain to unban someone with a command, so just go to Server Settings -> Bans, and unban the user!").queue();
+        String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
+        Member member = mentionedMembers.get(0);
+        String userTag = member.getUser().getAsTag();
+        EmbedBuilder embed = new EmbedBuilder();
+        if(reason.isEmpty()) {
+            reason = "Unspecified";
         }
+        embed.setDescription("Reason: " + reason);
+        embed.setAuthor(userTag + " was banned!", null, member.getUser().getEffectiveAvatarUrl());
+        embed.setColor(EmbedColor.RED);
+        try {
+            event.getChannel().sendMessage(embed.build()).queue();
+            AuditLogger.log(embed.build(), event.getGuild());
+            member.ban(0, reason).queue();
+        }
+        catch (HierarchyException ex) {
+            event.getChannel().sendMessage(":x: You can't ban a moderator!").queue();
+        }
+        catch (InsufficientPermissionException ex) {
+            event.getChannel().sendMessage(":x: I cannot perform this action due to lack of permission! Please give me the `ban_members` permission!").queue();
+        }
+    }
+
+    @Override
+    public String getName() {
+        return "ban";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Bans a member!";
+    }
+
+    @Override
+    public CommandCategory getCategory() {
+        return CommandCategory.STAFF;
+    }
+
+    @Override
+    public Permission getRequiredPermission() {
+        return Permission.BAN_MEMBERS;
+    }
+
+    @Override
+    public String getUsage(String prefix) {
+        return "ban` `<@member>` `[reason]`";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 }

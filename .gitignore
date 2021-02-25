@@ -1,5 +1,5 @@
 .idea/
 .gradle/
 target
-resources/
+src/main/resources/
 config.json/

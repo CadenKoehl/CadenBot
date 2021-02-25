@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class HelpCommand extends Command {
+public class Help extends Command {
 
     @Override
     public void execute(GuildMessageReceivedEvent event) {
@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
 
         if(args.length == 1) {
             EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("What do you need help with?");
+            embed.setAuthor("What do you need help with?", null, event.getAuthor().getEffectiveAvatarUrl());
             embed.setColor(EmbedColor.random());
             for(CommandCategory category : categories) {
                 embed.appendDescription("\n" + prefix + "help " + category.getAliases()[0]);
@@ -46,6 +46,10 @@ public class HelpCommand extends Command {
                         embed.appendDescription("\n`" + prefix + cmd.getName() + "` - " + cmd.getDescription());
                     }
                     embed.appendDescription("\n**For more info on a command**, type `" + prefix + "help` `[command name]`");
+                    if(category.isStaff() && !event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+                        event.getChannel().sendMessage(":x: You must have the **Ban Members** permission to view this category!").queue();
+                        return;
+                    }
                     event.getChannel().sendMessage(embed.build()).queue();
                     return;
                 }
@@ -58,6 +62,13 @@ public class HelpCommand extends Command {
                     embed.addField("Description:", cmd.getDescription(), false);
                     embed.addField("Usage:", "`" + prefix + cmd.getUsage(prefix), false);
                     embed.addField("Category:", category.getDisplayName(), false);
+                    if(cmd.getRequiredPermission() != null) {
+                        embed.addField("Required Permission:", cmd.getRequiredPermission().getName(), false);
+                    }
+                    if(!event.getMember().hasPermission(cmd.getRequiredPermission())) {
+                        event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
+                        return;
+                    }
                     if(cmd.getAliases().length != 0) {
                         embed.addField("Aliases:", Arrays.toString(cmd.getAliases()), false);
                     }

@@ -29,6 +29,7 @@ import com.cadenkoehl.cadenbot.staff.commands.mute.TempMute;
 import com.cadenkoehl.cadenbot.staff.commands.mute.UnmuteCmd;
 import com.cadenkoehl.cadenbot.staff.commands.suggest.*;
 import com.cadenkoehl.cadenbot.staff.commands.warn.ClearWarns;
+import com.cadenkoehl.cadenbot.staff.commands.warn.Unban;
 import com.cadenkoehl.cadenbot.staff.commands.warn.WarnCmd;
 import com.cadenkoehl.cadenbot.staff.automod.logging.*;
 import net.dv8tion.jda.api.JDABuilder;
@@ -44,12 +45,11 @@ public class Registry {
 
                         //General Commands
                         new Info(),
-                        new HelpCommand(),
+                        new Help(),
                         new EmbedCmd(),
                         new ReactionRoles(),
                         new FakeUser(),
                         new Invite(),
-                        new Prefix(),
                         new UserInfo(),
                         new ReactionVote(),
                         new ServerInfo(),
@@ -94,11 +94,20 @@ public class Registry {
                         new Leave(),
 
                         //Staff
+                        new Prefix(),
                         new MuteCmd(),
                         new UnmuteCmd(),
                         new TempMute(),
                         new WarnCmd(),
                         new ClearWarns(),
+                        new Ban(),
+                        new Unban(),
+                        new Kick(),
+
+                        //AutoMod
+                        new LogChannel(),
+                        new LoggingOff(),
+                        new LoggingOff.Help(),
 
                         //Suggestions
                         new SuggestCmd(),
@@ -118,15 +127,12 @@ public class Registry {
                 register(new JoinMsgs(), jda);
                 register(new LeaveMsgs(), jda);
                 register(new JoinServer(), jda);
-                register(new Ban(), jda);
-                register(new Kick(), jda);
                 register(new MuteManager(), jda);
                 register(new Levels(), jda);
                 register(new ReactionRoleListener(), jda);
                 register(new Xp(), jda);
                 register(new TimeOut(), jda);
                 register(new Guess(), jda);
-                register(new LogChannel(), jda);
                 register(new GuildUpdates(), jda);
                 register(new MemberUpdates(), jda);
                 register(new RoleUpdates(), jda);
