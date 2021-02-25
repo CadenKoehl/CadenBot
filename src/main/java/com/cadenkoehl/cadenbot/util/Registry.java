@@ -1,11 +1,11 @@
 package com.cadenkoehl.cadenbot.util;
 
 import com.cadenkoehl.cadenbot.commands.*;
-import com.cadenkoehl.cadenbot.commands.util.Commands;
+import com.cadenkoehl.cadenbot.commands.command_handler.Command;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
 import com.cadenkoehl.cadenbot.dms.DmReactions;
 import com.cadenkoehl.cadenbot.fun.ImageGenTest;
 import com.cadenkoehl.cadenbot.fun.YesOrNo;
-import com.cadenkoehl.cadenbot.help.*;
 import com.cadenkoehl.cadenbot.fun.Hack;
 import com.cadenkoehl.cadenbot.fun.PpSizeMachine;
 import com.cadenkoehl.cadenbot.fun.hangman.Guess;
@@ -16,94 +16,128 @@ import com.cadenkoehl.cadenbot.joinleave.LeaveMsgs;
 import com.cadenkoehl.cadenbot.joinleave.config.*;
 import com.cadenkoehl.cadenbot.levels.*;
 import com.cadenkoehl.cadenbot.music.*;
+import com.cadenkoehl.cadenbot.music.extra_help_info.FavoriteAdd;
+import com.cadenkoehl.cadenbot.music.extra_help_info.FavoriteList;
+import com.cadenkoehl.cadenbot.music.extra_help_info.FavoritePlay;
+import com.cadenkoehl.cadenbot.music.extra_help_info.FavoriteRemove;
+import com.cadenkoehl.cadenbot.reactionroles.ReactionRoleListener;
 import com.cadenkoehl.cadenbot.reactionroles.ReactionRoles;
 import com.cadenkoehl.cadenbot.staff.commands.*;
 import com.cadenkoehl.cadenbot.staff.commands.mute.MuteCmd;
 import com.cadenkoehl.cadenbot.staff.commands.mute.MuteManager;
+import com.cadenkoehl.cadenbot.staff.commands.mute.TempMute;
+import com.cadenkoehl.cadenbot.staff.commands.mute.UnmuteCmd;
 import com.cadenkoehl.cadenbot.staff.commands.suggest.*;
 import com.cadenkoehl.cadenbot.staff.commands.warn.ClearWarns;
 import com.cadenkoehl.cadenbot.staff.commands.warn.WarnCmd;
-import com.cadenkoehl.cadenbot.staff.logging.*;
+import com.cadenkoehl.cadenbot.staff.automod.logging.*;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Arrays;
+
 
 public class Registry {
-    public static void registerListeners(JDABuilder jda) {
-            register(new Help(), jda);
-            register(new Info(), jda);
-            register(new ReactionVote(), jda);
-            register(new JoinMsgs(), jda);
-            register(new LeaveMsgs(), jda);
-            register(new Invite(), jda);
-            register(new JoinServer(), jda);
-            register(new YesOrNo(), jda);
-            register(new HelpCommands(), jda);
-            register(new HelpFun(), jda);
-            register(new HelpStaff(), jda);
-            register(new Ban(), jda);
-            register(new Kick(), jda);
-            register(new MuteManager(), jda);
-            register(new MuteCmd(), jda);
-            register(new EmbedCmd(), jda);
-            register(new HelpEmbeds(), jda);
-            register(new FakeUser(), jda);
-            register(new UserInfo(), jda);
-            register(new ServerInfo(), jda);
-            register(new PpSizeMachine(), jda);
-            register(new Prefix(), jda);
-            register(new Levels(), jda);
-            register(new RankCard(), jda);
-            register(new SetLevel(), jda);
-            register(new HelpLevels(), jda);
-            register(new CustomChannel(), jda);
-            register(new IgnoreChannel(), jda);
-            register(new ReactionRoles(), jda);
-            register(new HelpReactionRoles(), jda);
-            register(new Hack(), jda);
-            register(new Leaderboard(), jda);
-            register(new Xp(), jda);
-            register(new Join(), jda);
-            register(new Leave(), jda);
-            register(new Play(), jda);
-            register(new Stop(), jda);
-            register(new Skip(), jda);
-            register(new CurrentSong(), jda);
-            register(new Queue(), jda);
-            register(new TimeOut(), jda);
-            register(new HelpMusic(), jda);
-            register(new Hangman(), jda);
-            register(new Guess(), jda);
-            register(new LogChannel(), jda);
-            register(new JoinChannel(), jda);
-            register(new LeaveChannel(), jda);
-            register(new HelpWelcomeMsgs(), jda);
-            register(new JoinMsg(), jda);
-            register(new LeaveMsg(), jda);
-            register(new RandomMsgs(), jda);
-            register(new LevelMessage(), jda);
-            register(new Loop(), jda);
-            register(new WarnCmd(), jda);
-            register(new ClearWarns(), jda);
-            register(new ImageGenTest(), jda);
-            register(new HelpSuggestions(), jda);
-            register(new SuggestCmd(), jda);
-            register(new SuggestApprove(), jda);
-            register(new SuggestDeny(), jda);
-            register(new SuggestConsider(), jda);
-            register(new SuggestChannel(), jda);
-            register(new GuildUpdates(), jda);
-            register(new MemberUpdates(), jda);
-            register(new RoleUpdates(), jda);
-            register(new TextChannelUpdates(), jda);
-            register(new VoiceChannelUpdates(), jda);
-            register(new CategoryUpdates(), jda);
-            register(new DmReactions(), jda);
-            register(new Ready(), jda);
-            register(new Commands(), jda);
-            register(new Favorite(), jda);
-    }
-    private static void register(ListenerAdapter listener, JDABuilder jda) {
-        jda.addEventListeners(listener);
-    }
+
+        public static void registerCommands() {
+                register(
+
+                        //General Commands
+                        new Info(),
+                        new HelpCommand(),
+                        new EmbedCmd(),
+                        new ReactionRoles(),
+                        new FakeUser(),
+                        new Invite(),
+                        new Prefix(),
+                        new UserInfo(),
+                        new ReactionVote(),
+                        new ServerInfo(),
+
+                        //Fun Commands
+                        new Hangman(),
+                        new Hack(),
+                        new ImageGenTest(),
+                        new PpSizeMachine(),
+                        new YesOrNo(),
+
+                        //Join-leave Messages
+                        new JoinChannel(),
+                        new JoinMsg(),
+                        new LeaveChannel(),
+                        new LeaveMsg(),
+                        new RandomMsgs(),
+
+                        //Levels
+                        new RankCard(),
+                        new Leaderboard(),
+                        new LevelMessage(),
+                        new LevelChannel(),
+                        new SetLevel(),
+                        new IgnoreChannel(),
+                        new UnignoreChannel(),
+                        new IgnoredChannelList(),
+
+                        //Music
+                        new Join(),
+                        new Play(),
+                        new CurrentSong(),
+                        new Queue(),
+                        new Skip(),
+                        new Repeat(),
+                        new Favorite(),
+                        new FavoriteAdd(),
+                        new FavoriteList(),
+                        new FavoritePlay(),
+                        new FavoriteRemove(),
+                        new Stop(),
+                        new Leave(),
+
+                        //Staff
+                        new MuteCmd(),
+                        new UnmuteCmd(),
+                        new TempMute(),
+                        new WarnCmd(),
+                        new ClearWarns(),
+
+                        //Suggestions
+                        new SuggestCmd(),
+                        new SuggestApprove(),
+                        new SuggestConsider(),
+                        new SuggestDeny(),
+                        new SuggestChannel()
+                );
+        }
+
+        private static void register(Command... commands) {
+                CommandHandler.commands.addAll(Arrays.asList(commands));
+        }
+
+
+        public static void registerListeners(JDABuilder jda) {
+                register(new JoinMsgs(), jda);
+                register(new LeaveMsgs(), jda);
+                register(new JoinServer(), jda);
+                register(new Ban(), jda);
+                register(new Kick(), jda);
+                register(new MuteManager(), jda);
+                register(new Levels(), jda);
+                register(new ReactionRoleListener(), jda);
+                register(new Xp(), jda);
+                register(new TimeOut(), jda);
+                register(new Guess(), jda);
+                register(new LogChannel(), jda);
+                register(new GuildUpdates(), jda);
+                register(new MemberUpdates(), jda);
+                register(new RoleUpdates(), jda);
+                register(new TextChannelUpdates(), jda);
+                register(new VoiceChannelUpdates(), jda);
+                register(new CategoryUpdates(), jda);
+                register(new DmReactions(), jda);
+                register(new Ready(), jda);
+
+        }
+        private static void register(ListenerAdapter listener, JDABuilder jda) {
+                jda.addEventListeners(listener);
+        }
 }

@@ -1,55 +1,46 @@
 package com.cadenkoehl.cadenbot.commands;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
-import com.cadenkoehl.cadenbot.CadenBot;
-
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.Command;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class ReactionVote extends ListenerAdapter {
-	private static String id;
-	private static String prefix = "-";
-	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-		id = event.getGuild().getId();
-		String[] args = event.getMessage().getContentRaw().split("\\s+"); {
-			if (args[0].equalsIgnoreCase(getPrefix() + "vote")) {
-				event.getMessage().addReaction("✅").queue();
-				event.getMessage().addReaction("❌").queue();
-				System.out.println((String.format("==========\n[COMMAND] %s ran command \"%s\", on server \"%s\"", event.getAuthor().getAsTag(), event.getMessage().getContentDisplay(), event.getGuild().getName())));
-		};
-		}
+public class ReactionVote extends Command {
+
+	@Override
+	public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+		event.getMessage().addReaction("✅").queue();
+		event.getMessage().addReaction("❌").queue();
 	}
 
-	public void onPrivateMessageReceived(PrivateMessageReceivedEvent event) {
-		String[] args = event.getMessage().getContentRaw().split("\\s+");
-			if (args[0].equalsIgnoreCase(CadenBot.prefix + "vote")) {
-				event.getChannel().sendTyping().delay(500L, TimeUnit.MILLISECONDS).complete();
-				event.getChannel().sendMessage("That command isn't available in private messages!").queue();
-		}
+	@Override
+	public String getName() {
+		return "vote";
 	}
 
-	private static String getPrefix() {
-		File file;
-		try {
-			file = new File(CadenBot.dataDirectory + "prefix/" + id + ".txt");
-			Scanner scan = new Scanner(file);
-			prefix = scan.nextLine();
-		}
-		catch (FileNotFoundException ex) {
-			prefix = "-";
-		}
-		catch (IOException ex) {
-			ex.printStackTrace();
-			CadenBot.jda.getTextChannelById(Constants.CADENBOTBUGSCHANNEL).sendMessage(CadenBot.jda.getUserById(Constants.CadenID).getAsMention() + " help! There is a huge bug in my code!! Someone tried to run a command, and this happened: " +
-					ex).queue();
-		}
-		return prefix;
+	@Override
+	public String getDescription() {
+		return "Turn your message into a vote!";
+	}
+
+	@Override
+	public CommandCategory getCategory() {
+		return CommandCategory.COMMAND;
+	}
+
+	@Override
+	public Permission getRequiredPermission() {
+		return null;
+	}
+
+	@Override
+	public String getUsage(String prefix) {
+		return "vote` `[something to vote on]`";
+	}
+
+	@Override
+	public String[] getAliases() {
+		return new String[]{"pull"};
 	}
 }

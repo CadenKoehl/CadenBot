@@ -69,10 +69,12 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Suggest.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestDeny.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/LogChannel.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/util/IncorrectUsageException.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/SystemMessageManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/CurrentSong.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/help/HelpLevels.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/Constants.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/util/Commands.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Play.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/rpg/util/Player.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestChannel.java
@@ -83,7 +85,9 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Test.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/lavaplayer/MusicManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/logging/GuildUpdates.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/util/Command.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Webhooks.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Favorite.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestionManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Queue.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/LeaveMsg.java

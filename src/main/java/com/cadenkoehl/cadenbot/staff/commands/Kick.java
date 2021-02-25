@@ -1,6 +1,6 @@
 package com.cadenkoehl.cadenbot.staff.commands;
 
-import com.cadenkoehl.cadenbot.staff.logging.Logger;
+import com.cadenkoehl.cadenbot.staff.automod.logging.AuditLogger;
 import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -57,7 +57,7 @@ public class Kick extends ListenerAdapter {
                 });
                 member.kick().queue();
                 event.getChannel().sendMessage(embed.build()).queue();
-                Logger.log(embed.build(), event.getGuild());
+                AuditLogger.log(embed.build(), event.getGuild());
             }
             catch (HierarchyException ex) {
                 event.getChannel().sendMessage(":x: You can't kick a moderator!").queue();

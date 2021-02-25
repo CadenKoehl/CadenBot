@@ -1,80 +1,89 @@
 package com.cadenkoehl.cadenbot.levels;
 
 import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.Command;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.util.ExceptionHandler;
+import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.List;
 
-public class SetLevel extends ListenerAdapter {
-    private static String prefix;
-    private static String id;
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        id = event.getGuild().getId();
-        String[] args = event.getMessage().getContentRaw().split("\\s+");
-        if(args[0].equalsIgnoreCase(getPrefix() + "setlevel")) {
-            if(!event.getMember().getUser().isBot()) {
-                if(event.getMember().isOwner()) {
-                    try {
-                        Member member = event.getMessage().getMentionedMembers().get(0);
-                        if(!member.getUser().isBot()) {
-                            String memberId = member.getId();
-                            String amount = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
-                            int amountInt = Integer.parseInt(amount);
-                            File file = new File(CadenBot.dataDirectory + "levels/" + id + " " + memberId + ".txt");
-                            if(!file.exists()) {
-                                file.createNewFile();
-                            }
-                            FileWriter write = new FileWriter(file);
-                            write.write(String.valueOf(amountInt));
-                            write.close();
-                            event.getChannel().sendMessage("Set " + member.getEffectiveName() + "'s level to " + amount).queue();
-                        }
-                        if(member.getUser().isBot()) {
-                            event.getChannel().sendMessage("Sorry, **" + member.getEffectiveName() + "** is a bot, and isn't invited to the super cool rank party").queue();
-                        }
-                    }
-                    catch (IndexOutOfBoundsException ex) {
-                        event.getChannel().sendMessage("Please specify a member!").queue();
-                    }
-                    catch (IOException ex) {
-                        event.getChannel().sendMessage("A fatal error has occurred! If this issue persists, please join the support server! (type " + getPrefix() + "help").queue();
-                    }
-                    catch (NumberFormatException ex) {
-                        event.getChannel().sendMessage("Invalid Level!").queue();
-                    }
-                }
+public class SetLevel extends Command {
 
-                if(!event.getMember().isOwner()) {
-                    event.getChannel().sendMessage("You must be the server owner to use this command!").queue();
-                }
-            }
+    @Override
+    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+        if(!event.getMember().isOwner())  {
+            event.getChannel().sendMessage(":x: You must be the server owner to use this command!").queue();
+            return;
         }
-    }
-    private static String getPrefix() {
-        File file;
+        String[] args = this.getArgs(event);
+        String guildId = event.getGuild().getId();
+        List<Member> members = event.getMessage().getMentionedMembers();
+        if (args.length != 3) {
+            throw new IncorrectUsageException(this, event);
+        }
+        if (members.size() == 0) {
+            throw new IncorrectUsageException("Please specify a member!", this, event);
+        }
+        Member member = members.get(0);
+        if (member.getUser().isBot()) {
+            event.getChannel().sendMessage("Sorry, **" + member.getEffectiveName() + "** is a bot, and isn't invited to the super cool rank party").queue();
+            return;
+        }
+        String memberId = member.getId();
+        int amount;
         try {
-            file = new File(CadenBot.dataDirectory + "prefix/" + id + ".txt");
-            Scanner scan = new Scanner(file);
-            prefix = scan.nextLine();
+            amount = Integer.parseInt(args[2]);
+        } catch (NumberFormatException ex) {
+            throw new IncorrectUsageException("Invalid Number!", this, event);
         }
-        catch (FileNotFoundException ex) {
-            prefix = "-";
+        File file = new File(CadenBot.dataDirectory + "levels/" + guildId + " " + memberId + ".txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter write = new FileWriter(file);
+            write.write(String.valueOf(amount));
+            write.close();
+        } catch (IOException ex) {
+            ExceptionHandler.sendStackTrace(ex);
         }
-        catch (IOException ex) {
-            ex.printStackTrace();
-            CadenBot.jda.getTextChannelById(Constants.CADENBOTBUGSCHANNEL).sendMessage(CadenBot.jda.getUserById(Constants.CadenID).getAsMention() + " help! There is a huge bug in my code!! Someone tried to run a command, and this happened: " +
-                    ex).queue();
-        }
-        return prefix;
+        event.getChannel().sendMessage("Set " + member.getEffectiveName() + "'s level to " + amount).queue();
+    }
+
+    @Override
+    public String getName() {
+        return "setlevel";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Allows staff to set a member's level!";
+    }
+
+    @Override
+    public CommandCategory getCategory() {
+        return CommandCategory.LEVELS;
+    }
+
+    @Override
+    public Permission getRequiredPermission() {
+        return Permission.ADMINISTRATOR;
+    }
+
+    @Override
+    public String getUsage(String prefix) {
+        return "setlevel` `<@member>` `[number]`";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 }

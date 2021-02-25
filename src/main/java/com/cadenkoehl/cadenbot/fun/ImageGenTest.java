@@ -1,41 +1,68 @@
 package com.cadenkoehl.cadenbot.fun;
 
-import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.Command;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class ImageGenTest extends ListenerAdapter {
+public class ImageGenTest extends Command {
+
     @Override
-    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
-        String[] args = event.getMessage().getContentRaw().split("\\s+");
-        String prefix = Constants.getPrefix(event.getGuild().getId());
-        if(args[0].equalsIgnoreCase(prefix + "image")) {
-            try {
-                BufferedImage image = ImageIO.read(new File(CadenBot.dataDirectory + "resources/image.png"));
-                Graphics g = image.getGraphics();
-                String message = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
-                g.setFont(new Font("Arial", 1, 50));
-                g.drawString(message, 24, 100);
-                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-                ImageIO.write(image, "png", outStream);
-                ByteArrayInputStream finalImage = new ByteArrayInputStream(outStream.toByteArray());
-                event.getChannel().sendFile(finalImage, "img.png").queue();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+        try {
+            BufferedImage image = ImageIO.read(new URL(event.getAuthor().getEffectiveAvatarUrl()));
+            Graphics g = image.getGraphics();
+            String message = Arrays.stream(this.getArgs(event)).skip(1).collect(Collectors.joining(" "));
+            g.setFont(new Font("Arial", 1, 50));
+            g.drawString(message, 24, 100);
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", outStream);
+            ByteArrayInputStream finalImage = new ByteArrayInputStream(outStream.toByteArray());
+            event.getChannel().sendFile(finalImage, event.getAuthor().getName() + ".png").queue();
         }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getName() {
+        return "image";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Test out the image generation feature!";
+    }
+
+    @Override
+    public CommandCategory getCategory() {
+        return CommandCategory.FUN;
+    }
+
+    @Override
+    public Permission getRequiredPermission() {
+        return null;
+    }
+
+    @Override
+    public String getUsage(String prefix) {
+        return "image` `[message]`";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[0];
     }
 }

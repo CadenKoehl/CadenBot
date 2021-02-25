@@ -17,7 +17,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class WarningManager {
-    public void warn(Member member, TextChannel channel, String reason) {
+    public void warn(Member member, TextChannel channel, String reason, Member moderator) {
         try {
             Guild guild = member.getGuild();
             String guildId = guild.getId();
@@ -34,6 +34,7 @@ public class WarningManager {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setColor(EmbedColor.RED);
                 embed.setAuthor(member.getUser().getAsTag() + " was warned!", null, member.getUser().getEffectiveAvatarUrl());
+                embed.setFooter("Moderator: " + moderator.getUser().getAsTag(), moderator.getUser().getEffectiveAvatarUrl());
                 embed.setDescription("Reason: " + reason);
                 channel.sendMessage(embed.build()).queue();
                 String channelId;
@@ -60,6 +61,7 @@ public class WarningManager {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setColor(EmbedColor.RED);
                 embed.setAuthor(member.getUser().getAsTag() + " was warned!", null, member.getUser().getEffectiveAvatarUrl());
+                embed.setFooter("Moderator: " + moderator.getUser().getAsTag(), moderator.getUser().getEffectiveAvatarUrl());
                 embed.setDescription("Reason: " + reason);
                 channel.sendMessage(embed.build()).queue();
                 String channelId;
@@ -87,6 +89,7 @@ public class WarningManager {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setColor(EmbedColor.RED);
                 embed.setAuthor(member.getUser().getAsTag() + " was warned!", null, member.getUser().getEffectiveAvatarUrl());
+                embed.setFooter("Moderator: " + moderator.getUser().getAsTag(), moderator.getUser().getEffectiveAvatarUrl());
                 embed.setDescription("Reason: " + reason);
                 channel.sendMessage(embed.build()).queue();
                 String channelId;
@@ -102,16 +105,7 @@ public class WarningManager {
                     }
                     logChannel.sendMessage(embed.build()).queue();
                 }
-                MuteManager.mute(member, channel, "Too Many Infractions (5 Minute Mute)");
-                List<Role> roles = guild.getRolesByName("Muted", true);
-                if(roles.size() == 0) {
-                    return;
-                }
-                guild.removeRoleFromMember(member, roles.get(0)).queueAfter(5, TimeUnit.MINUTES);
-                EmbedBuilder unmute = new EmbedBuilder();
-                unmute.setAuthor(member.getUser().getAsTag() + " was unmuted!", null, member.getUser().getEffectiveAvatarUrl());
-                unmute.setColor(EmbedColor.GREEN);
-                channel.sendMessage(unmute.build()).queueAfter(5, TimeUnit.MINUTES);
+                MuteManager.tempMute(member, channel, "Too Many Infractions", 5, TimeUnit.MINUTES, guild.getSelfMember());
                 return;
             }
             FileWriter write = new FileWriter(file);
@@ -121,6 +115,7 @@ public class WarningManager {
             embed.setColor(EmbedColor.RED);
             embed.setAuthor(member.getUser().getAsTag() + " was warned!", null, member.getUser().getEffectiveAvatarUrl());
             embed.setDescription("Reason: " + reason);
+            embed.setFooter("Moderator: " + moderator.getUser().getAsTag(), moderator.getUser().getEffectiveAvatarUrl());
             channel.sendMessage(embed.build()).queue();
             String channelId;
             channelId = LogChannel.getLogChannelId(member.getGuild());

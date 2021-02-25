@@ -1,164 +1,131 @@
 package com.cadenkoehl.cadenbot.reactionroles;
 
 import com.cadenkoehl.cadenbot.CadenBot;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.Command;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.util.ExceptionHandler;
+import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReactionRoles extends ListenerAdapter {
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        String[] args = event.getMessage().getContentRaw().split("\\s+");
-        String guildId = event.getGuild().getId();
-        String prefix = Constants.getPrefix(guildId);
-        if(args[0].equalsIgnoreCase(prefix + "reactionrole") || args[0].equalsIgnoreCase(prefix + "rr")) {
-            if(!event.getAuthor().isBot()) {
-                if(event.getMember().hasPermission(Permission.MANAGE_ROLES)) {
+public class ReactionRoles extends Command {
+    @Override
+    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+        String prefix = this.getPrefix(event);
+        String[] args = this.getArgs(event);
+        List<TextChannel> channels = event.getMessage().getMentionedChannels();
+        List<Role> roles = event.getMessage().getMentionedRoles();
+
+        if(channels.size() == 0) {
+            throw new IncorrectUsageException("You must specify a channel!", this, event);
+        }
+
+        if(roles.size() == 0) {
+            throw new IncorrectUsageException("You must specify a role!", this, event);
+        }
+
+        TextChannel channel = channels.get(0);
+        Role role = roles.get(0);
+
+        String content = Arrays.stream(args).skip(4).collect(Collectors.joining(" "));
+
+        if(content.isEmpty()) {
+            throw new IncorrectUsageException("Please specify the message content!", this, event);
+        }
+
+        if(event.getMessage().getEmotes().size() != 0) {
+            Emote emote = event.getMessage().getEmotes().get(0);
+            channel.sendMessage(content).queue((message -> {
+                try {
+                    message.addReaction(emote).queue();
+                }
+                catch (IllegalArgumentException ex) {
+                    message.delete().queue();
+                    event.getChannel().sendMessage(":x: The emoji must either be a default Discord emoji, or a custom emoji from this server! If you need help, please join the support server! (type " + prefix + "help)").queue();
+                }
+
+                File file = new File(CadenBot.dataDirectory + "reactionroles/" + message.getId() + ".txt");
+                if(!file.exists()) {
                     try {
-                        TextChannel channel = event.getMessage().getMentionedChannels().get(0);
-                        Role role = event.getMessage().getMentionedRoles().get(0);
-                        String content = Arrays.stream(args).skip(4).collect(Collectors.joining(" "));
-
-                        if(event.getMessage().getEmotes().size() != 0) {
-                            Emote emote = event.getMessage().getEmotes().get(0);
-                            channel.sendMessage(content).queue((message -> {
-                                try {
-                                    message.addReaction(emote).queue();
-                                }
-                                catch (IllegalArgumentException ex) {
-                                    message.delete().queue();
-                                    event.getChannel().sendMessage("Error: The emoji must either be a default Discord emoji, or a custom emoji from this server! If you need help, please join the support server! (type " + prefix + "help)").queue();
-                                }
-
-                                File file = new File(CadenBot.dataDirectory + "reactionroles/" + message.getId() + ".txt");
-                                if(!file.exists()) {
-                                    try {
-                                        file.createNewFile();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                FileWriter write;
-                                try {
-                                    write = new FileWriter(file);
-                                    write.write(role.getId() + " " + emote.getId());
-                                    write.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }));
-                        }
-                        if(event.getMessage().getEmotes().size() == 0) {
-                            String emote = args[3];
-                            channel.sendMessage(content).queue((message -> {
-                                message.addReaction(emote).queue();
-
-                                File file = new File(CadenBot.dataDirectory + "reactionroles/" + message.getId() + ".txt");
-                                if(!file.exists()) {
-                                    try {
-                                        file.createNewFile();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                FileWriter write;
-                                try {
-                                    write = new FileWriter(file);
-                                    write.write(role.getId() + " " + emote);
-                                    write.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }));
-                        }
-
-                        event.getMessage().reply("**Success!** Your reaction role was saved in " + channel.getAsMention()).mentionRepliedUser(false).queue();
-                    }
-                    catch (IndexOutOfBoundsException ex) {
-                        event.getMessage().reply("**Incomplete command!**\nUsage: `" + prefix + "reactionrole` `<#channel>` `<@role>` `<emote>` `[message-content]`").mentionRepliedUser(false).queue();
-                    }
-                    catch (IllegalArgumentException ex) {
-                        event.getMessage().reply("You must supply message content, as I cannot send an empty message!").mentionRepliedUser(false).queue();
+                        file.createNewFile();
+                    } catch (IOException e) {
+                        ExceptionHandler.sendStackTrace(e);
                     }
                 }
-                if(!event.getMember().hasPermission(Permission.MANAGE_ROLES)) {
-                 event.getChannel().sendMessage("You must have the `manage_roles` permission to use that command!").queue();
-                }
-            }
-        }
-    }
-    public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        if(!event.getMember().getUser().isBot()) {
-            String messageId = event.getMessageId();
-            Member member = event.getMember();
-            File file = new File(CadenBot.dataDirectory + "reactionroles/" + messageId + ".txt");
-            if(file.exists()) {
+                FileWriter write;
                 try {
-                    if(event.getReactionEmote().isEmote()) {
-                        Scanner scan = new Scanner(file);
-                        String contents = scan.nextLine();
-                        String[] roleId = contents.split("\\s+");
-                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmote().getId())) {
-                            event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(roleId[0])).queue();
-                        }
-                    }
-                    if(event.getReactionEmote().isEmoji()) {
-                        Scanner scan = new Scanner(file);
-                        String contents = scan.nextLine();
-                        String[] roleId = contents.split("\\s+");
-                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmoji())) {
-                            event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(roleId[0])).queue();
-                        }
-                    }
+                    write = new FileWriter(file);
+                    write.write(role.getId() + " " + emote.getId());
+                    write.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                catch (FileNotFoundException exception) {
-                    exception.printStackTrace();
-                }
-            }
+            }));
         }
-    }
-    public void onGuildMessageReactionRemove(GuildMessageReactionRemoveEvent event) {
-        if(!event.getMember().getUser().isBot()) {
-            String messageId = event.getMessageId();
-            Member member = event.getMember();
-            File file = new File(CadenBot.dataDirectory + "reactionroles/" + messageId + ".txt");
-            if(file.exists()) {
+        if(event.getMessage().getEmotes().size() == 0) {
+            String emote = args[3];
+            channel.sendMessage(content).queue((message -> {
+                message.addReaction(emote).queue();
+
+                File file = new File(CadenBot.dataDirectory + "reactionroles/" + message.getId() + ".txt");
+                if(!file.exists()) {
+                    try {
+                        file.createNewFile();
+                    } catch (IOException e) {
+                        ExceptionHandler.sendStackTrace(e);
+                    }
+                }
+                FileWriter write;
                 try {
-                    if(event.getReactionEmote().isEmote()) {
-                        Scanner scan = new Scanner(file);
-                        String contents = scan.nextLine();
-                        String[] roleId = contents.split("\\s+");
-                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmote().getId())) {
-                            event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(roleId[0])).queue();
-                        }
-                    }
-                    if(event.getReactionEmote().isEmoji()) {
-                        Scanner scan = new Scanner(file);
-                        String contents = scan.nextLine();
-                        String[] roleId = contents.split("\\s+");
-                        String emoteId = Arrays.stream(roleId).skip(1).collect(Collectors.joining(" "));
-                        if(emoteId.equalsIgnoreCase(event.getReactionEmote().getEmoji())) {
-                            event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(roleId[0])).queue();
-                        }
-                    }
-                } catch (FileNotFoundException exception) {
-                    exception.printStackTrace();
+                    write = new FileWriter(file);
+                    write.write(role.getId() + " " + emote);
+                    write.close();
+                } catch (IOException e) {
+                    ExceptionHandler.sendStackTrace(e);
                 }
-            }
+            }));
         }
+
+        event.getMessage().reply("**Success!** Your reaction role was saved in " + channel.getAsMention()).mentionRepliedUser(false).queue();
+    }
+
+    @Override
+    public String getName() {
+        return "reactionrole";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Create unlimited, fully customizable reaction roles for your server!";
+    }
+
+    @Override
+    public CommandCategory getCategory() {
+        return CommandCategory.COMMAND;
+    }
+
+    @Override
+    public Permission getRequiredPermission() {
+        return Permission.MANAGE_ROLES;
+    }
+
+    @Override
+    public String getUsage(String prefix) {
+        return "reactionrole` `<#channel>` `<@role>` `<emoji>` `[message content]`";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"rr"};
     }
 }

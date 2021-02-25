@@ -13,6 +13,7 @@ com/cadenkoehl/cadenbot/rpg/util/Player.class
 com/cadenkoehl/cadenbot/commands/Info.class
 com/cadenkoehl/cadenbot/staff/logging/GuildUpdates.class
 com/cadenkoehl/cadenbot/music/lavaplayer/TrackScheduler.class
+com/cadenkoehl/cadenbot/commands/util/Commands.class
 com/cadenkoehl/cadenbot/dms/DmReactions.class
 com/cadenkoehl/cadenbot/reactionroles/ReactionRoles.class
 com/cadenkoehl/cadenbot/music/Skip.class
@@ -49,6 +50,7 @@ com/cadenkoehl/cadenbot/music/lavaplayer/AudioPlayerSendHandler.class
 com/cadenkoehl/cadenbot/help/HelpLevels.class
 com/cadenkoehl/cadenbot/staff/commands/warn/WarningManager.class
 com/cadenkoehl/cadenbot/commands/Webhooks$EmbedObject$Field.class
+com/cadenkoehl/cadenbot/commands/util/Command.class
 com/cadenkoehl/cadenbot/staff/commands/mute/MuteCmd.class
 com/cadenkoehl/cadenbot/help/HelpCommands.class
 com/cadenkoehl/cadenbot/help/HelpSuggestions.class
@@ -88,6 +90,8 @@ com/cadenkoehl/cadenbot/levels/Leaderboard.class
 com/cadenkoehl/cadenbot/util/Ready.class
 com/cadenkoehl/cadenbot/util/EmbedColor.class
 com/cadenkoehl/cadenbot/rpg/util/RpgManager.class
+com/cadenkoehl/cadenbot/commands/util/IncorrectUsageException.class
+com/cadenkoehl/cadenbot/music/Favorite.class
 com/cadenkoehl/cadenbot/help/HelpWelcomeMsgs.class
 com/cadenkoehl/cadenbot/staff/logging/CategoryUpdates.class
 com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestDeny.class

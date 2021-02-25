@@ -82,7 +82,8 @@ public class Levels extends ListenerAdapter {
             Scanner scan = new Scanner(file);
             String lvlRaw = scan.nextLine();
             return Integer.parseInt(lvlRaw);
-        } catch (FileNotFoundException exception) {
+        }
+        catch (FileNotFoundException ex) {
             return 0;
         }
     }

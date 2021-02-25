@@ -2,6 +2,7 @@ package com.cadenkoehl.cadenbot.util;
 
 import com.cadenkoehl.cadenbot.CadenBot;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Guild;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,6 +60,11 @@ public class Constants {
 				"document"
 		};
 	}
+
+	/**
+	 * @deprecated because the new {@code getPrefix()} method takes in a {@code guild} instead of a Guild ID. This makes writing a lot faster.
+	 */
+	@Deprecated
 	public static String getPrefix(String id) {
 		File file;
 		try {
@@ -71,6 +77,21 @@ public class Constants {
 		}
 		return prefix;
 	}
+
+	public static String getPrefix(Guild guild) {
+		String id = guild.getId();
+		File file;
+		try {
+			file = new File(CadenBot.dataDirectory + "prefix/" + id + ".txt");
+			Scanner scan = new Scanner(file);
+			prefix = scan.nextLine();
+		}
+		catch (FileNotFoundException ex) {
+			prefix = "-";
+		}
+		return prefix;
+	}
+
 	public static String getToken() {
 		File file = new File(CadenBot.dataDirectory + "token.txt");
 		Scanner scan = null;
@@ -81,6 +102,7 @@ public class Constants {
 		}
 		return scan.nextLine();
 	}
+
 	public static String getTestToken() {
 		File file = new File(CadenBot.dataDirectory + "testbot_token.txt");
 		Scanner scan = null;
@@ -91,4 +113,6 @@ public class Constants {
 		}
 		return scan.nextLine();
 	}
+
+
 }
