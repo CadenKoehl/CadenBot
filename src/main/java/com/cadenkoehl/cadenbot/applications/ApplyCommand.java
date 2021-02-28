@@ -15,14 +15,26 @@ public class ApplyCommand extends Command {
     public void execute(CommandEvent event) throws IncorrectUsageException {
         String[] args = event.getArgs();
         String prefix = event.getPrefix();
+
+        ApplicationManager manager = new ApplicationManager();
         Member member = event.getMember();
+        Application currentApp = manager.getApplicationByApplicant(member.getUser());
+
+        if(currentApp != null) {
+            event.getChannel().sendMessage(":x: You must complete your previous application before you can begin another!").queue();
+            return;
+        }
+
+        if(manager.getApplicationChannel(event.getGuild()) == null) {
+            event.getChannel().sendMessage(":x: You don't have a channel set for incoming applications! Type `" + prefix + "appchannel` `<#channel>`").queue();
+            return;
+        }
 
         if(args.length == 1) throw new IncorrectUsageException(event);
 
         String appName = args[1];
 
-        ApplicationManager applicationManager = new ApplicationManager();
-        Application application = applicationManager.getApplication(event.getGuild(), appName);
+        Application application = manager.getApplication(event.getGuild(), appName);
 
         if(application == null) {
             event.getChannel().sendMessage(":x: **Could not find an application by the name of **\"" + appName + "\"! Type `" + prefix + "listapps` to view all applications on this server!").queue();
@@ -30,8 +42,8 @@ public class ApplyCommand extends Command {
         }
 
         if(application.getQuestions().size() == 0) {
-            if(!member.hasPermission(Permission.MANAGE_SERVER)) event.getChannel().sendMessage(":x: There is nothing in this application! Please ask your server administrators to add some questions to it! (type `" + prefix + "help` applications`)").queue();
-            else event.getChannel().sendMessage(":x: There is nothing in this application! Please add some questions to it! (type `" + prefix + "help` applications`)").queue();
+            if(!member.hasPermission(Permission.MANAGE_SERVER)) event.getChannel().sendMessage(":x: There is nothing in this application! Please ask your server administrators to add some questions to it! (type `" + prefix + "help` `applications`)").queue();
+            else event.getChannel().sendMessage(":x: There is nothing in this application! Please add some questions to it! (type `" + prefix + "help` `applications`)").queue();
             return;
         }
         if(application.start(member)) event.getChannel().sendMessage(":white_check_mark: **Success**! Application started in DM!").queue();

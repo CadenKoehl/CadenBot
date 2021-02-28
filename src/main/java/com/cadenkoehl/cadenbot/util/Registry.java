@@ -107,8 +107,14 @@ public class Registry {
                         //Applications
                         new ApplyCommand(),
                         new CreateApp(),
+                        new DeleteApp(),
                         new ListApps(),
+                        new ViewApp(),
                         new AddQuestion(),
+                        new RemoveQuestion(),
+                        new AppChannel(),
+                        new SetPingRole(),
+                        new RemovePingRole(),
 
                         //AutoMod
                         new LogChannel(),

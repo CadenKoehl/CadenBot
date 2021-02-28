@@ -1,4 +1,5 @@
 com/cadenkoehl/cadenbot/commands/Invite.class
+com/cadenkoehl/cadenbot/applications/AppChannel.class
 com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestApprove.class
 com/cadenkoehl/cadenbot/levels/Xp.class
 com/cadenkoehl/cadenbot/staff/automod/logging/RoleUpdates.class
@@ -12,7 +13,6 @@ com/cadenkoehl/cadenbot/staff/commands/warn/Unban.class
 com/cadenkoehl/cadenbot/levels/UnignoreChannel.class
 com/cadenkoehl/cadenbot/commands/Info.class
 com/cadenkoehl/cadenbot/music/lavaplayer/TrackScheduler.class
-com/cadenkoehl/cadenbot/dms/DmReactions.class
 com/cadenkoehl/cadenbot/reactionroles/ReactionRoles.class
 com/cadenkoehl/cadenbot/music/Skip.class
 com/cadenkoehl/cadenbot/commands/Webhooks$EmbedObject$Image.class
@@ -29,6 +29,9 @@ com/cadenkoehl/cadenbot/levels/Levels.class
 com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestCmd.class
 com/cadenkoehl/cadenbot/staff/automod/logging/TextChannelUpdates.class
 com/cadenkoehl/cadenbot/fun/PpSizeMachine.class
+com/cadenkoehl/cadenbot/applications/ApplicationManager$1.class
+com/cadenkoehl/cadenbot/applications/ApplyCommand.class
+com/cadenkoehl/cadenbot/commands/command_handler/CommandEvent.class
 com/cadenkoehl/cadenbot/staff/commands/Ban.class
 com/cadenkoehl/cadenbot/music/CurrentSong.class
 com/cadenkoehl/cadenbot/staff/automod/logging/VoiceChannelUpdates.class
@@ -56,7 +59,10 @@ com/cadenkoehl/cadenbot/staff/commands/warn/WarningManager.class
 com/cadenkoehl/cadenbot/staff/commands/mute/TempMute.class
 com/cadenkoehl/cadenbot/commands/command_handler/CommandHandler.class
 com/cadenkoehl/cadenbot/commands/Webhooks$EmbedObject$Field.class
+com/cadenkoehl/cadenbot/applications/CreateApp.class
 com/cadenkoehl/cadenbot/staff/commands/mute/MuteCmd.class
+com/cadenkoehl/cadenbot/applications/Application.class
+com/cadenkoehl/cadenbot/util/Emoji.class
 com/cadenkoehl/cadenbot/staff/commands/LogChannel.class
 com/cadenkoehl/cadenbot/music/Leave.class
 com/cadenkoehl/cadenbot/util/data/Data.class
@@ -64,7 +70,9 @@ com/cadenkoehl/cadenbot/commands/ServerInfo.class
 com/cadenkoehl/cadenbot/fun/YesOrNo.class
 com/cadenkoehl/cadenbot/levels/IgnoreChannel.class
 com/cadenkoehl/cadenbot/CadenBot.class
+com/cadenkoehl/cadenbot/applications/ApplicationListeners.class
 com/cadenkoehl/cadenbot/commands/command_handler/Command.class
+com/cadenkoehl/cadenbot/applications/AddQuestion.class
 com/cadenkoehl/cadenbot/music/lavaplayer/MusicManager.class
 com/cadenkoehl/cadenbot/fun/hangman/Hangman.class
 com/cadenkoehl/cadenbot/commands/command_handler/CommandCategory.class
@@ -80,6 +88,7 @@ com/cadenkoehl/cadenbot/staff/automod/logging/GuildUpdates.class
 com/cadenkoehl/cadenbot/joinleave/config/LeaveMsg.class
 com/cadenkoehl/cadenbot/util/ExceptionHandler.class
 com/cadenkoehl/cadenbot/commands/Webhooks$EmbedObject$Thumbnail.class
+com/cadenkoehl/cadenbot/applications/ListApps.class
 com/cadenkoehl/cadenbot/joinleave/LeaveMsgs.class
 com/cadenkoehl/cadenbot/music/lavaplayer/PlayerManager.class
 com/cadenkoehl/cadenbot/levels/IgnoredChannelList.class
@@ -94,6 +103,7 @@ com/cadenkoehl/cadenbot/util/exceptions/IncorrectUsageException.class
 com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestConsider.class
 com/cadenkoehl/cadenbot/util/Constants.class
 com/cadenkoehl/cadenbot/music/Join.class
+com/cadenkoehl/cadenbot/applications/ApplicationManager.class
 com/cadenkoehl/cadenbot/levels/Leaderboard.class
 com/cadenkoehl/cadenbot/util/Ready.class
 com/cadenkoehl/cadenbot/util/EmbedColor.class
@@ -104,3 +114,4 @@ com/cadenkoehl/cadenbot/fun/Hack.class
 com/cadenkoehl/cadenbot/joinleave/config/JoinChannel.class
 com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestionManager.class
 com/cadenkoehl/cadenbot/music/TimeOut.class
+com/cadenkoehl/cadenbot/applications/DeleteApp.class

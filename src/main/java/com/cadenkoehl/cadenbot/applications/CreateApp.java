@@ -13,6 +13,13 @@ public class CreateApp extends Command {
         ApplicationManager appManager = new ApplicationManager();
 
         String[] args = event.getArgs();
+        String prefix = event.getPrefix();
+
+        if(appManager.getApplicationChannel(event.getGuild()) == null) {
+            event.getChannel().sendMessage(":x: You don't have a channel set for incoming applications! Type `" + prefix + "appchannel` `<#channel>`").queue();
+            return;
+        }
+
         if(args.length == 1) {
             throw new IncorrectUsageException("Please specify a name for the application!", this, event);
         }

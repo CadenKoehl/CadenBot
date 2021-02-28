@@ -1,21 +1,24 @@
 package com.cadenkoehl.cadenbot.applications;
 
 import com.cadenkoehl.cadenbot.CadenBot;
+import com.cadenkoehl.cadenbot.util.EmbedColor;
 import com.cadenkoehl.cadenbot.util.ExceptionHandler;
 import com.cadenkoehl.cadenbot.util.data.Data;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Scanner;
 
 public class ApplicationManager {
 
@@ -71,6 +74,30 @@ public class ApplicationManager {
 
     }
 
+    public void removeQuestion(Guild guild, String appName, int index) {
+        Application app = this.getApplication(guild, appName);
+        Data data = new Data();
+        JSONObject jsonObject = data.getJSONObjectFromFile(app.getFile().getPath());
+        JSONArray questions = jsonObject.getJSONArray("questions");
+        questions.remove(index);
+        String questionsString = questions.toString();
+
+        String jsonString = "{\n" +
+                "  \"name\": " + appName + ",\n" +
+                "  \"questions\": " + questionsString + "\n" +
+                "}";
+
+        try {
+            FileWriter write = new FileWriter(app.getFile());
+            write.write(jsonString);
+            write.close();
+        }
+        catch (IOException ex) {
+            ExceptionHandler.sendStackTrace(ex);
+            ex.printStackTrace();
+        }
+    }
+
     public Application getApplication(Guild guild, String name) {
         Data data = new Data();
         File file = new File(CadenBot.dataDirectory + "applications/" + guild.getId() + "/" + name + ".json");
@@ -110,7 +137,7 @@ public class ApplicationManager {
         Application application = this.getApplicationByApplicant(user);
         if(application == null) return -2;
 
-        File dir = new File(CadenBot.dataDirectory + "applications/applicants/" + application.getGuild() + "/");
+        File dir = new File(CadenBot.dataDirectory + "applications/applicants/" + application.getGuild().getId() + "/");
         if(dir.mkdirs()) System.out.println("Successfully created directory " + dir.getPath());
 
         File file = new File(dir, user.getId() + ".json");
@@ -125,7 +152,7 @@ public class ApplicationManager {
         Application application = this.getApplicationByApplicant(user);
         if(application == null) return;
 
-        File dir = new File(CadenBot.dataDirectory + "applications/applicants/" + application.getGuild() + "/");
+        File dir = new File(CadenBot.dataDirectory + "applications/applicants/" + application.getGuild().getId() + "/");
         if(dir.mkdirs()) System.out.println("Successfully created directory " + dir.getPath());
 
         File file = new File(dir, user.getId() + ".json");
@@ -167,24 +194,64 @@ public class ApplicationManager {
         return this.getApplication(guild, appName);
     }
 
+    public TextChannel getApplicationChannel(Guild guild) {
+        File dir = new File(CadenBot.dataDirectory + "applications/channel/");
+        if(dir.mkdirs()) System.out.println(dir.getPath() + " was created!");
+
+        File file = new File(dir, guild.getId() + ".txt");
+
+        Scanner scan;
+
+        try {
+            scan = new Scanner(file);
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println("File not found: returning null");
+            return null;
+        }
+        return guild.getTextChannelById(scan.nextLine());
+    }
+
+    public void setApplicationChannel(TextChannel channel) {
+        Guild guild = channel.getGuild();
+        File dir = new File(CadenBot.dataDirectory + "applications/channel/");
+        if(dir.mkdirs()) System.out.println(dir.getPath() + " was created!");
+
+        File file = new File(dir, guild.getId() + ".txt");
+
+        try {
+            FileWriter write = new FileWriter(file);
+            write.write(channel.getId());
+            write.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendQuestion(User applicant) {
         Application application = this.getApplicationByApplicant(applicant);
-
+        this.incrementApplicationState(applicant);
         String question;
         try {
             question = application.getQuestions().get(this.getApplicationState(applicant));
         }
         catch (IndexOutOfBoundsException ex) {
+            applicant.openPrivateChannel().queue(channel -> {
+                channel.sendMessage(":white_check_mark: **Done**! Your response has been recorded!").queue();
+                application.finish(applicant);
+            });
             return;
         }
         try {
             applicant.openPrivateChannel().queue(channel -> {
-                channel.sendMessage(question).queue();
-                this.incrementApplicationState(applicant);
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setAuthor(question, null, application.getGuild().getIconUrl());
+                embed.setColor(EmbedColor.GREEN);
+                channel.sendMessage(embed.build()).queue();
             });
         }
         catch (Exception ex) {
-            System.out.println();
+            ex.printStackTrace();
         }
     }
 
@@ -197,58 +264,44 @@ public class ApplicationManager {
         if(dir.mkdirs()) System.out.println("Created directory " + dir.getPath());
 
         File file = new File(dir, user.getId() + ".json");
-        JSONObject jsonObject = data.getJSONObjectFromFile(file.getPath());
-        if(jsonObject.isNull("responses")) {
-            try {
+
+        try {
+            if(file.createNewFile()) {
                 FileWriter write = new FileWriter(file);
                 write.write("{\n" +
-                        "  \"name\": " + application.getName() + ",\n" +
-                        "  \"guild\": " + guild.getId() + ",\n" +
-                        "  \"responses\": [\n\"" +
-                        response + "\"" +
-                        "    \n" +
-                        "  ]\n" +
+                        "  \"name\": \"" + application.getName() + "\",\n" +
+                        "  \"guild\": \"" + application.getGuild().getId() +"\",\n" +
+                        "  \"responses\": []\n" +
                         "}");
-                return;
+                write.close();
+                System.out.println("test");
             }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        JSONArray responses = jsonObject.getJSONArray("responses");
-        responses.put(responses);
-        try {
+
+            JSONObject jsonObject = data.getJSONObjectFromFile(file.getPath());
+            JSONArray responses = jsonObject.getJSONArray("responses");
+            responses.put(response);
+
             FileWriter write = new FileWriter(file);
             write.write("{\n" +
                     "  \"name\": \"" + application.getName() + "\",\n" +
                     "  \"guild\": \"" + application.getGuild().getId() +"\",\n" +
                     "  \"responses\": " + responses.toString() + "\n" +
                     "}");
+            write.close();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            ExceptionHandler.sendStackTrace(e);
+        }
+    }
+    public Role getPingRole(Guild guild) {
+        File file = new File(CadenBot.dataDirectory + "applications/rolemention/" + guild.getId() + ".txt");
+        try {
+            Scanner scan = new Scanner(file);
+            return guild.getRoleById(scan.nextLine());
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage() + ": Returning null");
+            return null;
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

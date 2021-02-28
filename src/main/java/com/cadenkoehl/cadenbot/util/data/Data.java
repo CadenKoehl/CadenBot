@@ -12,6 +12,28 @@ import java.util.Scanner;
 
 public class Data {
 
+    /**
+     *
+     * @param dirPath The directory of this file. Note that this will be suffixed with com.cadenkoehl.cadenbot.CadenBot.dataDirectory
+     * @param fileName The name of the file
+     * @param content What is to be written to the file
+     */
+    public static void quickWriteToFile(String dirPath, String fileName, String content) {
+        File dir = new File(CadenBot.dataDirectory + dirPath);
+        File file = new File(dir, fileName);
+
+        if(!dir.mkdirs()) System.err.println("[ERROR]: Directory " + dir.getPath() + " was not created successfully!");
+
+        try {
+            FileWriter write = new FileWriter(file);
+            write.write(content);
+            write.close();
+        }
+        catch (IOException ex) {
+
+        }
+    }
+
     public static String getToken() {
         if(CadenBot.isTest) return Config.get().getString("test_token");
         else return Config.get().getString("token");
@@ -46,7 +68,6 @@ public class Data {
         if(jsonString.isEmpty()) {
             return new JSONObject("{}");
         }
-        System.out.println(jsonString);
         return new JSONObject(jsonString);
     }
 

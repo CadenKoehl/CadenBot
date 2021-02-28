@@ -11,6 +11,7 @@ public class ApplicationListeners extends ListenerAdapter {
 
     @Override
     public void onPrivateMessageReactionAdd(@NotNull PrivateMessageReactionAddEvent event) {
+        if(event.getReaction().isSelf()) return;
         ApplicationManager manager = new ApplicationManager();
         Application application = manager.getApplicationByApplicant(event.getUser());
         if(application == null) return;
@@ -27,7 +28,7 @@ public class ApplicationListeners extends ListenerAdapter {
         }
         if(emoji.equals(Emoji.X)) {
             event.getChannel().sendMessage("Application was cancelled.").queue();
-            application.close(event.getUser());
+            application.finish(event.getUser());
         }
     }
 

@@ -1,16 +1,21 @@
 package com.cadenkoehl.cadenbot.applications;
 
 import com.cadenkoehl.cadenbot.CadenBot;
+import com.cadenkoehl.cadenbot.util.EmbedColor;
 import com.cadenkoehl.cadenbot.util.ExceptionHandler;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
+import com.cadenkoehl.cadenbot.util.data.Data;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public interface Application {
 
@@ -65,13 +70,45 @@ public interface Application {
         return true;
     }
 
-    default void close(User user) {
+    default void finish(User user) {
 
-        Member member = this.getGuild().getMember(user);
+        ApplicationManager manager = new ApplicationManager();
+        Guild guild = this.getGuild();
+        TextChannel channel = manager.getApplicationChannel(guild);
+        Member member = guild.getMember(user);
+        List<String> questions = this.getQuestions();
+        Data data = new Data();
 
-        File guildDir = new File(CadenBot.dataDirectory + "applications/applicants/" + this.getGuild().getId() + "/");
-        File memberDir = new File(CadenBot.dataDirectory + "applications/applicants/" + member.getId() + "/");
-        if (guildDir.delete()) System.out.println("Deleted directory");
-        if (memberDir.delete()) System.out.println("Deleted directory");
+        File guildFile = new File(CadenBot.dataDirectory + "applications/applicants/" + guild.getId() + "/" + member.getId() + ".json");
+        File memberFile = new File(CadenBot.dataDirectory + "applications/applicants/" + member.getId() + "/" + member.getId() + ".json");
+        if (guildFile.delete()) System.out.println("Deleted directory");
+        if (memberFile.delete()) System.out.println("Deleted directory");
+
+
+
+        JSONObject jsonObject = data.getJSONObjectFromFile(CadenBot.dataDirectory + "applications/responses/" + user.getId() + ".json");
+        Object[] responses = jsonObject.getJSONArray("responses").toList().toArray();
+
+
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setColor(EmbedColor.GREEN);
+        embed.setAuthor(user.getAsTag() + " submitted an application! (" + this.getName() + ")", null, user.getEffectiveAvatarUrl());
+
+        for(int i = 0, j = 0; i < responses.length && j < questions.size(); i++, j++) {
+            embed.addField(questions.get(j), responses[i].toString(), false);
+        }
+
+        Role pingRole = manager.getPingRole(guild);
+        String roleMention = "";
+
+        if(pingRole != null) roleMention = "[" + pingRole.getAsMention() + "]";
+
+        channel.sendMessage(embed.build()).append("\n" + roleMention).queue(message -> {
+            message.addReaction("✅").queue();
+            message.addReaction("❌").queue();
+        });
+
+        File file = new File(CadenBot.dataDirectory + "applications/responses/" + user.getId() + ".json");
+        if(file.delete()) System.out.println("File was deleted");
     }
 }

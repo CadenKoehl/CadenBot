@@ -21,6 +21,8 @@ public class AddQuestion extends Command {
 
         String content = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
 
+        if(content.isEmpty()) throw new IncorrectUsageException(event);
+
         ApplicationManager applicationManager = new ApplicationManager();
         Application application = applicationManager.getApplication(event.getGuild(), appName);
 
@@ -29,9 +31,13 @@ public class AddQuestion extends Command {
             return;
         }
 
+        if(application.getQuestions().size() >= 15) {
+            event.getChannel().sendMessage(":x: You have too many questions in this application! (Maximum is 15)").queue();
+        }
+
         applicationManager.addQuestion(event.getGuild(), appName, content);
 
-        event.getChannel().sendMessage(":white_check_mark: Successfully added question to \"" + appName + "\"").queue();
+        event.getChannel().sendMessage(":white_check_mark: Successfully added question to \"" + application.getName() + "\"").queue();
 
     }
 
