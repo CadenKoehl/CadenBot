@@ -3,13 +3,13 @@ package com.cadenkoehl.cadenbot.reactionroles;
 import com.cadenkoehl.cadenbot.CadenBot;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.ExceptionHandler;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 
 public class ReactionRoles extends Command {
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
-        String prefix = this.getPrefix(event);
-        String[] args = this.getArgs(event);
+    public void execute(CommandEvent event) throws IncorrectUsageException {
+        String prefix = event.getPrefix();
+        String[] args = event.getArgs();
         List<TextChannel> channels = event.getMessage().getMentionedChannels();
         List<Role> roles = event.getMessage().getMentionedRoles();
 

@@ -2,13 +2,10 @@ package com.cadenkoehl.cadenbot.staff.commands.warn;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,9 +14,9 @@ import java.util.stream.Collectors;
 public class WarnCmd extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
-        String[] args = this.getArgs(event);
-        String prefix = this.getPrefix(event);
+    public void execute(CommandEvent event) throws IncorrectUsageException {
+        String[] args = event.getArgs();
+        String prefix = event.getPrefix();
         Member mod = event.getMember();
         if(args.length == 1) {
             event.getChannel().sendMessage("**Incomplete Command!**\nUsage: `" + prefix + "warn` `@user` `[reason]`").queue();

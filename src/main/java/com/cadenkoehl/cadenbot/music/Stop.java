@@ -2,20 +2,18 @@ package com.cadenkoehl.cadenbot.music;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Stop extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+    public void execute(CommandEvent event) throws IncorrectUsageException {
         Member member = event.getMember();
         Member selfMember = event.getGuild().getSelfMember();
         GuildVoiceState selfVoiceState = selfMember.getVoiceState();

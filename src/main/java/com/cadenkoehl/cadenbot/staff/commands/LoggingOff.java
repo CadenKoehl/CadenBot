@@ -3,10 +3,10 @@ package com.cadenkoehl.cadenbot.staff.commands;
 import com.cadenkoehl.cadenbot.CadenBot;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.File;
 
@@ -15,9 +15,9 @@ public class LoggingOff extends Command {
     private String s = "";
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
-        String[] args = this.getArgs(event);
-        String prefix = this.getPrefix(event);
+    public void execute(CommandEvent event) throws IncorrectUsageException {
+        String[] args = event.getArgs();
+        String prefix = event.getPrefix();
         if(args[0].equalsIgnoreCase(prefix + "logging")) {
             if(event.isWebhookMessage()) {
                 return;
@@ -78,7 +78,7 @@ public class LoggingOff extends Command {
     public static class Help extends Command {
 
         @Override
-        public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {}
+        public void execute(CommandEvent event) throws IncorrectUsageException {}
 
         @Override
         public String getName() {

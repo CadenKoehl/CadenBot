@@ -2,13 +2,13 @@ package com.cadenkoehl.cadenbot.commands;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class Info extends Command {
 
 	@Override
-	public void execute(GuildMessageReceivedEvent event) {
+	public void execute(CommandEvent event) {
 		event.getChannel().sendMessage("I am a discord bot currently in development! There are still many bugs trying to be fixed, and many new features soon to be added! If you wanna see my progress, join my support server! (I sent an invite in dm **:>**)").queue();
 
 		event.getMember().getUser().openPrivateChannel().queue((channel) -> {

@@ -1,9 +1,9 @@
 package com.cadenkoehl.cadenbot.util;
 
+import com.cadenkoehl.cadenbot.applications.*;
 import com.cadenkoehl.cadenbot.commands.*;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
-import com.cadenkoehl.cadenbot.dms.DmReactions;
 import com.cadenkoehl.cadenbot.fun.ImageGenTest;
 import com.cadenkoehl.cadenbot.fun.YesOrNo;
 import com.cadenkoehl.cadenbot.fun.Hack;
@@ -104,6 +104,12 @@ public class Registry {
                         new Unban(),
                         new Kick(),
 
+                        //Applications
+                        new ApplyCommand(),
+                        new CreateApp(),
+                        new ListApps(),
+                        new AddQuestion(),
+
                         //AutoMod
                         new LogChannel(),
                         new LoggingOff(),
@@ -124,6 +130,8 @@ public class Registry {
 
 
         public static void registerListeners(JDABuilder jda) {
+                register(new CommandHandler(), jda);
+                register(new ApplicationListeners(), jda);
                 register(new JoinMsgs(), jda);
                 register(new LeaveMsgs(), jda);
                 register(new JoinServer(), jda);
@@ -139,7 +147,6 @@ public class Registry {
                 register(new TextChannelUpdates(), jda);
                 register(new VoiceChannelUpdates(), jda);
                 register(new CategoryUpdates(), jda);
-                register(new DmReactions(), jda);
                 register(new Ready(), jda);
 
         }

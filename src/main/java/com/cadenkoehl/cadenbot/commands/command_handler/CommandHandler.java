@@ -33,7 +33,7 @@ public class CommandHandler extends ListenerAdapter {
                         event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
                         return;
                     }
-                    cmd.execute(event);
+                    cmd.execute(new CommandEvent(event, cmd));
                     return;
                 }
                 for(String alias : cmd.getAliases()) {
@@ -42,7 +42,7 @@ public class CommandHandler extends ListenerAdapter {
                             event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
                             return;
                         }
-                        cmd.execute(event);
+                        cmd.execute(new CommandEvent(event, cmd));
                         return;
                     }
                 }

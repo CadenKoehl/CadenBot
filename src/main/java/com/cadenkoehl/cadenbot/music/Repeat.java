@@ -2,27 +2,23 @@ package com.cadenkoehl.cadenbot.music;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
-import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 
 public class Repeat extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+    public void execute(CommandEvent event) throws IncorrectUsageException {
         Member member = event.getMember();
         Guild guild = event.getGuild();
         Member selfMember = guild.getSelfMember();
-        String prefix = this.getPrefix(event);
+        String prefix = event.getPrefix();
         GuildVoiceState memberVoiceState = member.getVoiceState();
         GuildVoiceState selfVoiceState = selfMember.getVoiceState();
         if(!memberVoiceState.inVoiceChannel()) {

@@ -32,9 +32,8 @@ public class CadenBot {
     builder.setStatus(OnlineStatus.ONLINE);
     builder.setActivity(Activity.watching("for -help"));
     Registry.registerListeners(builder);
-    builder.addEventListeners(new CommandHandler());
     Registry.registerCommands();
-    builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
+    builder.enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.DIRECT_MESSAGE_REACTIONS);
     builder.enableCache(CacheFlag.VOICE_STATE);
     builder.setChunkingFilter(ChunkingFilter.ALL);
     builder.setMemberCachePolicy(MemberCachePolicy.ALL);

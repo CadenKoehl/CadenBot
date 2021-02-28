@@ -3,11 +3,11 @@ package com.cadenkoehl.cadenbot.joinleave.config;
 import com.cadenkoehl.cadenbot.CadenBot;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 public class LeaveMsg extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
-        String[] args = getArgs(event);
+    public void execute(CommandEvent event) throws IncorrectUsageException {
+        String[] args = event.getArgs();
         User user = event.getAuthor();
         String guildId = event.getGuild().getId();
         if(args.length == 1) {

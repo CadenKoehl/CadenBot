@@ -2,6 +2,7 @@ package com.cadenkoehl.cadenbot.staff.commands.mute;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.staff.automod.logging.AuditLogger;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
@@ -9,14 +10,13 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.HierarchyException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 public class UnmuteCmd extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+    public void execute(CommandEvent event) throws IncorrectUsageException {
         if(event.getMessage().getMentionedMembers().size() == 0) {
             event.getChannel().sendMessage(":x: Please specify a member by @ing them!").queue();
             return;

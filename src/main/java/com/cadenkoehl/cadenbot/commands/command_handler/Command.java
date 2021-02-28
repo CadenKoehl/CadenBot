@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public abstract class Command {
 
-    public abstract void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException;
+    public abstract void execute(CommandEvent event) throws IncorrectUsageException;
 
     public abstract String getName();
 
@@ -20,13 +20,4 @@ public abstract class Command {
     public abstract String getUsage(String prefix);
 
     public abstract String[] getAliases();
-
-    public String[] getArgs(GuildMessageReceivedEvent event) {
-        return event.getMessage().getContentRaw().split("\\s+");
-    }
-
-    public String getPrefix(GuildMessageReceivedEvent event) {
-        return Constants.getPrefix(event.getGuild());
-    }
-
 }

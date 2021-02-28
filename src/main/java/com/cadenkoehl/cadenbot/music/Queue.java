@@ -2,7 +2,7 @@ package com.cadenkoehl.cadenbot.music;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
@@ -10,12 +10,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.GuildVoiceState;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +17,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class Queue extends Command {
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+    public void execute(CommandEvent event) throws IncorrectUsageException {
 
         MusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
 

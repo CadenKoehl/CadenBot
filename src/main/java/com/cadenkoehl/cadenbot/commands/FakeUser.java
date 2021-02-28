@@ -2,11 +2,11 @@ package com.cadenkoehl.cadenbot.commands;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.ExceptionHandler;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 public class FakeUser extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+    public void execute(CommandEvent event) throws IncorrectUsageException {
         List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
         if(mentionedMembers.size() == 0) {
             throw new IncorrectUsageException(this, event);
         }
         Member member = mentionedMembers.get(0);
-        String content = Arrays.stream(this.getArgs(event)).skip(2).collect(Collectors.joining(" "));
+        String content = Arrays.stream(event.getArgs()).skip(2).collect(Collectors.joining(" "));
         if(content.isEmpty()) {
             throw new IncorrectUsageException(this, event);
         }

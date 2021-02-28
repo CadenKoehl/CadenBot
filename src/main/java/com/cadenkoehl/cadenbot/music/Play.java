@@ -2,15 +2,13 @@ package com.cadenkoehl.cadenbot.music;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
-import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.net.URI;
@@ -21,8 +19,8 @@ import java.util.stream.Collectors;
 public class Play extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
-        String[] args = this.getArgs(event);
+    public void execute(CommandEvent event) throws IncorrectUsageException {
+        String[] args = event.getArgs();
         if(args.length < 2) {
             event.getChannel().sendMessage(":x: Please specify a song to play!").queue();
             return;

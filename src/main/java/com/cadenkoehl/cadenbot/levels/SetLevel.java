@@ -3,11 +3,11 @@ package com.cadenkoehl.cadenbot.levels;
 import com.cadenkoehl.cadenbot.CadenBot;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.ExceptionHandler;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,12 +17,12 @@ import java.util.List;
 public class SetLevel extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+    public void execute(CommandEvent event) throws IncorrectUsageException {
         if(!event.getMember().isOwner())  {
             event.getChannel().sendMessage(":x: You must be the server owner to use this command!").queue();
             return;
         }
-        String[] args = this.getArgs(event);
+        String[] args = event.getArgs();
         String guildId = event.getGuild().getId();
         List<Member> members = event.getMessage().getMentionedMembers();
         if (args.length != 3) {

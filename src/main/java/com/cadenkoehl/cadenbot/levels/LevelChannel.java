@@ -3,10 +3,10 @@ package com.cadenkoehl.cadenbot.levels;
 import com.cadenkoehl.cadenbot.CadenBot;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +16,8 @@ import java.io.IOException;
 
 public class LevelChannel extends Command {
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
-        String channelType = this.getArgs(event)[1];
+    public void execute(CommandEvent event) throws IncorrectUsageException {
+        String channelType = event.getArgs()[1];
         File file = new File(CadenBot.dataDirectory + "levels/channel/" + event.getGuild().getId() + ".txt");
         try {
             String channelId = event.getMessage().getMentionedChannels().get(0).getId();
@@ -27,7 +27,7 @@ public class LevelChannel extends Command {
             FileWriter write = new FileWriter(file);
             write.write(channelId);
             write.close();
-            event.getChannel().sendMessage(":white_check_mark: **Success**! Level-up messages will now show up in " + event.getGuild().getTextChannelById(channelId).getAsMention() + "!\nTo make them show up in the channel the user leveled up in, type `" + getPrefix(event) + "levelchannel` `default`").queue();
+            event.getChannel().sendMessage(":white_check_mark: **Success**! Level-up messages will now show up in " + event.getGuild().getTextChannelById(channelId).getAsMention() + "!\nTo make them show up in the channel the user leveled up in, type `" + event.getPrefix() + "levelchannel` `default`").queue();
         }
         catch (IndexOutOfBoundsException ex) {
             if(!channelType.equalsIgnoreCase("default")) {

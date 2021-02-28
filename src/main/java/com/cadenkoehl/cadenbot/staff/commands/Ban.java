@@ -2,17 +2,15 @@ package com.cadenkoehl.cadenbot.staff.commands;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.staff.automod.logging.AuditLogger;
-import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.HierarchyException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,9 +18,9 @@ import java.util.stream.Collectors;
 
 public class Ban extends Command {
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
-        String prefix = this.getPrefix(event);
-        String[] args = this.getArgs(event);
+    public void execute(CommandEvent event) throws IncorrectUsageException {
+        String[] args = event.getArgs();
+        String prefix = event.getPrefix();
         List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
         if(mentionedMembers.size() == 0) {
             event.getChannel().sendMessage(":x: Please specify a member to ban!\n**Usage:** `" + prefix + "ban` `<@user>` `[reason]`").queue();

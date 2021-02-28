@@ -13,7 +13,7 @@ import java.util.Set;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class  Webhooks {
+public class Webhooks {
 
     private final String url;
     private String content;

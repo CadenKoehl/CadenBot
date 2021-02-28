@@ -5,13 +5,13 @@ import java.util.concurrent.TimeUnit;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class YesOrNo extends Command {
 	@Override
-	public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+	public void execute(CommandEvent event) throws IncorrectUsageException {
 		String[] messages = {
 				"Definently",
 				"Yes",

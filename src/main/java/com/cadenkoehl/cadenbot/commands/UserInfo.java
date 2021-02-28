@@ -2,12 +2,12 @@ package com.cadenkoehl.cadenbot.commands;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.TextStyle;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Locale;
 public class UserInfo extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) throws IncorrectUsageException {
+    public void execute(CommandEvent event) throws IncorrectUsageException {
         List<Member> mentionedMembers = event.getMessage().getMentionedMembers();
         if(mentionedMembers.size() == 0) throw new IncorrectUsageException(this, event);
         Member member = mentionedMembers.get(0);

@@ -2,12 +2,12 @@ package com.cadenkoehl.cadenbot.commands;
 
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
+import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import com.cadenkoehl.cadenbot.util.Utils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 public class Help extends Command {
 
     @Override
-    public void execute(GuildMessageReceivedEvent event) {
+    public void execute(CommandEvent event) {
 
-        String[] args = this.getArgs(event);
-        String prefix = this.getPrefix(event);
+        String[] args = event.getArgs();
+        String prefix = event.getPrefix();
         String helpSearch = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
 
         CommandCategory[] categories = CommandCategory.values();
