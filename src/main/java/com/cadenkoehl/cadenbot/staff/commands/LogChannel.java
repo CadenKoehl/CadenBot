@@ -93,14 +93,14 @@ public class LogChannel extends Command {
         String guildId = guild.getId();
         File file = new File(CadenBot.dataDirectory + "logging/" + guildId + ".txt");
         if(!file.exists()) {
-            return "";
+            return null;
         }
         try {
             Scanner scan = new Scanner(file);
             channelId = scan.nextLine();
         }
         catch (FileNotFoundException e) {
-            return "";
+            return null;
         }
         return channelId;
     }

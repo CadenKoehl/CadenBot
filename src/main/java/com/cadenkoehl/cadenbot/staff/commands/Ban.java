@@ -37,9 +37,9 @@ public class Ban extends Command {
         embed.setAuthor(userTag + " was banned!", null, member.getUser().getEffectiveAvatarUrl());
         embed.setColor(EmbedColor.RED);
         try {
+            member.ban(0, reason).queue();
             event.getChannel().sendMessage(embed.build()).queue();
             AuditLogger.log(embed.build(), event.getGuild());
-            member.ban(0, reason).queue();
         }
         catch (HierarchyException ex) {
             event.getChannel().sendMessage(":x: You can't ban a moderator!").queue();
