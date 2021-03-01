@@ -10,10 +10,10 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 
-public class Stop extends Command {
-
+public class Pause extends Command {
     @Override
     public void execute(CommandEvent event) throws IncorrectUsageException {
+        String prefix = event.getPrefix();
         Member member = event.getMember();
         Member selfMember = event.getGuild().getSelfMember();
         GuildVoiceState selfVoiceState = selfMember.getVoiceState();
@@ -39,19 +39,22 @@ public class Stop extends Command {
             return;
         }
 
-        musicManager.scheduler.player.stopTrack();
-        musicManager.scheduler.queue.clear();
-        event.getChannel().sendMessage(":white_check_mark: The music has stopped and the queue has been cleared!").queue();
+        if(musicManager.scheduler.player.isPaused()) {
+            event.getChannel().sendMessage(":x: The music is already paused! Type `" + prefix + "resume` to resume it!").queue();
+            return;
+        }
+        musicManager.scheduler.player.setPaused(true);
+        event.getChannel().sendMessage(":white_check_mark: The music was paused! Type `" + prefix + "resume` to resume it!").queue();
     }
 
     @Override
     public String getName() {
-        return "stop";
+        return "pause";
     }
 
     @Override
     public String getDescription() {
-        return "Stop the music and clear the queue!";
+        return "Pause the music!";
     }
 
     @Override
@@ -66,48 +69,11 @@ public class Stop extends Command {
 
     @Override
     public String getUsage(String prefix) {
-        return "stop`";
+        return "pause`";
     }
 
     @Override
     public String[] getAliases() {
-        return new String[0];
+        return new String[]{"stop"};
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

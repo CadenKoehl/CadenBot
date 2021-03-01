@@ -29,6 +29,7 @@ public class Leave extends Command {
                     if(musicManager.scheduler.player.getPlayingTrack() != null) {
                         musicManager.scheduler.repeating = false;
                         musicManager.scheduler.player.stopTrack();
+                        musicManager.scheduler.player.setPaused(false);
                         musicManager.scheduler.queue.clear();
                     }
                     AudioManager audioManager = event.getGuild().getAudioManager();

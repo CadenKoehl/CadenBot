@@ -85,12 +85,14 @@ public class Registry {
                         new Queue(),
                         new Skip(),
                         new Repeat(),
+                        new Pause(),
+                        new Resume(),
                         new Favorite(),
                         new FavoriteAdd(),
                         new FavoriteList(),
                         new FavoritePlay(),
                         new FavoriteRemove(),
-                        new Stop(),
+                        new Clear(),
                         new Leave(),
 
                         //Staff
