@@ -7,6 +7,7 @@ public enum CommandCategory {
     MUSIC(":musical_note: Music :notes:", false,"music"),
     LEVELS(":sparkles: Levels :sparkles:", false,"levels", "level", "leveling", "xp"),
     FUN(":rofl: Fun Commands :joy:", false,"fun", "lmao", "lol"),
+    SETTINGS(":gear: Settings! :gear: ", true, "settings"),
     AUTO_MOD("Auto Moderation", true,"automod", "automoderation"),
     WELCOME_MESSAGES("Join/Leave Messages :wave:",true, "joinleave", "welcomemsgs", "joinleavemsgs"),
     SUGGESTIONS("Suggestions", false, "suggestions", "sug", "suggest"),
