@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 
-public class Clear extends Command {
+public class ClearQueue extends Command {
 
     @Override
     public void execute(CommandEvent event) throws IncorrectUsageException {
@@ -46,7 +46,7 @@ public class Clear extends Command {
 
     @Override
     public String getName() {
-        return "clear";
+        return "clearqueue";
     }
 
     @Override
@@ -66,12 +66,12 @@ public class Clear extends Command {
 
     @Override
     public String getUsage(String prefix) {
-        return "stop`";
+        return "clearqueue`";
     }
 
     @Override
     public String[] getAliases() {
-        return new String[0];
+        return new String[]{"clearq"};
     }
 }
 
