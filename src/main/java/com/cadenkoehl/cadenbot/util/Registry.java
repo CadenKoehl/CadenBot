@@ -5,6 +5,7 @@ import com.cadenkoehl.cadenbot.commands.*;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
 import com.cadenkoehl.cadenbot.commands.settings.Prefix;
+import com.cadenkoehl.cadenbot.commands.settings.Toggle;
 import com.cadenkoehl.cadenbot.fun.ImageGenTest;
 import com.cadenkoehl.cadenbot.fun.YesOrNo;
 import com.cadenkoehl.cadenbot.fun.Hack;
@@ -55,6 +56,10 @@ public class Registry {
                         new ReactionVote(),
                         new ServerInfo(),
 
+                        //Settings
+                        new Prefix(),
+                        new Toggle(),
+
                         //Fun Commands
                         new Hangman(),
                         new Hack(),
@@ -97,7 +102,6 @@ public class Registry {
                         new Leave(),
 
                         //Staff
-                        new Prefix(),
                         new MuteCmd(),
                         new UnmuteCmd(),
                         new TempMute(),

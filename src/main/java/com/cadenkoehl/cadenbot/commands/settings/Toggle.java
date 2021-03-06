@@ -11,8 +11,24 @@ public class Toggle extends Command {
     public void execute(CommandEvent event) throws IncorrectUsageException {
         String[] args = event.getArgs();
 
+        if(args.length == 1) throw new IncorrectUsageException(event);
+
+        GuildSettingsManager settings = new GuildSettingsManager(event.getGuild());
+        Command cmd = Command.getByName(args[1]);
+
+        if (cmd == null) throw new IncorrectUsageException("Command not found!", event);
+
         if(args[1].equalsIgnoreCase("toggle")) throw new IncorrectUsageException("You cannot toggle the toggle command!", event);
         if(args[1].equalsIgnoreCase("help")) throw new IncorrectUsageException("You cannot toggle the help command!", event);
+
+        if(settings.isToggledOff(cmd)) {
+            settings.toggleCommandOn(cmd);
+            event.getChannel().sendMessage(":white_check_mark: **Success**! Members will now be able to use the " + cmd.getName() + " command!").queue();
+        }
+        else {
+            settings.toggleCommandOff(cmd);
+            event.getChannel().sendMessage(":white_check_mark: **Success**! Members will no longer be able to use the " + cmd.getName() + " command until you toggle it back on!").queue();
+        }
     }
 
     @Override

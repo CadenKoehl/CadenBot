@@ -1,5 +1,6 @@
 package com.cadenkoehl.cadenbot.commands.command_handler;
 
+import com.cadenkoehl.cadenbot.commands.settings.GuildSettingsManager;
 import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.ExceptionHandler;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
@@ -22,6 +23,8 @@ public class CommandHandler extends ListenerAdapter {
             String[] args = event.getMessage().getContentRaw().split("\\s+");
             String prefix = Constants.getPrefix(event.getGuild());
 
+            GuildSettingsManager settings = new GuildSettingsManager(event.getGuild());
+
             Member member = event.getMember();
             if (event.isWebhookMessage()) return;
             if (member == null) return;
@@ -30,6 +33,10 @@ public class CommandHandler extends ListenerAdapter {
 
             for (Command cmd : commands) {
                 if (args[0].equalsIgnoreCase(prefix + cmd.getName())) {
+                    if(settings.isToggledOff(cmd)) {
+                        event.getChannel().sendMessage(":x: You cannot use the " + cmd.getName() + " command because it has been toggled off!").queue();
+                        return;
+                    }
                     if (!member.hasPermission(cmd.getRequiredPermission())) {
                         event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
                         return;
@@ -37,7 +44,11 @@ public class CommandHandler extends ListenerAdapter {
                     cmd.execute(new CommandEvent(event, cmd));
                     return;
                 }
-                if (Arrays.asList(cmd.getAliases()).contains(prefix + cmd.getName())) {
+                if (Arrays.asList(cmd.getAliases()).contains(args[0].replace(prefix, ""))) {
+                    if(settings.isToggledOff(cmd)) {
+                        event.getChannel().sendMessage(":x: You cannot use the " + cmd.getName() + " command because it has been toggled off!").queue();
+                        return;
+                    }
                     if (!member.hasPermission(cmd.getRequiredPermission())) {
                         event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
                         return;

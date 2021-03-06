@@ -11,9 +11,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class SettingsManager {
+public class GuildSettingsManager {
 
-    public void toggleCommandOff(Command cmd, Guild guild) {
+    private final Guild guild;
+
+    public GuildSettingsManager(Guild guild) {
+        this.guild = guild;
+    }
+
+    public void toggleCommandOff(Command cmd) {
         File dir = new File(CadenBot.dataDirectory + "toggled_commands");
 
         if(dir.mkdirs()) System.out.println("Successfully created directory " + dir.getName());
@@ -30,14 +36,14 @@ public class SettingsManager {
         }
     }
 
-    public void toggleCommandOn(Command cmd, Guild guild) {
+    public void toggleCommandOn(Command cmd) {
         File dir = new File(CadenBot.dataDirectory + "toggled_commands");
 
         if(dir.mkdirs()) System.out.println("Successfully created directory " + dir.getName());
 
         File file = new File(dir, guild.getId() + ".txt");
 
-        List<String> cmdNames = this.getToggledCommandNames(guild);
+        List<String> cmdNames = this.getToggledCommandNames();
 
         cmdNames.remove(cmd.getName());
 
@@ -51,10 +57,10 @@ public class SettingsManager {
         }
     }
 
-    public List<Command> getToggledCommands(Guild guild) {
+    public List<Command> getToggledCommands() {
         List<Command> toggledCmds = new ArrayList<>();
 
-        for(String cmdName : this.getToggledCommandNames(guild)) {
+        for(String cmdName : this.getToggledCommandNames()) {
             Command cmd = Command.getByName(cmdName);
             if(cmd == null) continue;
 
@@ -63,7 +69,7 @@ public class SettingsManager {
         return toggledCmds;
     }
 
-    public List<String> getToggledCommandNames(Guild guild) {
+    public List<String> getToggledCommandNames() {
         File dir = new File(CadenBot.dataDirectory + "toggled_commands");
 
         if(dir.mkdirs()) System.out.println("Successfully created directory " + dir.getName());
@@ -75,7 +81,6 @@ public class SettingsManager {
         try {
             scan = new Scanner(file);
         } catch (FileNotFoundException e) {
-            ExceptionHandler.sendStackTrace(e);
             return Collections.emptyList();
         }
 
@@ -87,8 +92,8 @@ public class SettingsManager {
 
     }
 
-    public boolean isToggled(Command cmd, Guild guild) {
-        List<String> cmdNames = this.getToggledCommandNames(guild);
+    public boolean isToggledOff(Command cmd) {
+        List<String> cmdNames = this.getToggledCommandNames();
         return cmdNames.contains(cmd.getName());
     }
 }
