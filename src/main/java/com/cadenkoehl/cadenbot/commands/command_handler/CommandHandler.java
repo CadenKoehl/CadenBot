@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandHandler extends ListenerAdapter {
@@ -22,37 +23,32 @@ public class CommandHandler extends ListenerAdapter {
             String prefix = Constants.getPrefix(event.getGuild());
 
             Member member = event.getMember();
-            if(event.isWebhookMessage()) return;
-            if(member == null) return;
-            if(event.getAuthor().isBot()) return;
-            if(!args[0].startsWith(prefix)) return;
+            if (event.isWebhookMessage()) return;
+            if (member == null) return;
+            if (event.getAuthor().isBot()) return;
+            if (!args[0].startsWith(prefix)) return;
 
-            for(Command cmd : commands) {
-                if(args[0].equalsIgnoreCase(prefix + cmd.getName())) {
-                    if(!member.hasPermission(cmd.getRequiredPermission())) {
+            for (Command cmd : commands) {
+                if (args[0].equalsIgnoreCase(prefix + cmd.getName())) {
+                    if (!member.hasPermission(cmd.getRequiredPermission())) {
                         event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
                         return;
                     }
                     cmd.execute(new CommandEvent(event, cmd));
                     return;
                 }
-                for(String alias : cmd.getAliases()) {
-                    if(args[0].equalsIgnoreCase(prefix + alias)) {
-                        if(!member.hasPermission(cmd.getRequiredPermission())) {
-                            event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
-                            return;
-                        }
-                        cmd.execute(new CommandEvent(event, cmd));
+                if (Arrays.asList(cmd.getAliases()).contains(prefix + cmd.getName())) {
+                    if (!member.hasPermission(cmd.getRequiredPermission())) {
+                        event.getChannel().sendMessage(":x: You must have the **" + cmd.getRequiredPermission().getName() + "** permission to use this command!").queue();
                         return;
                     }
+                    cmd.execute(new CommandEvent(event, cmd));
+                    return;
                 }
             }
-            event.getChannel().sendMessage(":x: **Unknown Command!** Type `" + prefix + "help` for help!").queue();
-        }
-        catch (IncorrectUsageException ex) {
+        } catch (IncorrectUsageException ex) {
             event.getChannel().sendMessage(ex.getMessage()).queue();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ExceptionHandler.sendStackTrace(ex);
         }
     }
