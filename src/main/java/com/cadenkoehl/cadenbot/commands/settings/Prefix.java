@@ -1,4 +1,4 @@
-package com.cadenkoehl.cadenbot.commands;
+package com.cadenkoehl.cadenbot.commands.settings;
 
 import com.cadenkoehl.cadenbot.CadenBot;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
@@ -58,7 +58,7 @@ public class Prefix extends Command {
 
     @Override
     public CommandCategory getCategory() {
-        return CommandCategory.STAFF;
+        return CommandCategory.SETTINGS;
     }
 
     @Override
