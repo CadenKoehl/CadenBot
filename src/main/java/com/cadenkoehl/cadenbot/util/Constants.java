@@ -3,6 +3,8 @@ package com.cadenkoehl.cadenbot.util;
 import com.cadenkoehl.cadenbot.CadenBot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,9 +15,10 @@ public class Constants {
 	public static final long MODMAIL = 781421376086999040L;
 	public static JDA jda;
 	public static final String ERROR_MESSAGE = ":x: A fatal error has occurred! If the issue persists, join the support server! (type -help)";
-	public static long CADENBOTSUPPORT = 585338133177171968L;
-	public static long CADENBOTBUGSCHANNEL = 787230827498700840L;
-	public static long CadenID = 585334397914316820L;
+	public static final Guild CADENBOTSUPPORT = CadenBot.jda.getGuildById("585338133177171968");
+	public static final TextChannel CADENBOTANNOUNCEMENTS = CadenBot.jda.getTextChannelById("780880846588215317");
+	public static final TextChannel CADENBOTBUGSCHANNEL = CadenBot.jda.getTextChannelById("787230827498700840");
+	public static final User CADEN = CadenBot.jda.getUserById("585334397914316820");
 	public static final String[] HANGMAN = {
 			"https://cdn.discordapp.com/attachments/785347122991595573/802056724261109780/hangman_6.png",
 			"https://cdn.discordapp.com/attachments/785347122991595573/802056659371163658/hangman_5.png",

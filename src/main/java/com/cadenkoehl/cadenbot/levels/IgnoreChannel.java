@@ -43,7 +43,7 @@ public class IgnoreChannel extends Command {
 
     @Override
     public String getDescription() {
-        return "Clear users from earning xp in specific channels!";
+        return "ClearQueue users from earning xp in specific channels!";
     }
 
     @Override

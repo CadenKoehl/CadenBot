@@ -14,7 +14,7 @@ public class Ready extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
-        event.getJDA().getUserById(Constants.CadenID).openPrivateChannel().queue(channel -> {
+        Constants.CADEN.openPrivateChannel().queue(channel -> {
             channel.sendMessage("I am back online!").queue();
         });
         List<Guild> guilds = event.getJDA().getGuilds();

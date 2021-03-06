@@ -53,7 +53,7 @@ public class ClearWarns extends Command {
 
     @Override
     public String getDescription() {
-        return "Clear a member's warnings!";
+        return "ClearQueue a member's warnings!";
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.cadenkoehl.cadenbot.applications.*;
 import com.cadenkoehl.cadenbot.commands.*;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
+import com.cadenkoehl.cadenbot.commands.settings.Prefix;
 import com.cadenkoehl.cadenbot.fun.ImageGenTest;
 import com.cadenkoehl.cadenbot.fun.YesOrNo;
 import com.cadenkoehl.cadenbot.fun.Hack;
@@ -92,7 +93,7 @@ public class Registry {
                         new FavoriteList(),
                         new FavoritePlay(),
                         new FavoriteRemove(),
-                        new Clear(),
+                        new ClearQueue(),
                         new Leave(),
 
                         //Staff
@@ -105,6 +106,7 @@ public class Registry {
                         new Ban(),
                         new Unban(),
                         new Kick(),
+                        new Clear(),
 
                         //Applications
                         new ApplyCommand(),

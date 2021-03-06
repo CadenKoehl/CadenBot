@@ -15,6 +15,6 @@ public class ExceptionHandler {
             stringTrace = stringTrace + elementString;
         }
 
-        CadenBot.jda.getTextChannelById(Constants.CADENBOTBUGSCHANNEL).sendMessage(String.format(":x: **An Uncaught Exception Has Occurred**\n```java\n%s\n```\n[<@%s>]", stringTrace, Constants.CadenID)).queue();
+       Constants.CADENBOTBUGSCHANNEL.sendMessage(String.format(":x: **An Uncaught Exception Has Occurred**\n```java\n%s\n```\n[<@%s>]", stringTrace, Constants.CADEN.getId())).queue();
     }
 }
