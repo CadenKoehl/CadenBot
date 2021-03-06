@@ -28,6 +28,12 @@ public class Ban extends Command {
         }
         String reason = Arrays.stream(args).skip(2).collect(Collectors.joining(" "));
         Member member = mentionedMembers.get(0);
+
+        if(member.hasPermission(Permission.BAN_MEMBERS)) {
+            event.getChannel().sendMessage(":x: You can't ban a moderator!").queue();
+            return;
+        }
+
         String userTag = member.getUser().getAsTag();
         EmbedBuilder embed = new EmbedBuilder();
         if(reason.isEmpty()) {
