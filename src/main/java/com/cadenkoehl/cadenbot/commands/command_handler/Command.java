@@ -22,6 +22,7 @@ public abstract class Command {
 
     public static Command getByName(String name) {
         for(Command cmd : CommandHandler.commands) {
+            if(cmd.getName() == null) return null;
             if(cmd.getName().equalsIgnoreCase(name)) return cmd;
         }
         return null;
