@@ -3,6 +3,7 @@ package com.cadenkoehl.cadenbot.music;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
+import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.music.lavaplayer.PlayerManager;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
@@ -38,7 +39,8 @@ public class Play extends Command {
             VoiceChannel memberChannel = memberVoiceState.getChannel();
             AudioManager audioManager = event.getGuild().getAudioManager();
             audioManager.openAudioConnection(memberChannel);
-            event.getChannel().sendMessage("🎶 Joining **" + memberChannel.getName() + "**...").queue();
+            event.getChannel().sendMessage("🔊 Joined **" + memberChannel.getName() + "** and bound to " + event.getChannel().getAsMention()).queue();
+            MusicManager.musicTextChannel.put(event.getGuild(), event.getChannel());
         }
         String url = Arrays.stream(args).skip(1).collect(Collectors.joining(" "));
         event.getChannel().sendMessage("🔎 Searching...").queue();

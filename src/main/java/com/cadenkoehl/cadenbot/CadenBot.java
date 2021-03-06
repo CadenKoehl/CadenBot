@@ -29,12 +29,16 @@ public class CadenBot {
 
   public static void main(String[] args) throws LoginException {
 
+    //Main bot settings
     JDABuilder builder = JDABuilder.createDefault(Data.getToken());
     builder.setStatus(OnlineStatus.ONLINE);
     builder.setActivity(Activity.watching("for -help"));
+
+    //Registry
     Registry.registerListeners(builder);
     Registry.registerCommands();
 
+    //Intents and caches
     builder.enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.DIRECT_MESSAGE_REACTIONS);
     builder.enableCache(CacheFlag.VOICE_STATE);
     builder.setChunkingFilter(ChunkingFilter.ALL);

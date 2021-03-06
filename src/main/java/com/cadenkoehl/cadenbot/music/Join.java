@@ -3,6 +3,7 @@ package com.cadenkoehl.cadenbot.music;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
+import com.cadenkoehl.cadenbot.music.lavaplayer.MusicManager;
 import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
@@ -23,7 +24,8 @@ public class Join extends Command {
                     VoiceChannel memberChannel = member.getVoiceState().getChannel();
                     AudioManager audioManager = event.getGuild().getAudioManager();
                     audioManager.openAudioConnection(memberChannel);
-                    event.getChannel().sendMessage("🔊 Joined **" + memberChannel.getName() + "**").queue();
+                    event.getChannel().sendMessage("🔊 Joined **" + memberChannel.getName() + "** and bound to " + event.getChannel().getAsMention()).queue();
+                    MusicManager.musicTextChannel.put(event.getGuild(), event.getChannel());
                 }
                 if(!bot.hasPermission(Permission.VOICE_CONNECT)) {
                     event.getChannel().sendMessage(":x: You have not granted me permission to connect to the voice channel!").queue();
