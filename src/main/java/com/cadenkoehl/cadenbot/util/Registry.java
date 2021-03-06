@@ -34,6 +34,7 @@ import com.cadenkoehl.cadenbot.staff.commands.warn.ClearWarns;
 import com.cadenkoehl.cadenbot.staff.commands.warn.Unban;
 import com.cadenkoehl.cadenbot.staff.commands.warn.WarnCmd;
 import com.cadenkoehl.cadenbot.staff.automod.logging.*;
+import com.cadenkoehl.cadenbot.util.owner_commands.Shutdown;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -161,6 +162,7 @@ public class Registry {
                 register(new TextChannelUpdates(), jda);
                 register(new VoiceChannelUpdates(), jda);
                 register(new CategoryUpdates(), jda);
+                register(new Shutdown(), jda);
                 register(new Ready(), jda);
 
         }
