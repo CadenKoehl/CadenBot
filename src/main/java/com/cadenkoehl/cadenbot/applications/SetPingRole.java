@@ -23,7 +23,7 @@ public class SetPingRole extends Command {
 
         Role role = roles.get(0);
 
-        Data.quickWriteToFile("applications/rolemention/", event.getGuild().getId() + ".txt", role.getId());
+        Data.writeToFile("applications/rolemention/", event.getGuild().getId() + ".txt", role.getId());
 
         event.getChannel().sendMessage(":white_check_mark: **Success**! I will now mention the **" + role.getName() + "** role when an application is submitted!").queue();
 

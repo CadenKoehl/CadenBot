@@ -10,6 +10,7 @@ com/cadenkoehl/cadenbot/joinleave/SystemMessageManager.class
 com/cadenkoehl/cadenbot/levels/LevelMessage.class
 com/cadenkoehl/cadenbot/staff/commands/Kick.class
 com/cadenkoehl/cadenbot/joinleave/JoinServer.class
+com/cadenkoehl/cadenbot/music/TimeOut$1.class
 com/cadenkoehl/cadenbot/staff/commands/warn/Unban.class
 com/cadenkoehl/cadenbot/levels/UnignoreChannel.class
 com/cadenkoehl/cadenbot/commands/Info.class
@@ -62,15 +63,22 @@ com/cadenkoehl/cadenbot/levels/LevelChannel.class
 com/cadenkoehl/cadenbot/staff/commands/warn/WarningManager.class
 com/cadenkoehl/cadenbot/staff/commands/mute/TempMute.class
 com/cadenkoehl/cadenbot/commands/command_handler/CommandHandler.class
+com/cadenkoehl/cadenbot/util/announcements/Announcements.class
+com/cadenkoehl/cadenbot/youtube/YouTubeChannel.class
 com/cadenkoehl/cadenbot/commands/Webhooks$EmbedObject$Field.class
 com/cadenkoehl/cadenbot/applications/CreateApp.class
 com/cadenkoehl/cadenbot/staff/commands/mute/MuteCmd.class
+com/cadenkoehl/cadenbot/commands/settings/Prefix.class
+com/cadenkoehl/cadenbot/util/owner_commands/Shutdown.class
 com/cadenkoehl/cadenbot/applications/Application.class
+com/cadenkoehl/cadenbot/util/announcements/AnnouncementManager.class
 com/cadenkoehl/cadenbot/util/Emoji.class
 com/cadenkoehl/cadenbot/staff/commands/LogChannel.class
+com/cadenkoehl/cadenbot/music/ClearQueue.class
 com/cadenkoehl/cadenbot/music/Leave.class
 com/cadenkoehl/cadenbot/util/data/Data.class
 com/cadenkoehl/cadenbot/commands/ServerInfo.class
+com/cadenkoehl/cadenbot/staff/commands/Clear.class
 com/cadenkoehl/cadenbot/fun/YesOrNo.class
 com/cadenkoehl/cadenbot/levels/IgnoreChannel.class
 com/cadenkoehl/cadenbot/CadenBot.class
@@ -88,7 +96,6 @@ com/cadenkoehl/cadenbot/staff/commands/LoggingOff.class
 com/cadenkoehl/cadenbot/staff/automod/logging/CategoryUpdates.class
 com/cadenkoehl/cadenbot/joinleave/config/LeaveChannel.class
 com/cadenkoehl/cadenbot/staff/commands/warn/WarnCmd.class
-com/cadenkoehl/cadenbot/commands/Prefix.class
 com/cadenkoehl/cadenbot/staff/automod/logging/GuildUpdates.class
 com/cadenkoehl/cadenbot/joinleave/config/LeaveMsg.class
 com/cadenkoehl/cadenbot/util/ExceptionHandler.class
@@ -102,6 +109,7 @@ com/cadenkoehl/cadenbot/staff/automod/logging/AuditLogger.class
 com/cadenkoehl/cadenbot/joinleave/config/RandomMsgs.class
 com/cadenkoehl/cadenbot/staff/commands/warn/ClearWarns.class
 com/cadenkoehl/cadenbot/fun/hangman/HangmanUtil.class
+com/cadenkoehl/cadenbot/commands/settings/Toggle.class
 com/cadenkoehl/cadenbot/reactionroles/ReactionRoleListener.class
 com/cadenkoehl/cadenbot/joinleave/config/JoinMsg.class
 com/cadenkoehl/cadenbot/util/exceptions/IncorrectUsageException.class
@@ -114,9 +122,9 @@ com/cadenkoehl/cadenbot/util/Ready.class
 com/cadenkoehl/cadenbot/util/EmbedColor.class
 com/cadenkoehl/cadenbot/music/Favorite.class
 com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestDeny.class
-com/cadenkoehl/cadenbot/music/Clear.class
 com/cadenkoehl/cadenbot/commands/ReactionVote.class
 com/cadenkoehl/cadenbot/fun/Hack.class
+com/cadenkoehl/cadenbot/commands/settings/GuildSettingsManager.class
 com/cadenkoehl/cadenbot/joinleave/config/JoinChannel.class
 com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestionManager.class
 com/cadenkoehl/cadenbot/music/TimeOut.class

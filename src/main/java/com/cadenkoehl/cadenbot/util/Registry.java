@@ -24,6 +24,10 @@ import com.cadenkoehl.cadenbot.music.extra_help_info.FavoritePlay;
 import com.cadenkoehl.cadenbot.music.extra_help_info.FavoriteRemove;
 import com.cadenkoehl.cadenbot.reactionroles.ReactionRoleListener;
 import com.cadenkoehl.cadenbot.reactionroles.ReactionRoles;
+import com.cadenkoehl.cadenbot.staff.automod.curse_censor.AddCurseWord;
+import com.cadenkoehl.cadenbot.staff.automod.curse_censor.CurseWords;
+import com.cadenkoehl.cadenbot.staff.automod.curse_censor.RemoveCurseWord;
+import com.cadenkoehl.cadenbot.staff.automod.curse_censor.SwearListener;
 import com.cadenkoehl.cadenbot.staff.commands.*;
 import com.cadenkoehl.cadenbot.staff.commands.mute.MuteCmd;
 import com.cadenkoehl.cadenbot.staff.commands.mute.MuteManager;
@@ -129,6 +133,9 @@ public class Registry {
                         new LogChannel(),
                         new LoggingOff(),
                         new LoggingOff.Help(),
+                        new AddCurseWord(),
+                        new RemoveCurseWord(),
+                        new CurseWords(),
 
                         //Suggestions
                         new SuggestCmd(),
@@ -164,6 +171,7 @@ public class Registry {
                 register(new CategoryUpdates(), jda);
                 register(new Shutdown(), jda);
                 register(new Ready(), jda);
+                register(new SwearListener(), jda);
 
         }
         private static void register(ListenerAdapter listener, JDABuilder jda) {

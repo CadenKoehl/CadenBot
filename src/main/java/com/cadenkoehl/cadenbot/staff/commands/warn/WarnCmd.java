@@ -42,27 +42,27 @@ public class WarnCmd extends Command {
 
     @Override
     public String getName() {
-        return null;
+        return "warn";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Warn a member!";
     }
 
     @Override
     public CommandCategory getCategory() {
-        return null;
+        return CommandCategory.STAFF;
     }
 
     @Override
     public Permission getRequiredPermission() {
-        return null;
+        return Permission.VOICE_MUTE_OTHERS;
     }
 
     @Override
     public String getUsage(String prefix) {
-        return null;
+        return "warn` `<@member>`";
     }
 
     @Override

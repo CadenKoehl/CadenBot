@@ -29,7 +29,7 @@ public class Clear extends Command {
 
         event.getChannel().getHistory().retrievePast(messages).queue(history -> {
 
-            if(history.size() < 2) {
+            if(history.size() < 1) {
                 event.getChannel().sendMessage("There are no messages to clear in this channel!").queue();
                 return;
             }

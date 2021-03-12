@@ -13,6 +13,7 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/applications/RemovePingRole.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Info.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/ExceptionHandler.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/settings/GuildSettingsManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/RandomMsgs.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/fun/hangman/Guess.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/levels/Leaderboard.java
@@ -26,12 +27,16 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/mute/MuteCmd.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/JoinServer.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/levels/Levels.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/announcements/AnnouncementManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/levels/IgnoredChannelList.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/TimeOut.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/settings/Toggle.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/ReactionVote.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/settings/Prefix.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestCmd.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/applications/RemoveQuestion.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/fun/PpSizeMachine.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/ClearQueue.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/UserInfo.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/Ready.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/applications/Application.java
@@ -43,14 +48,12 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/command_handler/CommandHandler.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/exceptions/IncorrectUsageException.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/levels/Xp.java
-/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Prefix.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/data/Config.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/levels/UnignoreChannel.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/SystemMessageManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/CurrentSong.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Play.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/Emoji.java
-/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Clear.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/applications/AddQuestion.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/lavaplayer/MusicManager.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Webhooks.java
@@ -82,6 +85,7 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/ServerInfo.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Leave.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/Help.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/Clear.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/joinleave/config/JoinMsg.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/applications/ApplyCommand.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Resume.java
@@ -91,6 +95,7 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/fun/hangman/HangmanUtil.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/Skip.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/lavaplayer/PlayerManager.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/announcements/Announcements.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/commands/command_handler/Command.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/LoggingOff.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/Ban.java
@@ -100,7 +105,9 @@
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestDeny.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/LogChannel.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/automod/logging/VoiceChannelUpdates.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/owner_commands/Shutdown.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/util/Constants.java
+/Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/youtube/YouTubeChannel.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/suggest/SuggestChannel.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/music/extra_help_info/FavoriteAdd.java
 /Users/cadenkoehl/IntelliJ/CadenBot/src/main/java/com/cadenkoehl/cadenbot/staff/commands/warn/Unban.java

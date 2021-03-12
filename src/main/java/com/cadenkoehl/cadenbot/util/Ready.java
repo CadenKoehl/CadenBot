@@ -14,6 +14,7 @@ public class Ready extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
+
         Constants.CADEN.openPrivateChannel().queue(channel -> {
             channel.sendMessage("I am back online!").queue();
         });
