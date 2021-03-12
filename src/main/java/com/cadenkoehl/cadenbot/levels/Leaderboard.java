@@ -83,7 +83,7 @@ public class Leaderboard extends Command {
 
     @Override
     public Permission getRequiredPermission() {
-        return Permission.MANAGE_SERVER;
+        return null;
     }
 
     @Override
