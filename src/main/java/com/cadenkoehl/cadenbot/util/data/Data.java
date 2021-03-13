@@ -69,12 +69,17 @@ public class Data {
 
     public static boolean removeLineFromFile(File dir, String key, String line) {
         List<String> strings = getStringsFromFile(dir, key);
+
         if(strings == null) return false;
-        if(strings.size() == 1) {
-            File file = new File(dir, key + ".txt");
-            return file.delete();
-        }
+
+        File file = new File(dir, key + ".txt");
+
+        boolean delete = file.delete();
+
+        if(strings.size() == 1 && strings.get(0).equalsIgnoreCase(line)) return delete;
+
         boolean remove = strings.remove(line);
+
         for(String string : strings) {
             writeToFile("bad_words", key + ".txt", string + "\n");
         }
