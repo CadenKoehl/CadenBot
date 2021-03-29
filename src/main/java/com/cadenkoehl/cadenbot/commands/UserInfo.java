@@ -22,10 +22,17 @@ public class UserInfo extends Command {
         Member member = mentionedMembers.get(0);
         User user = member.getUser();
         String name = user.getName();
+
+        String monthJoined = member.getTimeJoined().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        int dayOfMonthJoined = member.getTimeJoined().getDayOfMonth();
+        int yearJoined = member.getTimeJoined().getYear();
+        String dayOfWeekJoined = member.getTimeJoined().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+
         String dayOfWeekCreated = user.getTimeCreated().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
         String monthCreated = user.getTimeCreated().getMonth().getDisplayName(TextStyle.FULL, Locale.US);
         int dayCreated = user.getTimeCreated().getDayOfMonth();
         int yearCreated = user.getTimeCreated().getYear();
+
         String id = user.getId();
         String avatarURL = user.getEffectiveAvatarUrl();
 
@@ -37,9 +44,10 @@ public class UserInfo extends Command {
         if(!user.isBot()) {
             embed.setTitle(name + "'s profile:\n------------------");
         }
-        embed.addField("**Account Created**: *" + dayOfWeekCreated + ", " + monthCreated + " " + dayCreated + ", " + yearCreated + "*","", false);
-        embed.addField("**User ID**: *" + id + "*","", false);
-        embed.addField("**Avatar URL**: ","[Click Here](" + avatarURL + " \"Click Here\")", false);
+        embed.appendDescription("**Account Created**: *" + dayOfWeekCreated + ", " + monthCreated + " " + dayCreated + ", " + yearCreated + "*\n");
+        embed.appendDescription("**Member Of " + event.getGuild().getName() + " Since**: *" + dayOfWeekJoined + ", " + monthJoined + " " + dayOfMonthJoined + ", " + yearJoined + "*\n");
+        embed.appendDescription("**User ID**: *" + id + "*\n");
+        embed.appendDescription("**Avatar URL**: " + avatarURL + "\n");
         embed.setColor((int) Math.round(Math.random() * 999999));
         event.getChannel().sendMessage(embed.build()).queue();
     }
