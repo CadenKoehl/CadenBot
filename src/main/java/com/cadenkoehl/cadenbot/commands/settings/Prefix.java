@@ -25,7 +25,7 @@ public class Prefix extends Command {
                 event.getChannel().sendMessage("Prefix cannot have spaces!").queue();
             }
             if(prefix.equalsIgnoreCase("")) {
-                event.getChannel().sendMessage("The current prefix for this server is `" + event.getPrefix() + "`").queue();
+                event.getChannel().sendMessage("The current prefix for this server is `" + event.getPrefix() + "`").complete();
             }
         }
         else {

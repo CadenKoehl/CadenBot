@@ -18,6 +18,7 @@ public class Constants {
 	public static final Guild CADENBOTSUPPORT = CadenBot.jda.getGuildById("585338133177171968");
 	public static final TextChannel CADENBOTANNOUNCEMENTS = CadenBot.jda.getTextChannelById("780880846588215317");
 	public static final TextChannel CADENBOTBUGSCHANNEL = CadenBot.jda.getTextChannelById("787230827498700840");
+	public static final TextChannel CONSOLE_CHANNEL = CadenBot.jda.getTextChannelById("826295073771225108");
 	public static final User CADEN = CadenBot.jda.getUserById("585334397914316820");
 	public static final String[] HANGMAN = {
 			"https://cdn.discordapp.com/attachments/785347122991595573/802056724261109780/hangman_6.png",

@@ -2,8 +2,6 @@ package com.cadenkoehl.cadenbot;
 
 import javax.security.auth.login.LoginException;
 
-import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
-import com.cadenkoehl.cadenbot.util.Constants;
 import com.cadenkoehl.cadenbot.util.data.Config;
 import com.cadenkoehl.cadenbot.util.data.Data;
 import com.cadenkoehl.cadenbot.util.Registry;
@@ -11,7 +9,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;

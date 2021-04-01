@@ -51,7 +51,7 @@ public class Data {
         }
     }
 
-    public static void appendToFile(String subDirName, String key, String value) {
+    public static void appendToFile(String subDirName, String key, String... values) {
         File dir = new File(CadenBot.dataDirectory + subDirName + "/");
         File file = new File(dir, key + ".txt");
 
@@ -59,7 +59,9 @@ public class Data {
 
         try {
             FileWriter write = new FileWriter(file, true);
-            write.write("\n" + value);
+            for(String value : values) {
+                write.write("\n" + value);
+            }
             write.close();
         }
         catch (IOException ex) {
@@ -67,6 +69,11 @@ public class Data {
         }
     }
 
+    /**
+     * @param key Key
+     * @param line Line you want to remove
+     * @return true if the line was removed, false if it was not
+     */
     public static boolean removeLineFromFile(File dir, String key, String line) {
         List<String> strings = getStringsFromFile(dir, key);
 
@@ -86,6 +93,12 @@ public class Data {
         return remove;
     }
 
+    /**
+     * @param subDirName Name of the subdirectory
+     * @param key Key
+     * @param line Line you want to remove
+     * @return true if the line was removed, false if it was not
+     */
     public static boolean removeLineFromFile(String subDirName, String key, String line) {
         File dir = new File(CadenBot.dataDirectory + subDirName + "/");
         return removeLineFromFile(dir, key, line);
@@ -196,7 +209,7 @@ public class Data {
                 stringsFromFile.add(string);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Exception was caught: " + e);
+            return null;
         }
         return stringsFromFile;
     }
