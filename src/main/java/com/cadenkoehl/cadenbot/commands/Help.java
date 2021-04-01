@@ -4,6 +4,7 @@ import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandCategory;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandEvent;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
+import com.cadenkoehl.cadenbot.commands.custom_commands.CustomCommand;
 import com.cadenkoehl.cadenbot.util.EmbedColor;
 import com.cadenkoehl.cadenbot.util.Utils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -43,6 +44,9 @@ public class Help extends Command {
                     embed.setColor(EmbedColor.random());
                     for(Command cmd : CommandHandler.commands) {
                         if(cmd.getCategory() != category) continue;
+                        if(cmd instanceof CustomCommand) {
+                            if(!((CustomCommand) cmd).getGuild().getId().equals(event.getGuild().getId())) continue;
+                        }
                         embed.appendDescription("\n`" + prefix + cmd.getName() + "` - " + cmd.getDescription());
                     }
                     embed.appendDescription("\n**For more info on a command**, type `" + prefix + "help` `[command name]`");

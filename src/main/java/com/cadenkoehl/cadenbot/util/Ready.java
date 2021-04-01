@@ -18,9 +18,6 @@ public class Ready extends ListenerAdapter {
     @Override
     public void onReady(@NotNull ReadyEvent event) {
 
-        DiscordConsoleThread consoleThread = new DiscordConsoleThread();
-        consoleThread.start();
-
         Constants.CADEN.openPrivateChannel().queue(channel -> {
             channel.sendMessage("I am back online!").queue();
         });
@@ -33,6 +30,7 @@ public class Ready extends ListenerAdapter {
                 System.out.println("Created emote for " + guild.getName());
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         }
         CustomCommandFactory.loadCommands();

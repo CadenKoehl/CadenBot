@@ -14,7 +14,7 @@ public class Toggle extends Command {
         if(args.length == 1) throw new IncorrectUsageException(event);
 
         GuildSettingsManager settings = new GuildSettingsManager(event.getGuild());
-        Command cmd = Command.getByName(args[1]);
+        Command cmd = Command.getByName(args[1], event.getGuild());
 
         if (cmd == null) throw new IncorrectUsageException("Command not found!", event);
 

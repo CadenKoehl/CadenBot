@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
 
         File file = new File(dir, args[1] + ".txt");
         if(!file.exists()) {
-            if(Command.getByName(args[1]) != null) {
+            if(Command.getByName(args[1], event.getGuild()) != null) {
                 event.getChannel().sendMessage(":x: If you want to delete a default command, use `" + prefix + "toggle`").queue();
                 return;
             }
@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
             return;
         }
         if(file.delete()) {
-            CommandHandler.commands.remove(Command.getByName(args[1]));
+            CommandHandler.commands.remove(Command.getByName(args[1], event.getGuild()));
             event.getChannel().sendMessage(":white_check_mark: Command was successfully deleted!").queue();
         }
         else {

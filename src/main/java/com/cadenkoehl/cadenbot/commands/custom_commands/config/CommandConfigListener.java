@@ -37,7 +37,7 @@ public class CommandConfigListener extends ListenerAdapter {
                 event.getChannel().sendMessage(":x: Command name must not be over 10 characters!").queue();
                 return;
             }
-            if(Command.getByName(args[0]) != null) {
+            if(Command.getByName(args[0], event.getGuild()) != null) {
                 event.getChannel().sendMessage(":x: Command \"" + args[0] + "\" already exists!").queue();
                 return;
             }

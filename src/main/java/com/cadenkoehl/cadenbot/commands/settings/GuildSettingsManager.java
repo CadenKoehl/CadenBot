@@ -61,7 +61,7 @@ public class GuildSettingsManager {
         List<Command> toggledCmds = new ArrayList<>();
 
         for(String cmdName : this.getToggledCommandNames()) {
-            Command cmd = Command.getByName(cmdName);
+            Command cmd = Command.getByName(cmdName, guild);
             if(cmd == null) continue;
 
             toggledCmds.add(cmd);
