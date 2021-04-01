@@ -4,6 +4,10 @@ import com.cadenkoehl.cadenbot.applications.*;
 import com.cadenkoehl.cadenbot.commands.*;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
+import com.cadenkoehl.cadenbot.commands.custom_commands.CustomCommandFactory;
+import com.cadenkoehl.cadenbot.commands.custom_commands.config.CommandConfigListener;
+import com.cadenkoehl.cadenbot.commands.custom_commands.config.CreateCommand;
+import com.cadenkoehl.cadenbot.commands.custom_commands.config.DeleteCommand;
 import com.cadenkoehl.cadenbot.commands.settings.Prefix;
 import com.cadenkoehl.cadenbot.commands.settings.Toggle;
 import com.cadenkoehl.cadenbot.fun.ImageGenTest;
@@ -64,6 +68,8 @@ public class Registry {
                         //Settings
                         new Prefix(),
                         new Toggle(),
+                        new CreateCommand(),
+                        new DeleteCommand(),
 
                         //Fun Commands
                         new Hangman(),
@@ -172,6 +178,7 @@ public class Registry {
                 register(new Shutdown(), jda);
                 register(new Ready(), jda);
                 register(new SwearListener(), jda);
+                register(new CommandConfigListener(), jda);
 
         }
         private static void register(ListenerAdapter listener, JDABuilder jda) {
