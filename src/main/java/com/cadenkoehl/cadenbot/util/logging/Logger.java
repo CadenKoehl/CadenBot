@@ -38,6 +38,6 @@ public class Logger {
     }
     private static <T> void log(String level, String message, Class<T> clazz) {
         String thread = Thread.currentThread().getName();
-        System.err.printf("[%s/%s] %s - %s %s", thread, clazz.getSimpleName(), level, message, "\n");
+        System.err.printf("[%s] %s %s - %s %s", thread, level, clazz.getSimpleName(), message, "\n");
     }
 }

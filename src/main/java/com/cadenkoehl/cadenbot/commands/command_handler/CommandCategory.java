@@ -8,6 +8,7 @@ public enum CommandCategory {
     LEVELS(":sparkles: Levels :sparkles:", false,"levels", "level", "leveling", "xp"),
     FUN(":rofl: Fun Commands :joy:", false,"fun", "lmao", "lol"),
     SETTINGS(":gear: Settings! :gear: ", true, "settings"),
+    TICKETS(":tickets: Support Tickets! :ticket:", true, "tickets"),
     AUTO_MOD("Auto Moderation", true,"automod", "automoderation"),
     WELCOME_MESSAGES("Join/Leave Messages :wave:",true, "joinleave", "welcomemsgs", "joinleavemsgs"),
     SUGGESTIONS("Suggestions", false, "suggestions", "sug", "suggest"),

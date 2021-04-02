@@ -1,6 +1,7 @@
 package com.cadenkoehl.cadenbot.util;
 
 import com.cadenkoehl.cadenbot.commands.custom_commands.CustomCommandFactory;
+import com.cadenkoehl.cadenbot.support_tickets.config.TicketConfig;
 import com.cadenkoehl.cadenbot.util.data.Data;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Icon;
@@ -30,9 +31,9 @@ public class Ready extends ListenerAdapter {
                 System.out.println("Created emote for " + guild.getName());
             } catch (IOException e) {
                 e.printStackTrace();
-
             }
         }
         CustomCommandFactory.loadCommands();
+        TicketConfig.loadInstances();
     }
 }

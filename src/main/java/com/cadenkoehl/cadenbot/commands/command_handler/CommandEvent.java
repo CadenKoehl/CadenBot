@@ -1,11 +1,16 @@
 package com.cadenkoehl.cadenbot.commands.command_handler;
 
+import com.cadenkoehl.cadenbot.support_tickets.config.TicketConfig;
 import com.cadenkoehl.cadenbot.util.Constants;
+import com.cadenkoehl.cadenbot.util.exceptions.IncorrectUsageException;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class CommandEvent {
 
@@ -20,6 +25,7 @@ public class CommandEvent {
     private final long messageIdLong;
     private final boolean isWebhookMessage;
     private final Command command;
+    private final TicketConfig ticketConfig;
 
     public CommandEvent(GuildMessageReceivedEvent event, Command command) {
         this.event = event;
@@ -33,6 +39,23 @@ public class CommandEvent {
         this.messageIdLong = event.getMessageIdLong();
         this.isWebhookMessage = event.isWebhookMessage();
         this.command = command;
+        this.ticketConfig = TicketConfig.getInstance(guild);
+    }
+
+    public void success(String message) {
+        channel.sendMessage(":white_check_mark: **Success**! " + message).queue();
+    }
+
+    public void error(String message) {
+        channel.sendMessage(":x: **Error**! " + message).queue();
+    }
+
+    public void incorrectUsage() throws IncorrectUsageException {
+        throw new IncorrectUsageException(this);
+    }
+
+    public void incorrectUsage(String message) throws IncorrectUsageException {
+        throw new IncorrectUsageException(message, this);
     }
 
     public String getPrefix() {
@@ -41,6 +64,14 @@ public class CommandEvent {
 
     public String[] getArgs() {
         return message.getContentRaw().split("\\s+");
+    }
+
+    public String skipArgs(int amount) {
+        String skip = Arrays.stream(getArgs()).skip(amount).collect(Collectors.joining(" "));
+        if (skip.isEmpty()) {
+            return null;
+        }
+        return skip;
     }
 
     public Member getSelfMember() {
@@ -93,5 +124,9 @@ public class CommandEvent {
 
     public Command getCommand() {
         return command;
+    }
+
+    public TicketConfig getTicketConfig() {
+        return ticketConfig;
     }
 }

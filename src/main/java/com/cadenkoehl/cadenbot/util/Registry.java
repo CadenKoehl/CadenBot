@@ -4,7 +4,6 @@ import com.cadenkoehl.cadenbot.applications.*;
 import com.cadenkoehl.cadenbot.commands.*;
 import com.cadenkoehl.cadenbot.commands.command_handler.Command;
 import com.cadenkoehl.cadenbot.commands.command_handler.CommandHandler;
-import com.cadenkoehl.cadenbot.commands.custom_commands.CustomCommandFactory;
 import com.cadenkoehl.cadenbot.commands.custom_commands.config.CommandConfigListener;
 import com.cadenkoehl.cadenbot.commands.custom_commands.config.CreateCommand;
 import com.cadenkoehl.cadenbot.commands.custom_commands.config.DeleteCommand;
@@ -42,6 +41,9 @@ import com.cadenkoehl.cadenbot.staff.commands.warn.ClearWarns;
 import com.cadenkoehl.cadenbot.staff.commands.warn.Unban;
 import com.cadenkoehl.cadenbot.staff.commands.warn.WarnCmd;
 import com.cadenkoehl.cadenbot.staff.automod.logging.*;
+import com.cadenkoehl.cadenbot.support_tickets.CreateTicketListener;
+import com.cadenkoehl.cadenbot.support_tickets.config.commands.CloseTicketCmd;
+import com.cadenkoehl.cadenbot.support_tickets.config.commands.TicketConfigCmd;
 import com.cadenkoehl.cadenbot.util.owner_commands.Shutdown;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -148,7 +150,11 @@ public class Registry {
                         new SuggestApprove(),
                         new SuggestConsider(),
                         new SuggestDeny(),
-                        new SuggestChannel()
+                        new SuggestChannel(),
+
+                        //Tickets
+                        new TicketConfigCmd(),
+                        new CloseTicketCmd()
                 );
         }
 
@@ -179,6 +185,7 @@ public class Registry {
                 register(new Ready(), jda);
                 register(new SwearListener(), jda);
                 register(new CommandConfigListener(), jda);
+                register(new CreateTicketListener(), jda);
 
         }
         private static void register(ListenerAdapter listener, JDABuilder jda) {
