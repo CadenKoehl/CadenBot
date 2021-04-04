@@ -3,6 +3,7 @@
 
 ### Features:
 
+- Custom Commands
 - Reaction Roles
 - Music
 - Levels
